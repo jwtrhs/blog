@@ -1,0 +1,41 @@
+body {
+    font-family: sans-serif;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Article list */
+.article-list > .article-item > .article-link {
+    font-size: larger;
+}
+.article-list > .article-item > .article-date {
+    color: grey;
+    font-size: smaller;
+}
+
+/* Article */
+.home-link {
+    margin-bottom: 1rem;
+}
+.article > .article-title > h1 {
+    margin: 0;
+}
+.article > .article-title > .article-date {
+    color: grey;
+    font-size: smaller;
+}
+.article > .article-content {
+    max-width: 600px;
+}
+.article > .article-content img {
+    width: 100%;
+}
+.article > .article-content > p > img + em {
+    /* caption */
+    margin-top: 4px;
+    font-style: normal;
+    display: inherit;
+    text-align: center;
+    font-size: 90%;
+}

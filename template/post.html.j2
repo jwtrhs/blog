@@ -1,0 +1,16 @@
+{% extends "base.html.j2" %}
+{% block title %}{{ article['title']}}{% endblock %}
+{% block content %}
+<div class="home-link">
+    <a href="/">< Home</a>
+</div>
+<div class="article">
+    <div class="article-title">
+        <h1>{{ article['title'] }}</h1>
+        <span class="article-date">{{ article['created_at'].strftime('%B %-d, %Y') }}</span>
+    </div>
+    <div class="article-content">
+        {{ article['html'] }}
+    </div>
+</div>
+{% endblock %}

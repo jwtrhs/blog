@@ -1,0 +1,14 @@
+<html>
+    <head>
+        {% block head %}
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+        <link href="/static/normalize.css" rel="stylesheet" />
+        <link href="/static/styles.css" rel="stylesheet" />
+        <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>
