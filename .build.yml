@@ -4,7 +4,7 @@ packages:
   - python3
 tasks:
   - setup: |
-      pip install poetry
+      pip3 install poetry
       poetry install
   - test: |
       poetry run flake8
