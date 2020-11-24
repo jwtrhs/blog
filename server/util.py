@@ -41,6 +41,7 @@ def parse_article(
     created_at = metadata['created_at'][0] if metadata.get('created_at') else None
     slug = metadata['slug'][0] if metadata.get('slug') else None
     summary = metadata['summary'][0] if metadata.get('summary') else None
+    is_draft = metadata['is_draft'][0] if metadata.get('is_draft') else False
     assert title, 'title is required'
     assert created_at, 'created_at is required'
     assert slug, 'slug is required'
@@ -48,8 +49,9 @@ def parse_article(
     return {
         'title': title,
         'created_at': datetime.datetime.fromisoformat(created_at),
-        'summary': summary,
         'slug': slug,
+        'summary': summary,
+        'is_draft': is_draft,
         'html': html,
         'root_directory': root_directory,
         'markdown_file': markdown_file,
@@ -67,6 +69,8 @@ def get_articles():
         other_files = [it for it in files if it != md_file]
         article = parse_article(root, md_file, other_files)
         assert article['slug'] not in articles, 'slug is duplicate'
+        if article['is_draft']:
+            pass
         articles[article['slug']] = article
 
     ordered_articles = OrderedDict()
