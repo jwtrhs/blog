@@ -1,15 +1,24 @@
 {% extends "base.html.j2" %}
-{% block title %}Home{% endblock %}
+{% block title %}Jonathon Waterhouse's blog{% endblock %}
 {% block content %}
-<h1>Jonathon Waterhouse's blog</h1>
-<div class="article-list">
-    {% for slug in articles %}
-    {% set article = articles[slug] %}
-    <div class="article-item">
-        <a class="article-link" href="/article/{{ slug }}/">{{ article['title'] }}</a>
-        <br />
-        <span class="article-date">{{ article['created_at'].strftime('%B %-d, %Y') }}</span>
+<div class="home">
+    <div class="article-list">
+        <h1>Jonathon Waterhouse's blog</h1>
+        {% for slug in articles %}
+        {% set article = articles[slug] %}
+        <div class="article-item">
+            <a class="article-link" href="/article/{{ slug }}/">{{ article['title'] }}</a>
+            <br />
+            <span class="article-date">{{ article['created_at'].strftime('%B %-d, %Y') }}</span>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div
+    <div class="about">
+        <img class="avatar" src="/static/avatar.jpg" />
+        <dl>
+            <dt>email</dt>
+            <dd><a href="mailto:jon@wtrhs.com">jon@wtrhs.com</a></dd>
+        </dl>
+    </div>
+</div>
 {% endblock %}

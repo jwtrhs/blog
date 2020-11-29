@@ -90,7 +90,7 @@ If using the soapy water method, spray it around the exposed pipes behind the fr
 
 In my case, I couldn't find the leak in any of the exposed piping, but the sniffer tool did beep when I put it in the fridge compartment. Some refrigerant must be getting into the compartment, but in this fridge all the pipes are foamed in behind the rear plastic wall and can't easily be accessed. It can, however, be accessed with great difficulty.
 
-This is where things got a bit crazy and I tore my fridge apart. I figured if I couldn't fix it I would just be throwing it away, so may as well just go for it.
+This is where things got a bit crazy and I tore my fridge apart. I figured if I couldn't fix it I would just be throwing it away, so may as well go for it.
 
 At the back of the fridge, there's a plastic cover that can be unscrewed and removed. Take this out and disconnect the fan too. It should now look like the picture below.
 
@@ -109,16 +109,16 @@ I couldn't find a leak in the fridge evaporator, so I tried to get at the piping
 ![](fridge_back_panel_exposed.jpg)
 *Rear wall of fridge with foam dug out, exposing the piping*
 
-You can dig out the foam a little at a time using a screwdriver, but be careful! You don't want to puncture the piping an cause (another) leak. Go slow and you should be fine. The dug out section at the top of the picture is where the thin input copper line joins into the evaporator coil. The bottom section is where evaporator coil is where the input line comes in and the evaporator returns. Neither had any leaks either.
+You can dig out the foam a using a screwdriver, but be careful! You don't want to puncture the piping and cause (another) leak. Go slow doing a little at a time and you should be fine. The dug out section at the top of the picture is where the thin input copper line joins into the evaporator coil. The bottom section is where the input line comes in and the evaporator returns. I couldn't find any leaks here either.
 
-Following the evaporator line to left and down, you'll eventually get to where the two freezer evaporator pipes are located.
+Following the evaporator line to the left and down, you'll eventually get to where the two freezer evaporator pipes are located.
 
 ![](fridge_freezer_exposed_piping.jpg)
-*Rear wall foam dug out, freezer area. The grey goop is where the pipes come down into inside the freezer compartment*
+*Rear wall foam dug out, freezer area. The grey goop is where the pipes come down into the freezer compartment*
 
 You can see here the other side where the fridge evaporator coil joins to the copper piping. I checked it for a leak, but again it was fine.
 
-I removed the grey goop, and...
+The grey putty-like substance covers the hole where the pipes enter the freezer compartment and connect to the freezer evaporator. I removed the grey goop, and...
 
 ![](fridge_leak_join.jpg)
 
@@ -126,17 +126,18 @@ is... is that...
 
 ![](fridge_leak.jpg)
 
-Yes! Finally, success. In my case, the leak was where the thin copper line carrying liquid refrigerant has been brazed onto the larger copper line connecting to the freezer evaporator.
+Yes! Finally. In my case, the leak was where the thin copper line carrying liquid refrigerant has been brazed onto the larger copper line connecting to the freezer evaporator.
 
 ### Repairing the leak
 
 Professionals will often insist on brazing or soldering over the hole to seal the leak. I tried this and, being an idiot, set my fridge on fire.
 
 ![](fridge_back_panel_fire.jpg)
+*Behold my shame*
 
 I quickly doused it with water, and it looks worse than it is. Just the surface of the foam burned away. Still, a dumb move on my part and I should have known that foam (soaked in what is basically butane) would be flammable.
 
-Anyway, a much safer and easier way to seal the leak is to use an epoxy glue.
+Anyway, a much safer and easier way to seal the leak is to use an epoxy glue. Clean the surface well with soapy water and steel wool or fine sand paper first before applying the epoxy.
 
 ![](fridge_leak_epoxy_repair.jpg)
 *Leak plugged with epoxy*
