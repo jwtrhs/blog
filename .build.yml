@@ -25,8 +25,8 @@ tasks:
       fi
   - deploy: |
       tar --exclude='blog/.git' -cvf blog.tar blog/
-      scp -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b blog.tar www@wtrhs.com:/srv/www
-      ssh -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b www@wtrhs.com
+      scp -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b blog.tar www@wtrhs.com:/srv/www
+      ssh -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b www@wtrhs.com
       cd /srv/www/
       rm -rf blog/
       tar -xvf blog.tar
