@@ -6,6 +6,8 @@ packages:
   - py3-pip
   - libffi-dev
   - openssl-dev
+secrets:
+  - 1e0e32fa-5549-447e-9dae-0baab762e74b
 tasks:
   - setup: |
       cd blog
@@ -16,3 +18,25 @@ tasks:
       cd blog
       source $HOME/.poetry/env
       poetry run flake8
+  - end-build-if-master: | 
+      cd blog
+      if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then \
+          complete-build; \
+      fi
+  - deploy: |
+      tar --exclude='blog/.git' -cvf blog.tar blog/
+      scp -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b blog.tar www@wtrhs.com:/srv/www
+      ssh -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b www@wtrhs.com
+      cd /srv/www/
+      rm -rf blog/
+      tar -xvf blog.tar
+      cd blog
+      curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
+      source $HOME/.poetry/env
+      poetry config virtualenvs.in-project true --local
+      poetry install --no-interaction --no-ansi
+      mkdir -p ~/.config/systemd/user/
+      cp deploy/blog.service ~/.config/systemd/user/
+      systemctl --user daemon-reload
+      systemctl --user stop blog.service
+      systemctl --user start blog.service
