@@ -18,3 +18,4 @@ cp deploy/blog.service ~/.config/systemd/user/
 systemctl --user daemon-reload
 systemctl --user stop blog.service
 systemctl --user start blog.service
+systemctl --user enable blog.service
