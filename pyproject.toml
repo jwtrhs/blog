@@ -5,12 +5,12 @@ description = ""
 authors = ["Jonathon Waterhouse <jon@wtrhs.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-starlette = "^0.14.1"
-uvicorn = "^0.12.2"
-jinja2 = "^2.11.2"
-aiofiles = "^0.6.0"
-markdown = "^3.3.3"
+python = "^3.8"
+starlette = "^0.14"
+uvicorn = "^0.12"
+jinja2 = "^2.11"
+aiofiles = "^0.6"
+markdown = "^3.3"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
