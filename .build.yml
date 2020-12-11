@@ -25,5 +25,5 @@ tasks:
       fi
   - deploy: |
       tar --exclude='blog/.git' -cvf blog.tar blog/
-      scp -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b blog.tar www@wtrhs.com:/srv/www
-      ssh -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b www@wtrhs.com 'bash -s' < blog/deploy/deploy.sh
+      scp -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -p 49898 blog.tar www@wtrhs.com:/srv/www
+      ssh -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -p 49898 www@wtrhs.com 'bash -s' < blog/deploy/deploy.sh
