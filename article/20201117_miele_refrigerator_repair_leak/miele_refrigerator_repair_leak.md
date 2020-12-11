@@ -19,7 +19,7 @@ The fridge models are Miele K14827 SD and K14827 SDE (one is all fridge, the oth
 
 The fridge worked fine, but the fridge/freezer wouldn't stay cool. After leaving it running for a couple of days, the freezer section would get to the correct temperature (-18 deg celsius), but the fridge section would still be at room temperature. The compressor was running constantly, hot to the touch and quite noisy.
 
-I took off the back cover inside the freezer to show the evaporator, and could see there was some frost on one of the copper lines, but none on the evaporator itself.
+I took off the back cover inside the freezer to show the evaporator, and could see there was some frost on one of the copper lines, but not much on the evaporator itself.
 
 ![](fridge_evaporator_ice_pattern.jpg)
 
