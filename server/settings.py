@@ -2,4 +2,4 @@ import os
 
 STATIC_DIRECTORY = os.getenv('BLOG_STATIC_DIRECTORY', 'static')
 TEMPLATE_DIRECTORY = os.getenv('BLOG_TEMPLATE_DIRECTORY', 'template')
-CONTENT_DIRECTORY = os.getenv('BLOG_CONTENT_DIRECTORY', 'content')
+ARTICLE_DIRECTORY = os.getenv('BLOG_ARTICLE_DIRECTORY', 'article')

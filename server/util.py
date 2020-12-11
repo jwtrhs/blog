@@ -61,7 +61,7 @@ def parse_article(
 
 def get_articles() -> OrderedDict:
     articles = {}
-    for root, directories, files in os.walk(settings.CONTENT_DIRECTORY):
+    for root, directories, files in os.walk(settings.ARTICLE_DIRECTORY):
         md_files = [it for it in files if it.endswith('.md')]
         if not md_files:
             continue

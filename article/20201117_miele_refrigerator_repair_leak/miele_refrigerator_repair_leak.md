@@ -152,12 +152,14 @@ If you cut away the interior plastic wall in the fridge compartment, it can be d
 
 Now that the leak has been repaired and the fridge put back together, we can refill the fridge with refrigerant.
 
+See this [wiki page](http://wiki.diyfaq.org.uk/index.php/Refrigeration_Regassing_(R600a)) for a great rundown of how to recharge your fridge, I basically followed the same process.
+
 First, any remaining gas in the fridge lines has to be vacuumed out. Connect the vacuum to the piercing valve port, ensure it is open and turn on the vacuum. Leave it running for about an hour to make sure it has got as much gas as it can. Then close the piercing valve and disconnect the vacuum.
 
 Now connect your can of refrigerant to the piercing valve. Open the piercing valve, but don't open the refrigerant valve just yet. R600a refrigerant is measured by weight, not pressure, and should be stated on a label inside the fridge. In my case, the fridge needs 56g. Place the can of refrigerant on the digital kitchen scales and note the weight. Open the refrigerant valve and slowly let it if flow into the fridge lines, and once the scale reads 56g lighter turn it off. Close the piercing valve, disconnect the refrigerant can and place the cap back on the valve.
 
 ## Confirm the repair
 
-Let the fridge run for a few days. If everything went to plan, it should maintain a nice cold temperature and the compressor should eventually stop running constantly.
+Let the fridge run for a week or so. If everything went to plan, it should maintain a nice cold temperature and the compressor should eventually run only intermittently and more quietly.
 
 Enjoy your newly repaired fridge, you definitely earned it.
