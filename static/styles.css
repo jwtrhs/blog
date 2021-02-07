@@ -52,6 +52,7 @@ body {
 }
 .article > .article-title > h1 {
     margin: 0;
+    font-size: 1.5rem;
 }
 .article > .article-title > .article-date {
     color: grey;
