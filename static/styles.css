@@ -16,6 +16,11 @@ body {
     width: 40%;
     margin-left: 20px;
 }
+@media only screen and (max-width: 650px) {
+    .about {
+        display: none;
+    }
+}
 .about .avatar {
     width: 128px;
     height: 128px;
@@ -30,8 +35,11 @@ body {
 .article-list {
     flex: 1;
 }
+.article-list > h1 {
+    font-size: 1.5rem;
+}
 .article-item > .article-link {
-    font-size: larger;
+    font-size: 1rem;
 }
 .article-item > .article-date {
     color: grey;
