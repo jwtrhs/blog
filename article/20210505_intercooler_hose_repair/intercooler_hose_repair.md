@@ -11,16 +11,18 @@ A few months ago one of the intercooler hoses on my ute split. I'll describe her
 Depending on the nature and location of the split, you might notice one of:
 
 * whistling sound - as the high pressure air escapes from the leak. May also sound like a grinding/scraping noise.
-* execssive black exhaust smoke - the leak causes a higher fuel to air ratio to be mixed in the engine, and causes more fuel to be burned and expelled out the exhaust.
-* loss of power - another byproduct of an off fuel/air ratio, the performance gain usually given by a working turbo.
+* excessive black exhaust smoke - the leak causes a higher fuel to air ratio to be mixed in the engine, and causes more fuel to be burned and expelled out the exhaust.
+* loss of power - another byproduct of an off fuel/air ratio, the performance gain usually given by a working turbo is lost and the car can feel sluggish and heavy.
 
 In my case I had all three.
 
 ## Finding the leak
 
-Fortunately for me, it was easy to find the leak - a split right on top of the hose connected to the engine air intake. If not immediately visible, you'll need to poke around and under the hoses to find less obvious leaks. Leaks can also occur due to poor or loose connections so be sure the check the hose connections and clamps. Finally, leaks may also occur in the intercooler itself.
+Fortunately for me, it was easy to find the leak - a split right on top of the hose connected to the engine air intake.
 
 ![](split.jpg)
+
+If not immediately visible, you'll need to poke around and under the hoses to find less obvious leaks. Leaks can also occur due to poor or loose connections so be sure the check the hose connections and clamps. Finally, leaks may also occur in the intercooler itself.
 
 ## Patching the leak
 
@@ -38,7 +40,7 @@ A more robust method is to use a combination of silicon tape, heavy duty duct ta
 
 ![](tape_and_jubilee_clip_patch.jpg)
 
-Apply the silion tape first by wrapping it tightly around the hose starting and ending about an inch either side of the split and overlapping about half the width of the tape. Next, do the same with some heavy duty duct tape starting and ending another inch either side of the silicon tape. And finally place a few jubilee clips around the length of the split. Tighten them firmly but not too tightly that they cause the hose to buckle.
+Apply the silion tape first by wrapping it tightly around the hose starting and ending about an inch either side of the split and overlapping about half the width of the tape. Next, do the same with some heavy duty duct tape starting and ending another inch either side of the silicon tape. And finally place a few jubilee clips around the length of the split. Tighten them firmly but not too tightly that they cause the hose to deform.
 
 ![](tape_and_jubilee_clip_patch_installed.jpg)
 
