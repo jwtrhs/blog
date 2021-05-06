@@ -11,12 +11,12 @@ secrets:
 tasks:
   - setup: |
       cd blog/
-      python -m venv .venv
+      python3 -m venv .venv
       . .venv/bin/activate
-      python -m pip install flake8
+      python3 -m pip install flake8
   - test: |
       cd blog/ && . .venv/bin/activate
-      python -m pip install flake8
+      python3 -m pip install flake8
       flake8
   - end-build-if-master: | 
       cd blog/
