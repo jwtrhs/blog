@@ -1,16 +1,13 @@
 #! /bin/bash
 
-echo 'Extracting blog...'
+echo 'Installing blog...'
 cd /srv/www/
 rm -rf blog/
-tar -xvf blog.tar
-
-echo 'Installing python dependencies...'
-cd blog
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
-source $HOME/.poetry/env
-poetry config virtualenvs.in-project true --local
-poetry install --no-interaction --no-ansi
+mkdir blog
+cd blog/
+python -m venv .venv
+. .venv/bin/activate
+python -m pip install ../blog-0.0.0.tar.gz
 
 echo 'Configuring systemd unit file...'
 mkdir -p ~/.config/systemd/user/

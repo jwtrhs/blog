@@ -1,0 +1,2 @@
+recursive-include article *
+recursive-include static *

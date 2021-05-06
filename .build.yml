@@ -10,20 +10,24 @@ secrets:
   - 1e0e32fa-5549-447e-9dae-0baab762e74b
 tasks:
   - setup: |
-      cd blog
-      curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
-      source $HOME/.poetry/env
-      poetry install --no-interaction --no-ansi
+      cd blog/
+      python -m venv .venv
+      . .venv/bin/activate
+      python -m pip install flake8
   - test: |
-      cd blog
-      source $HOME/.poetry/env
-      poetry run flake8
+      cd blog/ && . .venv/bin/activate
+      python -m pip install flake8
+      flake8
   - end-build-if-master: | 
-      cd blog
+      cd blog/
       if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then \
           complete-build; \
       fi
+  - build: |
+      cd blog/ && . .venv/bin/activate
+      python3 -m pip install --upgrade build
+      python3 -m build
   - deploy: |
-      tar --exclude='blog/.git' -cvf blog.tar blog/
-      scp -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -P 49898 blog.tar www@wtrhs.com:/srv/www
+      cd blog/
+      scp -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -P 49898 dist/blog-0.0.0.tar.gz www@wtrhs.com:/srv/www
       ssh -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -p 49898 www@wtrhs.com 'bash -s' < blog/deploy/deploy.sh
