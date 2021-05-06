@@ -30,4 +30,4 @@ tasks:
   - deploy: |
       cd blog/
       scp -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -P 49898 dist/blog-0.0.0.tar.gz www@wtrhs.com:/srv/www
-      ssh -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -p 49898 www@wtrhs.com 'bash -s' < blog/deploy/deploy.sh
+      ssh -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -p 49898 www@wtrhs.com 'bash -s' < deploy/deploy.sh
