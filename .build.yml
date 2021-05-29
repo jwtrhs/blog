@@ -18,7 +18,7 @@ tasks:
       cd blog/ && . .venv/bin/activate
       python3 -m pip install flake8
       flake8
-  - end-build-if-master: | 
+  - end-build-if-not-master: | 
       cd blog/
       if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then \
           complete-build; \
@@ -32,7 +32,7 @@ tasks:
       echo $(whoami):100000:165536 | sudo tee /etc/subgid
       podman system migrate 
   - build: |
-      ird $(whoami)
+      id $(whoami)
       cd blog/
       podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
   - deploy: |
