@@ -24,6 +24,7 @@ tasks:
           complete-build; \
       fi
   - setup-podman: |
+      sudo addgroup fuse
       sudo addgroup $(whoami) fuse
       sudo touch /etc/subuid /etc/subgid
       echo $(whoami):100000:165536 | sudo tee /etc/subuid
