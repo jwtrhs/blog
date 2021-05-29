@@ -1,6 +1,5 @@
 image: alpine/edge
 packages:
-  - fuse
   - podman
   - python3
 environment:
@@ -27,9 +26,9 @@ tasks:
       # sudo modprobe fuse
       #sudo addgroup fuse
       #sudo addgroup $(whoami) fuse
-      #sudo touch /etc/subuid /etc/subgid
-      #echo $(whoami):100000:165536 | sudo tee /etc/subuid
-      #echo $(whoami):100000:165536 | sudo tee /etc/subgid
+      sudo touch /etc/subuid /etc/subgid
+      echo $(whoami):100000:165536 | sudo tee /etc/subuid
+      echo $(whoami):100000:165536 | sudo tee /etc/subgid
       #podman system migrate 
   - build: |
       id $(whoami)
