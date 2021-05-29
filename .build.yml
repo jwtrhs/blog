@@ -22,7 +22,7 @@ tasks:
       if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then \
           complete-build; \
       fi
-      #  - setup-podman: |
+  - setup-podman: |
       # sudo modprobe fuse
       #sudo addgroup fuse
       #sudo addgroup $(whoami) fuse
@@ -33,7 +33,7 @@ tasks:
   - build: |
       id $(whoami)
       cd blog/
-      podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
+      sudo odman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
   - deploy: |
       cat ~/.docker-password | podman login -u=registry --password-stdin $REGISTRY
       podman push $REGISTRY/$REPOSITORY:$IMAGE_TAG
