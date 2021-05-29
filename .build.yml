@@ -23,6 +23,7 @@ tasks:
           complete-build; \
       fi
   - setup-podman: |
+      sudo modprobe fuse
       sudo touch /etc/subuid /etc/subgid
       echo build:100000:165536 | sudo tee /etc/subuid
       echo build:100000:165536 | sudo tee /etc/subgid
