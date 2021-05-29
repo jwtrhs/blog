@@ -23,14 +23,14 @@ tasks:
       if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then \
           complete-build; \
       fi
-  - setup-podman: |
-      sudo modprobe fuse
-      sudo addgroup fuse
-      sudo addgroup $(whoami) fuse
-      sudo touch /etc/subuid /etc/subgid
-      echo $(whoami):100000:165536 | sudo tee /etc/subuid
-      echo $(whoami):100000:165536 | sudo tee /etc/subgid
-      podman system migrate 
+      #  - setup-podman: |
+      # sudo modprobe fuse
+      #sudo addgroup fuse
+      #sudo addgroup $(whoami) fuse
+      #sudo touch /etc/subuid /etc/subgid
+      #echo $(whoami):100000:165536 | sudo tee /etc/subuid
+      #echo $(whoami):100000:165536 | sudo tee /etc/subgid
+      #podman system migrate 
   - build: |
       id $(whoami)
       cd blog/
