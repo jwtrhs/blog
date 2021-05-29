@@ -32,6 +32,7 @@ tasks:
       echo $(whoami):100000:165536 | sudo tee /etc/subgid
       podman system migrate 
   - build: |
+      ird $(whoami)
       cd blog/
       podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
   - deploy: |
