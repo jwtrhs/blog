@@ -1,5 +1,7 @@
 My personal blog
 
+!()[https://builds.sr.ht/~jwaterhouse/blog.svg]
+
 # Development environment
 
 ```bash
