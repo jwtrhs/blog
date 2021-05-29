@@ -1,13 +1,13 @@
-# Build script for SourceHut
 image: alpine/edge
 packages:
+  - podman
   - python3
-  - python3-dev
-  - py3-pip
-  - libffi-dev
-  - openssl-dev
+environment:
+  - REGISTRY: registry.wtrhs.com
+  - REPOSITORY: wtrhs/blog
+  - IMAGE_TAG: latest
 secrets:
-  - 1e0e32fa-5549-447e-9dae-0baab762e74b
+  - db47cbdc-3a6c-4670-a74f-24ea93460476
 tasks:
   - setup: |
       cd blog/
@@ -24,11 +24,8 @@ tasks:
           complete-build; \
       fi
   - build: |
-      cd blog/ && . .venv/bin/activate
-      python3 -m pip install --upgrade build
-      python3 -m build
-  - deploy: |
       cd blog/
-      scp -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -P 49898 dist/blog-0.0.0.tar.gz www@wtrhs.com:/srv/www
-      scp -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -P 49898 deploy/blog.service www@wtrhs.com:/srv/www
-      ssh -oStrictHostKeyChecking=no -i ~/.ssh/1e0e32fa-5549-447e-9dae-0baab762e74b -p 49898 www@wtrhs.com 'bash -s' < deploy/deploy.sh
+      podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile
+  - deploy: |
+      cat ~/.docker-password | podman login -u=registry --password-stdin $REGISTRY
+      podman push $REGISTRY/$REPOSITORY:$IMAGE_TAG

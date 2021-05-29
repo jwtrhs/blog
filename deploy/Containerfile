@@ -1,0 +1,18 @@
+FROM python:3.9-alpine
+
+RUN apk add git
+
+RUN mkdir /srv/app
+WORKDIR /srv/app
+
+COPY requirements.txt .
+RUN python -m venv .venv
+RUN .venv/bin/python -m pip install -r requirements.txt
+
+COPY article/ article/
+COPY server/ server/
+COPY static static/
+COPY template/ template/
+
+# ENTRYPOINT ["bash"]
+CMD [".venv/bin/python", "-m", "server.app"]
