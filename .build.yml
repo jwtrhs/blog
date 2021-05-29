@@ -1,14 +1,13 @@
 image: alpine/edge
 packages:
-  - podman
+  - docker
   - python3
-  - runc
 environment:
   REGISTRY: registry.wtrhs.com
   REPOSITORY: wtrhs/blog
   IMAGE_TAG: latest
 secrets:
-  - db47cbdc-3a6c-4670-a74f-24ea93460476
+  - 7e862d5d-3db2-4850-92c4-028876f0b8f0
 tasks:
   - test: |
       cd blog/
@@ -21,19 +20,12 @@ tasks:
       if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then \
           complete-build; \
       fi
-  - setup-podman: |
-      # sudo modprobe fuse
-      #sudo addgroup fuse
-      #sudo addgroup $(whoami) fuse
-      sudo touch /etc/subuid /etc/subgid
-      echo $(whoami):100000:165536 | sudo tee /etc/subuid
-      echo $(whoami):100000:165536 | sudo tee /etc/subgid
-      #podman system migrate 
+  - setup-docker: |
+      sudo addgroup $(whoami) docker
+      sudo service docker start
   - build: |
-      id $(whoami)
-      ls -lah /sys/fs/cgroup
       cd blog/
-      sudo podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
+      docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
   - deploy: |
-      cat ~/.docker-password | podman login -u=registry --password-stdin $REGISTRY
-      podman push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+      cat ~/.container-registry-password | docker login -u=registry --password-stdin $REGISTRY
+      docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
