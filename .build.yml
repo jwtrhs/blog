@@ -9,12 +9,11 @@ environment:
 secrets:
   - db47cbdc-3a6c-4670-a74f-24ea93460476
 tasks:
-  - setup: |
+  - test: |
       cd blog/
       python3 -m venv .venv
       . .venv/bin/activate
       python3 -m pip install flake8
-  - test: |
       cd blog/ && . .venv/bin/activate
       python3 -m pip install flake8
       flake8
@@ -23,6 +22,10 @@ tasks:
       if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then \
           complete-build; \
       fi
+  - setup-podman: |
+      touch /etc/subuid /etc/subgid
+      usermod --add-subuids 100000-165536 --add-subgids 100000-165536 build
+      podman system migrate
   - build: |
       cd blog/
       podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile
