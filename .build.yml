@@ -29,7 +29,7 @@ tasks:
       podman system migrate
   - build: |
       cd blog/
-      podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile
+      podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
   - deploy: |
       cat ~/.docker-password | podman login -u=registry --password-stdin $REGISTRY
       podman push $REGISTRY/$REPOSITORY:$IMAGE_TAG
