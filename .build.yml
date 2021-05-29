@@ -32,6 +32,7 @@ tasks:
       #podman system migrate 
   - build: |
       id $(whoami)
+      ls -lah /sys/fs/cgroup
       cd blog/
       sudo podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
   - deploy: |
