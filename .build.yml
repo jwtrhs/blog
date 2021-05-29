@@ -24,7 +24,8 @@ tasks:
       fi
   - setup-podman: |
       sudo touch /etc/subuid /etc/subgid
-      sudo usermod --add-subuids 100000-165536 --add-subgids 100000-165536 build
+      echo build:100000:165536 | sudo tee /etc/subuid
+      echo build:100000:165536 | sudo tee /etc/subgid
       podman system migrate
   - build: |
       cd blog/
