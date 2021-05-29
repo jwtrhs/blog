@@ -3,9 +3,9 @@ packages:
   - podman
   - python3
 environment:
-  - REGISTRY: registry.wtrhs.com
-  - REPOSITORY: wtrhs/blog
-  - IMAGE_TAG: latest
+  REGISTRY: registry.wtrhs.com
+  REPOSITORY: wtrhs/blog
+  IMAGE_TAG: latest
 secrets:
   - db47cbdc-3a6c-4670-a74f-24ea93460476
 tasks:
