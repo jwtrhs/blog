@@ -7,19 +7,21 @@ if os.path.exists("README.md"):
     with open("README.md", "r", encoding="utf-8") as f:
         long_description = f.read()
 else:
-    long_description = "My personal_blog"
+    long_description = "My personal blog"
 
 
-with open('requirements.txt') as f:
+with open("requirements.txt") as f:
     requirements = f.read().splitlines()
 
 
 version = (
-    os.environ.get("PKGVER") or
-    subprocess.run(
+    os.environ.get("PKGVER")
+    or subprocess.run(
         ["git", "describe", "--tags"],
         stdout=subprocess.PIPE,
-    ).stdout.decode().strip()
+    )
+    .stdout.decode()
+    .strip()
 )
 
 

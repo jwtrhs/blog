@@ -1,6 +1,6 @@
 My personal blog
 
-!()[https://builds.sr.ht/~jwaterhouse/blog.svg]
+[![builds.sr.ht status](https://builds.sr.ht/~jwaterhouse/blog.svg].svg)](https://builds.sr.ht/~jwaterhouse/blog.svg]?)
 
 # Development environment
 
@@ -8,8 +8,8 @@ My personal blog
 # Create virtual environment
 python -m venv .venv
 
-# Install the server package in editable mode
-python -m pip install -e .
+# Install the package dependencies
+python -m pip install -r requirements.txt
 
 # Run the server
 python -m server.app

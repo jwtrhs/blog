@@ -7,6 +7,7 @@ import typing
 
 import jinja2
 import markdown
+import md2gemini
 
 from server import settings
 
@@ -33,48 +34,64 @@ def parse_article(
     markdown_file: str,
     other_files: typing.List[str],
 ) -> typing.Tuple[typing.Dict, str]:
-    md = markdown.Markdown(extensions=['meta'])
-    with open(os.path.join(root_directory, markdown_file), 'r') as f:
-        html = md.convert(f.read())
+    md = markdown.Markdown(extensions=["meta"])
+    with open(os.path.join(root_directory, markdown_file), "r") as f:
+        markdown_content = f.read()
+        html = md.convert(markdown_content)
+        gemtext = md2gemini.md2gemini(markdown_content, frontmatter=True, links="paragraph")
     metadata = md.Meta
-    title = metadata['title'][0] if metadata.get('title') else None
-    created_at = metadata['created_at'][0] if metadata.get('created_at') else None
-    slug = metadata['slug'][0] if metadata.get('slug') else None
-    summary = metadata['summary'][0] if metadata.get('summary') else None
-    is_draft = metadata['is_draft'][0] if metadata.get('is_draft') else False
-    assert title, 'title is required'
-    assert created_at, 'created_at is required'
-    assert slug, 'slug is required'
+    title = metadata["title"][0] if metadata.get("title") else None
+    created_at = metadata["created_at"][0] if metadata.get("created_at") else None
+    slug = metadata["slug"][0] if metadata.get("slug") else None
+    summary = metadata["summary"][0] if metadata.get("summary") else None
+    is_draft = metadata["is_draft"][0] if metadata.get("is_draft") else False
+    assert title, "title is required"
+    assert created_at, "created_at is required"
+    assert slug, "slug is required"
 
     return {
-        'title': title,
-        'created_at': datetime.datetime.fromisoformat(created_at),
-        'slug': slug,
-        'summary': summary,
-        'is_draft': is_draft,
-        'html': html,
-        'root_directory': root_directory,
-        'markdown_file': markdown_file,
-        'other_files': other_files,
+        "title": title,
+        "created_at": datetime.datetime.fromisoformat(created_at),
+        "slug": slug,
+        "summary": summary,
+        "is_draft": is_draft,
+        "markdown": markdown_content,
+        "html": html,
+        "gemtext": gemtext,
+        "root_directory": root_directory,
+        "markdown_file": markdown_file,
+        "other_files": other_files,
     }
 
 
-def get_articles() -> OrderedDict:
+def _get_articles() -> OrderedDict:
     articles = {}
     for root, directories, files in os.walk(settings.ARTICLE_DIRECTORY):
-        md_files = [it for it in files if it.endswith('.md')]
+        md_files = [it for it in files if it.endswith(".md")]
         if not md_files:
             continue
         md_file = md_files[0]
         other_files = [it for it in files if it != md_file]
         article = parse_article(root, md_file, other_files)
-        assert article['slug'] not in articles, 'slug is duplicate'
-        if article['is_draft']:
+        assert article["slug"] not in articles, "slug is duplicate"
+        if article["is_draft"]:
             pass
-        articles[article['slug']] = article
+        articles[article["slug"]] = article
 
     ordered_articles = OrderedDict()
-    for item in sorted(list(articles.values()), key=lambda it: it['created_at'], reverse=True):
-        ordered_articles[item['slug']] = item
+    for item in sorted(list(articles.values()), key=lambda it: it["created_at"], reverse=True):
+        ordered_articles[item["slug"]] = item
 
     return ordered_articles
+
+
+@functools.lru_cache(maxsize=1)
+def _get_articles_cached():
+    return _get_articles()
+
+
+def get_articles(use_cache: bool = True) -> OrderedDict:
+    if use_cache:
+        return _get_articles_cached()
+
+    return _get_articles()

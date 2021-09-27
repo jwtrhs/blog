@@ -1,0 +1,6 @@
+# Jonathon Waterhouse's blog
+
+{% for slug in articles %}
+{%- set article = articles[slug] -%}
+=> /article/{{ slug }}/ {{ article['created_at'].strftime('%Y-%m-%d') }} {{ article['title'] }}
+{% endfor %}

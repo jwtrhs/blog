@@ -1,8 +1,10 @@
+---
 slug: miele-refrigerator-repair-leak
 title: Repairing a leak in my Miele K14827 refrigerator
 author: Jonathon Waterhouse
 summary: 
 created_at: 2020-11-17
+---
 
 
 I've recently bought a second-hand fridge that needed some repairs. Usually, unless the fix is very simple, fridges that break down are deemed "uneconomical" to repair and sent to landfill. I hate that. So, I resolved to fix it as best I could and thought I would outline what I went through to (ultimately, successfully!) fix my fridge and hope it might help others keep theirs going a little while longer too.

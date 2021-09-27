@@ -1,8 +1,10 @@
+---
 slug: intercooler-hose-repair
 title: Fixing an intercooler/turbo hose leak in a 2011 Mistubishi Triton (MN)
 author: Jonathon Waterhouse
 summary: 
 created_at: 2021-05-05
+---
 
 A few months ago one of the intercooler hoses on my ute split. I'll describe here how I patched the split hose to (temporarily) get back on the road until a new set of hoses arrived, and how I replaced them.
 

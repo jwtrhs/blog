@@ -1,5 +1,3 @@
-starlette
-uvicorn
 jinja2
-aiofiles
 markdown
+md2gemini
