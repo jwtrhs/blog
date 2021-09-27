@@ -194,8 +194,8 @@ def _main_loop(sock, router: Router):
         conn, addr = sock.accept()
         try:
             data = conn.recv(1024)
-            request = RequestBase.loads(data.decode("utf-8"))
             try:
+                request = RequestBase.loads(data.decode("utf-8"))
                 response = router.match(request)
             except ServerError as error:
                 response = Response(status=error.status)
