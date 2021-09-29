@@ -10,9 +10,9 @@ RUN python -m venv .venv
 RUN .venv/bin/python -m pip install -r requirements.txt
 
 COPY article/ article/
-COPY server/ server/
+COPY blog/ blog/
 COPY static static/
 COPY template/ template/
 
 # ENTRYPOINT ["bash"]
-CMD [".venv/bin/python", "-m", "server.app"]
+CMD [".venv/bin/python", "-m", "blog.app"]
