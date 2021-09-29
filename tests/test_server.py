@@ -1,5 +1,5 @@
 from blog.server import (
-    RequestBase,
+    Request,
     Response,
     STATUS_OK,
 )
@@ -12,27 +12,27 @@ import pytest
     [
         (
             "GET /1/2/3 HTTP/1.1",
-            RequestBase(protocol="http", url="/1/2/3"),
+            Request(protocol="http", method="GET", url="/1/2/3"),
         ),
         (
             "gemini://test/1/2/3\r\n",
-            RequestBase(protocol="gemini", url="gemini://test/1/2/3"),
+            Request(protocol="gemini", method=None, url="gemini://test/1/2/3"),
         ),
     ],
 )
-def test_request_base_loads(url, expected):
-    assert RequestBase.loads(url) == expected
+def test_request_loads(url, expected):
+    assert Request.loads(url) == expected
 
 
 @pytest.mark.parametrize(
     ("input_request", "expected"),
     [
         (
-            RequestBase(protocol="http", url="/1/2/3"),
+            Request(protocol="http", method="GET", url="/1/2/3"),
             "GET /1/2/3 HTTP/1.1",
         ),
         (
-            RequestBase(protocol="gemini", url="gemini://test/1/2/3"),
+            Request(protocol="gemini", method=None, url="gemini://test/1/2/3"),
             "gemini://test/1/2/3\r\n",
         ),
     ],

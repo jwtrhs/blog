@@ -34,7 +34,7 @@ def parse_article(
     root_directory: str,
     markdown_file: str,
     other_files: typing.List[str],
-) -> typing.Tuple[typing.Dict, str]:
+) -> typing.Dict[str, typing.Any]:
     md = markdown.Markdown(extensions=["meta"])
     with open(os.path.join(root_directory, markdown_file), "r") as f:
         markdown_content = f.read()

@@ -9,6 +9,9 @@ from blog.util import get_logger
 
 _LOG = get_logger(__name__)
 
+_PROTOCOL_HTTP = "http"
+_PROTOCOL_GEMINI = "gemini"
+
 
 @dataclass(frozen=True)
 class Status:
@@ -18,13 +21,12 @@ class Status:
 
     @property
     def is_ok(self) -> bool:
-        return (self.http <= 200 and self.http < 300) or (self.gemini >= 20 and self.gemini <= 30)
+        return (self.http <= 200 and self.http < 300) or (self.gemini >= 20 and self.gemini < 30)
 
-    @property
     def value(self, protocol: str) -> int:
-        if protocol == "http":
+        if protocol == _PROTOCOL_HTTP:
             return self.http
-        elif protocol == "gemini":
+        elif protocol == _PROTOCOL_GEMINI:
             return self.gemini
         else:
             raise RuntimeError(f"Unknown protocol: {protocol}")
@@ -44,34 +46,33 @@ class ServerError(Exception):
 
 
 @dataclass(frozen=True)
-class RequestBase:
+class Request:
 
     protocol: str
+    method: typing.Optional[str]
     url: str
+    path_params: typing.Dict[str, str] = field(default_factory=dict)
 
     @classmethod
-    def loads(cls, raw: str) -> "RequestBase":
-        if raw.startswith("GET"):
-            url = raw.split("\r\n")[0].lstrip("GET ").rsplit(" ", 1)[0]
-            return cls(protocol="http", url=url)
-        elif raw.startswith("gemini://"):
-            return cls(protocol="gemini", url=raw.strip())
+    def loads(cls, raw: str) -> "Request":
+        start_line = raw.split("\r\n")[0]
+        if start_line.endswith("HTTP/1.0") or start_line.endswith("HTTP/1.1"):
+            parts = start_line.split(" ")
+            method = parts[0]
+            url = " ".join(parts[1:-1])
+            return cls(protocol=_PROTOCOL_HTTP, method=method, url=url)
+        elif start_line.startswith("gemini://"):
+            return cls(protocol=_PROTOCOL_GEMINI, method=None, url=raw.strip())
         else:
             raise RuntimeError(raw)
 
     def dumps(self) -> str:
-        if self.protocol == "http":
-            return f"GET {urlparse(self.url).path} HTTP/1.1"
-        elif self.protocol == "gemini":
+        if self.protocol == _PROTOCOL_HTTP:
+            return f"{self.method} {urlparse(self.url).path} HTTP/1.1"
+        elif self.protocol == _PROTOCOL_GEMINI:
             return f"{self.url}\r\n"
         else:
-            raise ServerError(f"Unknown protocol: {self.protocol}")
-
-
-@dataclass(frozen=True)
-class Request(RequestBase):
-
-    path_params: typing.Dict[str, str]
+            raise RuntimeError(f"Unknown protocol: {self.protocol}")
 
 
 @dataclass(frozen=True)
@@ -82,60 +83,80 @@ class Response:
     body: typing.Optional[bytes] = None
 
     def dumpb(self, protocol: str) -> bytes:
-        if protocol == "http":
+        if protocol == _PROTOCOL_HTTP:
             response = f"HTTP/1.1 {self.status.http} {self.status.phrase}\r\n".encode("utf-8")
             if self.mime_type:
                 response += f"Content-Type: {self.mime_type}\r\n".encode("utf-8")
             response += b"\r\n"
             if self.body:
                 response += self.body
-        elif protocol == "gemini":
+        elif protocol == _PROTOCOL_GEMINI:
             response = f"{self.status.gemini} {self.mime_type or ''}\r\n".encode("utf-8")
             if self.body:
                 response += self.body
         else:
-            raise ServerError(f"Unknown protocol: {self.protocol}")
+            raise RuntimeError(f"Unknown protocol: {protocol}")
 
         return response
 
 
 class SuccessResponse(Response):
-    def __init__(self, mime_type: str, body: bytes):
+    def __init__(self, mime_type: typing.Optional[str], body: bytes):
         super().__init__(status=STATUS_OK, mime_type=mime_type, body=body)
 
 
+@dataclass(frozen=True)
+class Handler:
+    def handle(self, request: Request) -> Response:
+        if request.protocol == _PROTOCOL_HTTP:
+            return self.handle_http(request)
+        elif request.protocol == _PROTOCOL_GEMINI:
+            return self.handle_gemini(request)
+        else:
+            raise RuntimeError(f"Unknown protocol: {request.protocol}")
+
+    def handle_http(self, request: Request) -> Response:
+        raise ServerError(status=STATUS_ERROR)
+
+    def handle_gemini(self, request: Request) -> Response:
+        raise ServerError(status=STATUS_ERROR)
+
+
+@dataclass(frozen=True)
 class Route:
 
     path: str
-    parts: typing.List[str]
-    handler: typing.Callable
+    handler: Handler
 
-    def __init__(self, path: str, handler: typing.Callable):
-        self.path = path
-        self.parts = path.split("/")
-        self.handler = handler
-
-    def handle(self, request: RequestBase) -> typing.Optional[Response]:
+    def handle(self, request: Request) -> typing.Optional[Response]:
         parsed_url = urlparse(request.url)
-        path_parts = parsed_url.path.split("/", len(self.parts))
+        route_parts = self.path.split("/")
+        path_parts = parsed_url.path.split("/", len(route_parts))
 
         path_params = {}
-        for route_part, url_part in zip(self.parts, path_parts):
+        for route_part, url_part in zip(route_parts, path_parts):
             if route_part.startswith("{") and route_part.endswith("}"):
                 route_name = route_part.lstrip("{").rstrip("}")
                 path_params[route_name] = url_part
             elif route_part != url_part:
-                return
+                return None
 
-        return self.handler(Request(protocol=request.protocol, url=request.url, path_params=path_params))
+        return self.handler.handle(
+            Request(
+                protocol=request.protocol,
+                method=request.method,
+                url=request.url,
+                path_params=path_params,
+            ),
+        )
 
 
 @dataclass(frozen=True)
 class Server:
     routes: typing.List[Route]
-    error_handlers: typing.Dict[Status, typing.Callable] = field(default_factory=dict)
+    error_handlers: typing.Dict[Status, Handler] = field(default_factory=dict)
 
-    def _match_route(self, request: RequestBase) -> typing.Optional[typing.Callable]:
+    def _match_route(self, request: Request) -> Response:
         for route in self.routes:
             if response := route.handle(request):
                 _LOG.debug(f"Matched route: {request.url} -> {route.path}")
@@ -143,9 +164,12 @@ class Server:
 
         raise ServerError(status=STATUS_NOT_FOUND)
 
-    def _handle_error_response(self, request: Request, status: Status):
-        if status in self.error_handlers:
-            return self.error_handlers[status](request)
+    def _handle_error_response(self, request: Request, status: Status) -> Response:
+        try:
+            if status in self.error_handlers:
+                return self.error_handlers[status].handle(request)
+        except ServerError as error:
+            status = error.status
         return Response(status=status)
 
     def _run_loop(self, sock: socket.SocketType) -> None:
@@ -154,7 +178,7 @@ class Server:
             try:
                 data = conn.recv(1024)
                 try:
-                    request = RequestBase.loads(data.decode("utf-8"))
+                    request = Request.loads(data.decode("utf-8"))
                     response = self._match_route(request)
                 except ServerError as error:
                     _LOG.info(error)
