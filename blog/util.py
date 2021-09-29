@@ -9,10 +9,11 @@ import jinja2
 import markdown
 import md2gemini
 
-from server import settings
+from blog import settings
 
 
 def get_logger(name: str):
+    logging.basicConfig()
     return logging.getLogger(name)
 
 

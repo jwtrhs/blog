@@ -15,7 +15,7 @@ tasks:
       python3 -m venv .venv
       . .venv/bin/activate
       python3 -m pip install -q -r requirements-test.txt -r requirements.txt
-      black --diff .
+      black ---check -diff .
       flake8
       pytest
   - end-build-if-not-master: | 

@@ -1,4 +1,4 @@
-from server.app import (
+from blog.server import (
     RequestBase,
     Response,
     STATUS_OK,
