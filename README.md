@@ -12,5 +12,5 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 
 # Run the server
-python -m server.app
+python -m blog.app
 ```
