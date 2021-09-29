@@ -40,6 +40,7 @@ Though my problem ended up being a refrigerant leak through a hole in the copper
 ### 1. Common problems
 
 Quick things to check that could cause your fridge to run poorly:
+
 - Ice build up around evaporator. Excessive ice or frost can inhibit airflow and can sometimes block the air circulation fan inside the fridge. Thoroughly defrost the fridge over a couple of days if this is the case.
 - Door seals are leaking, causing loss of temp. You might see some moisture on the floor or dripping from where the broken seal is.
 - Dust/lint build up on condenser coil. The compressor coil is a like a large heat-sink, if it's clogged up with excessive dust it won't be operating properly. Gently give it a clean, taking care not to puncture the piping.
