@@ -13,7 +13,7 @@ from blog import settings
 
 
 def get_logger(name: str):
-    logging.basicConfig()
+    logging.basicConfig(level=logging.DEBUG)
     return logging.getLogger(name)
 
 
