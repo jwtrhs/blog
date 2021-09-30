@@ -37,6 +37,10 @@ STATUS_NOT_FOUND = Status(http=404, gemini=51, phrase="Not Found")
 STATUS_ERROR = Status(http=500, gemini=50, phrase="Server Error")
 
 
+class UnknownProtocolError(Exception):
+    pass
+
+
 class ServerError(Exception):
 
     status: Status
@@ -64,7 +68,7 @@ class Request:
         elif start_line.startswith("gemini://"):
             return cls(protocol=_PROTOCOL_GEMINI, method=None, url=raw.strip())
         else:
-            raise RuntimeError(raw)
+            raise UnknownProtocolError(raw)
 
     def dumps(self) -> str:
         if self.protocol == _PROTOCOL_HTTP:
@@ -72,7 +76,7 @@ class Request:
         elif self.protocol == _PROTOCOL_GEMINI:
             return f"{self.url}\r\n"
         else:
-            raise RuntimeError(f"Unknown protocol: {self.protocol}")
+            raise UnknownProtocolError(f"Unknown protocol: {self.protocol}")
 
 
 @dataclass(frozen=True)
@@ -177,6 +181,7 @@ class Server:
             conn, addr = sock.accept()
             try:
                 data = conn.recv(1024)
+                response = None
                 try:
                     request = Request.loads(data.decode("utf-8"))
                     response = self._match_route(request)
@@ -186,7 +191,10 @@ class Server:
                 except RuntimeError as error:
                     _LOG.error(error)
                     response = self._handle_error_response(request=request, status=STATUS_ERROR)
-                conn.sendall(response.dumpb(protocol=request.protocol))
+                except UnknownProtocolError as error:
+                    _LOG.warn(error)
+                if response:
+                    conn.sendall(response.dumpb(protocol=request.protocol))
             finally:
                 conn.close()
 
