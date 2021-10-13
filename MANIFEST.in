@@ -1,4 +1,4 @@
-recursive-include article *
+recursive-include post *
 recursive-include deploy *
 recursive-include static *
 recursive-include template *

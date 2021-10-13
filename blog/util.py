@@ -30,7 +30,7 @@ def render_template(filepath: str, context: typing.Optional[typing.Dict] = None)
     return template.render(context or {})
 
 
-def parse_article(
+def parse_post(
     root_directory: str,
     markdown_file: str,
     other_files: typing.List[str],
@@ -65,34 +65,34 @@ def parse_article(
     }
 
 
-def _get_articles() -> OrderedDict:
-    articles = {}
-    for root, directories, files in os.walk(settings.ARTICLE_DIRECTORY):
+def _get_posts() -> OrderedDict:
+    posts = {}
+    for root, directories, files in os.walk(settings.post_DIRECTORY):
         md_files = [it for it in files if it.endswith(".md")]
         if not md_files:
             continue
         md_file = md_files[0]
         other_files = [it for it in files if it != md_file]
-        article = parse_article(root, md_file, other_files)
-        assert article["slug"] not in articles, "slug is duplicate"
-        if article["is_draft"]:
+        post = parse_post(root, md_file, other_files)
+        assert post["slug"] not in posts, "slug is duplicate"
+        if post["is_draft"]:
             pass
-        articles[article["slug"]] = article
+        posts[post["slug"]] = post
 
-    ordered_articles = OrderedDict()
-    for item in sorted(list(articles.values()), key=lambda it: it["created_at"], reverse=True):
-        ordered_articles[item["slug"]] = item
+    ordered_posts = OrderedDict()
+    for item in sorted(list(posts.values()), key=lambda it: it["created_at"], reverse=True):
+        ordered_posts[item["slug"]] = item
 
-    return ordered_articles
+    return ordered_posts
 
 
 @functools.lru_cache(maxsize=1)
-def _get_articles_cached():
-    return _get_articles()
+def _get_posts_cached():
+    return _get_posts()
 
 
-def get_articles(use_cache: bool = True) -> OrderedDict:
+def get_posts(use_cache: bool = True) -> OrderedDict:
     if use_cache:
-        return _get_articles_cached()
+        return _get_posts_cached()
 
-    return _get_articles()
+    return _get_posts()

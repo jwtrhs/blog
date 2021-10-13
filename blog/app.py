@@ -5,7 +5,7 @@ import typing
 
 from blog import settings
 from blog.server import Handler, Request, Response, Route, Server, ServerError, STATUS_NOT_FOUND, SuccessResponse
-from blog.util import get_articles, get_logger, render_template
+from blog.util import get_posts, get_logger, render_template
 
 
 _LOG = get_logger(__name__)
@@ -15,13 +15,13 @@ class HomeHandler(Handler):
     def handle_http(self, request: Request) -> Response:
         return SuccessResponse(
             mime_type="text/html",
-            body=render_template("home.html.j2", {"articles": get_articles()}).encode("utf-8"),
+            body=render_template("home.html.j2", {"posts": get_posts()}).encode("utf-8"),
         )
 
     def handle_gemini(self, request: Request) -> Response:
         return SuccessResponse(
             mime_type="text/gemini",
-            body=render_template("home.gmi.j2", {"articles": get_articles()}).encode("utf-8"),
+            body=render_template("home.gmi.j2", {"posts": get_posts()}).encode("utf-8"),
         )
 
 
@@ -40,39 +40,39 @@ class StaticHandler(Handler):
         return self._create_response(request)
 
 
-class ArticleHandler(Handler):
-    def _get_article(self, request: Request) -> typing.Dict:
+class PostHandler(Handler):
+    def _get_post(self, request: Request) -> typing.Dict:
         slug = request.path_params["slug"]
-        articles = get_articles()
+        posts = get_posts()
 
-        if slug not in articles:
+        if slug not in posts:
             raise ServerError(status=STATUS_NOT_FOUND)
 
-        return articles[slug]
+        return posts[slug]
 
     def handle_http(self, request: Request) -> Response:
-        article = self._get_article(request)
+        post = self._get_post(request)
 
         return SuccessResponse(
             mime_type="text/html",
-            body=render_template("article.html.j2", {"article": article}).encode("utf-8"),
+            body=render_template("post.html.j2", {"post": post}).encode("utf-8"),
         )
 
     def handle_gemini(self, request: Request) -> Response:
-        article = self._get_article(request)
+        post = self._get_post(request)
 
         return SuccessResponse(
             mime_type="text/gemini",
-            body=render_template("article.gmi.j2", {"article": article}).encode("utf-8"),
+            body=render_template("post.gmi.j2", {"post": post}).encode("utf-8"),
         )
 
 
-class ArticleContentHandler(ArticleHandler):
+class PostContentHandler(PostHandler):
     def _get_content_filepath(self, request: Request) -> str:
-        article = self._get_article(request)
+        post = self._get_post(request)
 
         path = request.path_params["path"]
-        content_filepath = os.path.join(article["root_directory"], path)
+        content_filepath = os.path.join(post["root_directory"], path)
         if not os.path.exists(content_filepath):
             raise ServerError(status=STATUS_NOT_FOUND)
 
@@ -115,8 +115,8 @@ if __name__ == "__main__":
         routes=[
             Route("/", HomeHandler()),
             Route("/static/{path}", StaticHandler()),
-            Route("/article/{slug}/", ArticleHandler()),
-            Route("/article/{slug}/{path}", ArticleContentHandler()),
+            Route("/post/{slug}/", PostHandler()),
+            Route("/post/{slug}/{path}", PostContentHandler()),
         ],
         error_handlers={
             STATUS_NOT_FOUND: NotFoundHandler(),

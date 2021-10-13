@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN python -m venv .venv
 RUN .venv/bin/python -m pip install -r requirements.txt
 
-COPY article/ article/
+COPY post/ post/
 COPY blog/ blog/
 COPY static static/
 COPY template/ template/

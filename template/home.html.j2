@@ -2,14 +2,14 @@
 {% block title %}Jonathon Waterhouse's blog{% endblock %}
 {% block content %}
 <div class="home">
-    <div class="article-list">
+    <div class="post-list">
         <h1>Jonathon Waterhouse's blog</h1>
-        {% for slug in articles %}
-        {% set article = articles[slug] %}
-        <div class="article-item">
-            <a class="article-link" href="/article/{{ slug }}/">{{ article['title'] }}</a>
+        {% for slug in posts %}
+        {% set post = posts[slug] %}
+        <div class="post-item">
+            <a class="post-link" href="/post/{{ slug }}/">{{ post['title'] }}</a>
             <br />
-            <span class="article-date">{{ article['created_at'].strftime('%B %-d, %Y') }}</span>
+            <span class="post-date">{{ post['created_at'].strftime('%B %-d, %Y') }}</span>
         </div>
         {% endfor %}
     </div>

@@ -33,42 +33,42 @@ body {
     margin-left: 0;
     margin-bottom: 1rem;
 }
-.article-list {
+.post-list {
     flex: 1;
 }
-.article-list > h1 {
+.post-list > h1 {
     font-size: 1.5rem;
 }
-.article-list > .article-item:not(:last-child) {
+.post-list > .post-item:not(:last-child) {
     margin-bottom: 10px;
 }
-.article-item > .article-link {
+.post-item > .post-link {
     font-size: 1rem;
 }
-.article-item > .article-date {
+.post-item > .post-date {
     color: grey;
     font-size: smaller;
 }
 
-/* Article */
+/* post */
 .home-link {
     margin-bottom: 1rem;
 }
-.article > .article-title > h1 {
+.post > .post-title > h1 {
     margin: 0;
     font-size: 1.5rem;
 }
-.article > .article-title > .article-date {
+.post > .post-title > .post-date {
     color: grey;
     font-size: smaller;
 }
-.article > .article-content {
+.post > .post-content {
     max-width: 600px;
 }
-.article > .article-content img {
+.post > .post-content img {
     width: 100%;
 }
-.article > .article-content > p > img + em {
+.post > .post-content > p > img + em {
     /* caption */
     margin-top: 4px;
     display: inherit;

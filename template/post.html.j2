@@ -1,0 +1,16 @@
+{% extends "base.html.j2" %}
+{% block title %}{{ post['title']}} - Jonathon Waterhouse's blog{% endblock %}
+{% block content %}
+<div class="home-link">
+    <a href="/">< Home</a>
+</div>
+<div class="post">
+    <div class="post-title">
+        <h1>{{ post['title'] }}</h1>
+        <span class="post-date">{{ post['created_at'].strftime('%B %-d, %Y') }}</span>
+    </div>
+    <div class="post-content">
+        {{ post['html'] }}
+    </div>
+</div>
+{% endblock %}
