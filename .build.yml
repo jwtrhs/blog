@@ -26,6 +26,7 @@ tasks:
   - setup-docker: |
       sudo addgroup $(whoami) docker
       sudo service docker start
+      sleep 5
   - build: |
       cd blog/
       docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
