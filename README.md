@@ -1,6 +1,6 @@
 My personal blog
 
-[![builds.sr.ht status](https://builds.sr.ht/~jwaterhouse/blog.svg].svg)](https://builds.sr.ht/~jwaterhouse/blog.svg]?)
+[![builds.sr.ht status](https://builds.sr.ht/~jwaterhouse/blog.svg)](https://builds.sr.ht/~jwaterhouse/blog?)
 
 # Development environment
 
