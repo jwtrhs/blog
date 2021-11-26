@@ -7,6 +7,17 @@ body {
     padding: 1rem;
 }
 
+/* General */
+
+pre code {
+    border: 1px solid black;
+    background-color: lightgrey;
+    display: block;
+    font-size: smaller;
+    padding: 10px;
+    white-space: pre-wrap;
+}
+
 /* Home */
 .home {
     display: flex;

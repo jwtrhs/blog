@@ -4,7 +4,7 @@
 <div class="home">
     <div class="post-list">
         <h1>Jonathon Waterhouse's blog</h1>
-        {% for slug in posts %}
+        {% for slug in posts if not posts[slug]['is_draft'] %}
         {% set post = posts[slug] %}
         <div class="post-item">
             <a class="post-link" href="/post/{{ slug }}/">{{ post['title'] }}</a>
@@ -18,6 +18,8 @@
         <dl>
             <dt>email</dt>
             <dd><a href="mailto:jon@wtrhs.com">jon@wtrhs.com</a></dd>
+            <dt>c.v.</dt>
+            <dd><a href="/cv">here</a> or <a href="https://www.linkedin.com/in/jonathonwaterhouse/">linkedin</a></dd>
             <dt>view on gemini</dt>
             <dd><a href="gemini://wtrhs.com">gemini://wtrhs.com</a></dd>
         </dl>

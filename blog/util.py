@@ -30,12 +30,12 @@ def render_template(filepath: str, context: typing.Optional[typing.Dict] = None)
     return template.render(context or {})
 
 
-def parse_post(
+def parse_markdown(
     root_directory: str,
     markdown_file: str,
-    other_files: typing.List[str],
+    other_files: typing.Optional[typing.List[str]] = None,
 ) -> typing.Dict[str, typing.Any]:
-    md = markdown.Markdown(extensions=["meta"])
+    md = markdown.Markdown(extensions=["meta", "fenced_code"])
     with open(os.path.join(root_directory, markdown_file), "r") as f:
         markdown_content = f.read()
         html = md.convert(markdown_content)
@@ -46,13 +46,10 @@ def parse_post(
     slug = metadata["slug"][0] if metadata.get("slug") else None
     summary = metadata["summary"][0] if metadata.get("summary") else None
     is_draft = metadata["is_draft"][0] if metadata.get("is_draft") else False
-    assert title, "title is required"
-    assert created_at, "created_at is required"
-    assert slug, "slug is required"
 
     return {
         "title": title,
-        "created_at": datetime.datetime.fromisoformat(created_at),
+        "created_at": datetime.datetime.fromisoformat(created_at) if created_at else None,
         "slug": slug,
         "summary": summary,
         "is_draft": is_draft,
@@ -67,13 +64,16 @@ def parse_post(
 
 def _get_posts() -> OrderedDict:
     posts = {}
-    for root, directories, files in os.walk(settings.post_DIRECTORY):
+    for root, directories, files in os.walk(settings.POST_DIRECTORY):
         md_files = [it for it in files if it.endswith(".md")]
         if not md_files:
             continue
         md_file = md_files[0]
         other_files = [it for it in files if it != md_file]
-        post = parse_post(root, md_file, other_files)
+        post = parse_markdown(root, md_file, other_files)
+        assert post["title"], "title is required"
+        assert post["created_at"], "created_at is required"
+        assert post["slug"], "slug is required"
         assert post["slug"] not in posts, "slug is duplicate"
         if post["is_draft"]:
             pass

@@ -5,7 +5,7 @@ import typing
 
 from blog import settings
 from blog.server import Handler, Request, Response, Route, Server, ServerError, STATUS_NOT_FOUND, SuccessResponse
-from blog.util import get_posts, get_logger, render_template
+from blog.util import get_posts, get_logger, parse_markdown, render_template
 
 
 _LOG = get_logger(__name__)
@@ -90,6 +90,26 @@ class PostContentHandler(PostHandler):
         return self._create_response(request)
 
 
+class CvHandler(Handler):
+    def handle_http(self, request: Request) -> Response:
+        return SuccessResponse(
+            mime_type="text/html",
+            body=render_template(
+                "cv.html.j2",
+                {"cv": parse_markdown(settings.CONTENT_DIRECTORY, "cv.md")},
+            ).encode("utf-8"),
+        )
+
+    def handle_gemini(self, request: Request) -> Response:
+        return SuccessResponse(
+            mime_type="text/gemini",
+            body=render_template(
+                "cv.gmi.j2",
+                {"cv": parse_markdown(settings.CONTENT_DIRECTORY, "cv.md")},
+            ).encode("utf-8"),
+        )
+
+
 class NotFoundHandler(Handler):
     def handle_http(self, request: Request) -> Response:
         return Response(
@@ -117,6 +137,7 @@ if __name__ == "__main__":
             Route("/static/{path}", StaticHandler()),
             Route("/post/{slug}/", PostHandler()),
             Route("/post/{slug}/{path}", PostContentHandler()),
+            Route("/cv", CvHandler()),
         ],
         error_handlers={
             STATUS_NOT_FOUND: NotFoundHandler(),
