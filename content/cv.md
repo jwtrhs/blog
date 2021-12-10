@@ -6,6 +6,8 @@ If you think I might be of some use to you, please get in touch on my email jon@
 
 ## Education
 
+University of Queensland
+
 Bachelor of Engineering (Software Engineering) with Honours
 
 2003 - 2009
@@ -82,7 +84,7 @@ Thomson Reuters
 
 June 2013 - September 2014
 
-Developed real-time, low latency financial systems and system health monitoring software (C++, TCP/IP, Visual Studio) 
+Developed real-time, low latency financial systems and system health monitoring software (C++, TCP/IP, Visual Studio)
 
 ### Analyst Programmer
 
@@ -106,4 +108,4 @@ Intellection (acquired by [FEI](https://www.fei.com))
 
 January 2007 - November 2008
 
-Efficient algorithm design, Windows Driver Model (WDM) driver interfaces, managed and unmanaged interoperability and completed my thesis on Scanning Electron Microscope Automation (C++, C#) 
+Efficient algorithm design, Windows Driver Model (WDM) driver interfaces, managed and unmanaged interoperability and completed my thesis on Scanning Electron Microscope Automation (C++, C#)
