@@ -2,7 +2,7 @@
 slug: adding-gemini-support
 title: Adding support for the Gemini protocol to my blog
 author: Jonathon Waterhouse
-summary: 
+summary:
 created_at: 2021-10-13
 ---
 
@@ -20,4 +20,4 @@ With a request parsed and path extracted, the rest of the internal logic like ro
 
 The python package [md2gemini](https://github.com/makeworld-the-better-one/md2gemini) does a great job of parsing the markdown posts into `text/gemini`.
 
-A final little note on deployment - in Gemini TLS is part of the protocol and there is no "unsecure" version like for HTTP vs. HTTPS. It was easy enough to add TLS/HTTPS support to my little server, however my production deployment uses an Nginx proxy to handle TLS-termination and servers underneath know nothing of the certificates, etc and hence are all unsecured. So the Gemini server actually runs in "unsecured" mode, which feels wrong somehow even though to the client everying is secured.
+A final little note on deployment - in Gemini TLS is part of the protocol and there is no "unsecure" version like for HTTP vs. HTTPS. It was easy enough to add TLS/HTTPS support to my little server, however my production deployment uses an Nginx proxy to handle TLS-termination and servers underneath know nothing of the certificates, etc. So the Gemini server actually runs in a non-standard "unsecured" mode.
