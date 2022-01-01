@@ -80,7 +80,7 @@ Number of responsibilities focussing on backend webapp development, including:
 
 ### Software Engineer (Contract)
 
-Thomson Reuters
+[Thomson Reuters](https://www.thomsonreuters.com)
 
 June 2013 - September 2014
 
