@@ -14,7 +14,7 @@ from db.models import User
 def test_query(session):
     query = session.query(User).filter(email="test@example.com")
 
-    assert query.sql == "SELECT user.id, user.name, user.email WHERE user.email = 'test@example.com'
+    assert query.sql == "SELECT user.id, user.name, user.email WHERE user.email = 'test@example.com'"
 ```
 
 A couple of things to note about this query:
