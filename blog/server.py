@@ -31,6 +31,9 @@ class Status:
         else:
             raise RuntimeError(f"Unknown protocol: {protocol}")
 
+    def __str__(self):
+        return f"Status(http={self.http}, gemini={self.gemini}, phrase={self.phrase})"
+
 
 STATUS_OK = Status(http=200, gemini=20, phrase="OK")
 STATUS_NOT_FOUND = Status(http=404, gemini=51, phrase="Not Found")
@@ -47,6 +50,9 @@ class ServerError(Exception):
 
     def __init__(self, status: Status):
         self.status = status
+
+    def __str__(self):
+        return f"ServerError(status={self.status})"
 
 
 @dataclass(frozen=True)
