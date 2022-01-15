@@ -6,7 +6,7 @@ If you think I might be of some use to you, please get in touch on my email jon@
 
 ## Education
 
-University of Queensland
+[University of Queensland](https://www.uq.edu.au)
 
 Bachelor of Engineering (Software Engineering) with Honours
 
