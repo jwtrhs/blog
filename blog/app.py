@@ -40,6 +40,20 @@ class StaticHandler(Handler):
         return self._create_response(request)
 
 
+class PostDirectoryHandler(Handler):
+    def handle_http(self, request: Request) -> Response:
+        return SuccessResponse(
+            mime_type="text/html",
+            body=render_template("posts_directory.html.j2", {"posts": get_posts()}).encode("utf-8"),
+        )
+
+    def handle_gemini(self, request: Request) -> Response:
+        return SuccessResponse(
+            mime_type="text/gemini",
+            body=render_template("posts_directory.gmi.j2", {"posts": get_posts()}).encode("utf-8"),
+        )
+
+
 class PostHandler(Handler):
     def _get_post(self, request: Request) -> typing.Dict:
         slug = request.path_params["slug"]
@@ -135,6 +149,7 @@ if __name__ == "__main__":
         routes=[
             Route("/", HomeHandler()),
             Route("/static/{path}", StaticHandler()),
+            Route("/post/", PostDirectoryHandler()),
             Route("/post/{slug}/", PostHandler()),
             Route("/post/{slug}/{path}", PostContentHandler()),
             Route("/cv", CvHandler()),
