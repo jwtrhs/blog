@@ -49,6 +49,11 @@ def test_request_base_dumps(input_request, expected):
             "gemini",
             b"20 mime_type\r\nbody",
         ),
+        (
+            Response(status=STATUS_OK, mime_type="mime_type", body=b"body"),
+            "http",
+            b"HTTP/1.1 200 OK\r\nContent-Type: mime_type\r\n\r\nbody",
+        ),
     ],
 )
 def test_response_dumpb(response, protocol, expected):

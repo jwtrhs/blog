@@ -19,18 +19,6 @@ class Status:
     gemini: int
     phrase: str
 
-    @property
-    def is_ok(self) -> bool:
-        return (self.http <= 200 and self.http < 300) or (self.gemini >= 20 and self.gemini < 30)
-
-    def value(self, protocol: str) -> int:
-        if protocol == _PROTOCOL_HTTP:
-            return self.http
-        elif protocol == _PROTOCOL_GEMINI:
-            return self.gemini
-        else:
-            raise RuntimeError(f"Unknown protocol: {protocol}")
-
     def __str__(self):
         return f"Status(http={self.http}, gemini={self.gemini}, phrase={self.phrase})"
 
