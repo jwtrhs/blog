@@ -34,4 +34,4 @@ tasks:
   - deploy: |
       cat ~/.container-registry-password | docker login -u=registry --password-stdin $REGISTRY
       docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-      ssh -o StrictHostKeyChecking=no jon@wtrhs.com:48989 "kubectl rollout restart deployment blog"
+      ssh -o StrictHostKeyChecking=no -p 48989 jon@wtrhs.com "kubectl rollout restart deployment blog"
