@@ -9,6 +9,7 @@ environment:
   IMAGE_TAG: latest
 secrets:
   - 7e862d5d-3db2-4850-92c4-028876f0b8f0
+  - 1f4973ec-d5bd-4115-b7b4-7deb857fa7ac
 tasks:
   - test: |
       cd blog/
@@ -33,3 +34,4 @@ tasks:
   - deploy: |
       cat ~/.container-registry-password | docker login -u=registry --password-stdin $REGISTRY
       docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+      ssh -o StrictHostKeyChecking=no jon@wtrhs.com:48989 "kubectl rollout restart deployment blog"
