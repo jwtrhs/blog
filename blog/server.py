@@ -206,7 +206,7 @@ class Server:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0) as sock:
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind((host, port))
-            sock.listen(5)
+            sock.listen()
             if crt_file and key_file:
                 context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
                 context.load_cert_chain(crt_file, key_file)
