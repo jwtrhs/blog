@@ -173,6 +173,7 @@ class Server:
     def _run_loop(self, sock: socket.SocketType) -> None:
         while True:
             conn, addr = sock.accept()
+            _LOG.debug(f"Connection accepted from {addr}")
             try:
                 data = conn.recv(1024)
                 response = None
