@@ -171,6 +171,8 @@ class Server:
         return Response(status=status)
 
     def _run_loop(self, sock: socket.SocketType) -> None:
+        ip, port = sock.getsockname()
+        _LOG.debug(f"Server listening on {ip}:{port}...")
         while True:
             conn, addr = sock.accept()
             _LOG.debug(f"Connection accepted from {addr}")
@@ -200,9 +202,6 @@ class Server:
         crt_file: typing.Optional[str],
         key_file: typing.Optional[str],
     ) -> None:
-
-        _LOG.debug(f"Starting server at {host}:{port}...")
-
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0) as sock:
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.bind((host, port))
