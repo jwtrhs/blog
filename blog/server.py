@@ -208,7 +208,7 @@ class Server:
             sock.bind((host, port))
             sock.listen()
             if crt_file and key_file:
-                _LOG.debug(f"SSL enables with {crt_file} and {key_file}...")
+                _LOG.debug(f"SSL enabled with {crt_file} and {key_file}...")
                 context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
                 context.load_cert_chain(crt_file, key_file)
                 with context.wrap_socket(sock, server_side=True) as ssock:
