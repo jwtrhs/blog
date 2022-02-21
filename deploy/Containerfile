@@ -1,7 +1,5 @@
 FROM python:alpine
 
-RUN apk add git
-
 RUN mkdir /srv/app
 WORKDIR /srv/app
 
@@ -9,10 +7,13 @@ COPY requirements.txt .
 RUN python -m venv .venv
 RUN .venv/bin/python -m pip install -r requirements.txt
 
+COPY deploy/entrypoint.sh .
 COPY content/ content/
 COPY blog/ blog/
 COPY static static/
 COPY template/ template/
 
-# ENTRYPOINT ["bash"]
-CMD [".venv/bin/python", "-m", "blog.app"]
+RUN ls -lah .
+
+ENTRYPOINT ["./entrypoint.sh"]
+CMD ["python", "-m", "blog.app"]
