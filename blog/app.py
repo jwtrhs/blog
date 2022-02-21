@@ -138,10 +138,10 @@ class NotFoundHandler(Handler):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--host", type=str, default=os.getenv("BLOG_HOST", "0.0.0.0"))
-    parser.add_argument("--port", type=int, default=int(os.getenv("BLOG_PORT", 8888)))
-    parser.add_argument("--crt_file", type=str, default=os.getenv("BLOG_TLS_CRT_FILE"))
-    parser.add_argument("--key_file", type=str, default=os.getenv("BLOG_TLS_KEY_FILE"))
+    parser.add_argument("--host", type=str, default=os.getenv("BLOG_APP_HOST", "0.0.0.0"))
+    parser.add_argument("--port", type=int, default=int(os.getenv("BLOG_APP_PORT", 8888)))
+    parser.add_argument("--crt_file", type=str, default=os.getenv("BLOG_APP_TLS_CRT_FILE"))
+    parser.add_argument("--key_file", type=str, default=os.getenv("BLOG_APP_TLS_KEY_FILE"))
     parser.add_argument("--debug", default=False, action="store_true")
     args = parser.parse_args()
 
