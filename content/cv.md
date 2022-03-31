@@ -67,7 +67,7 @@ Built a communications and media capture platform focused on wearables (esp. sma
 
 ### Senior Software Engineer
 
-[RedEye](https://www.redeye.co)
+[RedEye Apps](https://www.redeye.co)
 
 November 2014 - December 2016
 
