@@ -1,3 +1,5 @@
+# Jonathon Waterhouse's C.V.
+
 I'm a software developer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. These days I'm most focussed on python-powered web apps and wrangling big data with some React frontend in the mix too. But have previously worked with C/C++, C#, Java, PHP...
 
 If you think I might be of some use to you, please get in touch on my email jon@wtrhs.com. I'm not particularly fussed on the tech stack (though if it lines up with my experience that would be great!), but would like to work with good people on good problems.
