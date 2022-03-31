@@ -109,3 +109,7 @@ Intellection (acquired by [FEI](https://www.fei.com))
 January 2007 - November 2008
 
 Efficient algorithm design, Windows Driver Model (WDM) driver interfaces, managed and unmanaged interoperability and completed my thesis on Scanning Electron Microscope Automation (C++, C#)
+
+## References
+
+Available upon request.
