@@ -61,9 +61,18 @@ pre code {
     font-size: smaller;
 }
 
-/* post */
+/* Post */
 .home-link {
     margin-bottom: 1rem;
+}
+.post {
+    display: grid;
+    grid-template-areas:
+        "title title"
+        "content toc";
+}
+.post > .post-title {
+    grid-area: title;
 }
 .post > .post-title > h1 {
     margin: 0;
@@ -74,6 +83,7 @@ pre code {
     font-size: smaller;
 }
 .post > .post-content {
+    grid-area: content;
     max-width: 600px;
 }
 .post > .post-content img {
@@ -85,4 +95,25 @@ pre code {
     display: inherit;
     text-align: center;
     font-size: .9rem;
+}
+.post > .post-toc {
+    grid-area: toc;
+    position: sticky;
+    top: 0;
+    align-self: start;
+}
+.post > .post-toc ul {
+    list-style-type: none;
+    line-height: 1.5rem;
+}
+@media only screen and (max-width: 650px) {
+    .post {
+        display: grid;
+        grid-template-areas:
+            "title"
+            "content";
+    }
+    .post > .post-toc {
+        display: none;
+    }
 }

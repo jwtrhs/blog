@@ -35,7 +35,15 @@ def parse_markdown(
     markdown_file: str,
     other_files: typing.Optional[typing.List[str]] = None,
 ) -> typing.Dict[str, typing.Any]:
-    md = markdown.Markdown(extensions=["meta", "fenced_code"])
+    md = markdown.Markdown(
+        extensions=["meta", "fenced_code", "toc"],
+        extension_configs={
+            "toc": {
+                "baselevel": 1,
+                "toc_depth": "2-2",
+            },
+        },
+    )
     with open(os.path.join(root_directory, markdown_file), "r") as f:
         markdown_content = f.read()
         html = md.convert(markdown_content)
@@ -55,6 +63,7 @@ def parse_markdown(
         "is_draft": is_draft,
         "markdown": markdown_content,
         "html": html,
+        "html_toc": md.toc,
         "gemtext": gemtext,
         "root_directory": root_directory,
         "markdown_file": markdown_file,
