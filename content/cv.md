@@ -1,10 +1,20 @@
+---
+header-includes: |
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+---
+
 # Jonathon Waterhouse's C.V.
 
-I'm a software developer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. These days I'm most focussed on python-powered web apps and wrangling big data with some React frontend in the mix too. But have previously worked with C/C++, C#, Java, PHP...
+I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. Mostly my experience has been as a full-stack developer across all of backend, frontend, devops and project management but with a primary focus on Python and PotgreSQL-powered web apps and wrangling big data problems into something useful. However I have also previously worked with C/C++, C#, Java, PHP...
 
-If you think I might be of some use to you, please get in touch on my email jon@wtrhs.com. I'm not particularly fussed on the tech stack (though if it lines up with my experience that would be great!), but would like to work with good people on good problems.
+Generally I am interested in working with good people on good problems.
 
-:)
+Email: jon@wtrhs.com
+
+GitHub: https://www.github.com/jwtrhs
+
+Website: https://www.wtrhs.com
 
 ## Education
 
@@ -26,7 +36,7 @@ Awarded High Distinction
 
 January 2021 - July 2021
 
-Wrangling meteorological data and some light reverse-engineering of existing flood modelling products.
+Wrangling several disparate meteorological data sources into a queryable database for machine learning applications and reverse-engineering of Windows-only flood modelling software (HEC-RAS) to run in a headless linux environment.
 
 - Python, SQLAlchemy, gdal, WINE
 - PostgreSQL/PostGIS
