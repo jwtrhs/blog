@@ -6,7 +6,7 @@ header-includes: |
 
 # Jonathon Waterhouse's C.V.
 
-I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. Mostly my experience has been as a full-stack developer across all of backend, frontend, devops and project management but with a primary focus on Python and PotgreSQL-powered web apps and wrangling big data problems into something useful. However I have also previously worked with C/C++, C#, Java, PHP...
+I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. Mostly my experience has been as a lead full-stack developer across all of backend, frontend, devops and project management but with a primary focus on Python and PotgreSQL-powered web apps and wrangling big data problems into something useful. However I have also previously worked with C/C++, C#, Java, PHP...
 
 Generally I am interested in working with good people on good problems.
 
