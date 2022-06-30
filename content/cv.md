@@ -38,10 +38,9 @@ January 2021 - July 2021
 
 Wrangling several disparate meteorological data sources into a queryable database for machine learning applications and reverse-engineering of Windows-only flood modelling software (HEC-RAS) to run in a headless linux environment.
 
-- Python, SQLAlchemy, gdal, WINE
-- PostgreSQL/PostGIS
-- AWS, Terraform, Docker
-- Agile using Atlassian stack
+- Tech: Python, SQLAlchemy, gdal, WINE, PostgreSQL/PostGIS
+- Cloud: AWS, Terraform, Docker
+- Mgmt: Agile using Atlassian stack
 
 
 ### Lead Software Engineer
@@ -52,7 +51,7 @@ August 2017 - February 2021
 
 Lead engineer in a small, agile team of full-stack devs developing a social media marketing web app. Major projects include a new data pipeline to process large amounts of social data, training and deploying machine learning models, migrating the legacy app to a more modern tech stack, building a new B2C mobile app from scratch, and reducing cloud infrastructure costs from $12k+ to ~$2.5k per month.
 
-- Data: Python3 (w/ asyncio), Flask, RabbitMQ, AWS (Aurora, S3, Elasticbeanstalk, ECR and Elasticsearch)
+- Data: Python3 (w/ asyncio), Flask, RabbitMQ, AWS (Aurora (PostgreSQL), S3, Elasticbeanstalk, ECR and Elasticsearch)
 - API: Python3, Starlette, SQLAlchemy
 - Web Frontend: React, ES6, Material-UI
 - Mobile: React Native, Expo, Fastlane
