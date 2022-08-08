@@ -1,4 +1,5 @@
 import argparse
+import json
 import mimetypes
 import os
 import typing
@@ -124,6 +125,17 @@ class CvHandler(Handler):
         )
 
 
+class MatrixHandler(Handler):
+    def handle_http(self, request: Request) -> Response:
+        return SuccessResponse(
+            mime_type="application/json",
+            body=json.dumps({"m.server": "matrix.wtrhs.com:8448"}).encode("utf-8"),
+        )
+
+    def handle_gemini(self, request: Request) -> Response:
+        return Response(status=STATUS_NOT_FOUND)
+
+
 class NotFoundHandler(Handler):
     def handle_http(self, request: Request) -> Response:
         return Response(
@@ -153,6 +165,7 @@ if __name__ == "__main__":
             Route("/post/{slug}/", PostHandler()),
             Route("/post/{slug}/{path}", PostContentHandler()),
             Route("/cv", CvHandler()),
+            Route("/.well-known/matrix/server", MatrixHandler()),
         ],
         error_handlers={
             STATUS_NOT_FOUND: NotFoundHandler(),
