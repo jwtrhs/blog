@@ -9,7 +9,7 @@ environment:
   IMAGE_TAG: latest
 secrets:
   - 7e862d5d-3db2-4850-92c4-028876f0b8f0
-  - 1f4973ec-d5bd-4115-b7b4-7deb857fa7ac
+  - 658816b7-d08c-47eb-b90f-00f02abcafae
 tasks:
   - test: |
       cd blog/
