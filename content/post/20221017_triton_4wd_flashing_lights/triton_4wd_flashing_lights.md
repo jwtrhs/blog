@@ -25,7 +25,7 @@ Looking from the back, you can see the two vacuum hoses that attach to the actua
 
 ![](front_diff_actuator_back.jpg)
 
-The hose on the left, like that of the the forum poster, had worn through near where the end of the metal pipe sits inside of it.
+The hose on the left, like that of OP, had worn through near where the end of the metal pipe sits inside of it.
 
 ![](vacuum_tube_hole.jpg)
 *Damaged section of vacuum hose, after removal*
