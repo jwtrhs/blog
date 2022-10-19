@@ -6,7 +6,7 @@ header-includes: |
 
 # Jonathon Waterhouse's C.V.
 
-I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. Primarily my experience has been as a lead full-stack developer across all of backend, frontend, devops and agile project management, and mostly using a Python/React/AWS stack.
+I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. Primarily my experience has been as a lead full-stack developer across all of backend, frontend, devops, mobile and agile project management, and mostly using a Python/React/AWS stack.
 
 Generally I am interested in working with good people on good problems.
 
