@@ -6,15 +6,17 @@ header-includes: |
 
 # Jonathon Waterhouse's C.V.
 
-I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. Mostly my experience has been as a lead full-stack developer across all of backend, frontend, devops and project management but with a primary focus on Python and PotgreSQL-powered web apps and wrangling big data problems into something useful. However I have also previously worked with C/C++, C#, Java, PHP...
+I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. Primarily my experience has been as a lead full-stack developer across all of backend, frontend, devops and agile project management, and mostly using a Python/React/AWS stack.
 
 Generally I am interested in working with good people on good problems.
 
+Mobile: +61 487 262 276
+
 Email: jon@wtrhs.com
 
-GitHub: https://www.github.com/jwtrhs
+GitHub: [https://www.github.com/jwtrhs](https://www.github.com/jwtrhs)
 
-Website: https://www.wtrhs.com
+Website: [https://www.wtrhs.com](https://www.wtrhs.com)
 
 ## Education
 
@@ -29,6 +31,14 @@ Thesis - "Automated Configuration of Scanning Electron Microscopes"
 Awarded High Distinction
 
 ## Work History
+
+### General Problem Solver
+
+[KIN Architects](https://www.kinarchitects.com.au)
+
+July 2021 - Now
+
+My partner (a residential/renovation architect) has started her own practice and I took some time off to support her and her business. I was essentially a Mr. Fix-it for whatever needed doing but often included being tech support, office manager, web developer, server admin and furniture removalist.
 
 ### Senior Software Engineer (Contract)
 
@@ -53,7 +63,7 @@ Lead engineer in a small, agile team of full-stack devs developing a social medi
 
 - Data: Python3 (w/ asyncio), Flask, RabbitMQ, AWS (Aurora (PostgreSQL), S3, Elasticbeanstalk, ECR and Elasticsearch)
 - API: Python3, Starlette, SQLAlchemy
-- Web Frontend: React, ES6, Material-UI
+- Web Frontend: React, ES6/Typescript, Material-UI
 - Mobile: React Native, Expo, Fastlane
 - ML: TensorFlow, Caffe
 - Cloud: AWS (EBS/EC2, Cloudformation, Aurora, S3)
@@ -70,7 +80,7 @@ Built a communications and media capture platform focused on wearables (esp. sma
 
 - Backend: RESTful web services built around Python + Django + Channels + DRF + Celery
 - Infrastructure: AWS (EBS, RDS, EC, Route 51) + Ubuntu Server + Docker + Graylog
-- Frontend: React/Redux + Semantic UI + NodeJS + Webpack + ES6
+- Frontend: React/Redux + Semantic UI + NodeJS + Webpack + ES6/Typescript
 - Mobile/Wearables: Android Studio + Kotlin
 - Mgmt: Agile
 
