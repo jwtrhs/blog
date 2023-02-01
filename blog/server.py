@@ -174,9 +174,10 @@ class Server:
         ip, port = sock.getsockname()
         _LOG.debug(f"Server listening on {ip}:{port}...")
         while True:
-            conn, addr = sock.accept()
-            _LOG.debug(f"Connection accepted from {addr}")
+            conn = None
             try:
+                conn, addr = sock.accept()
+                _LOG.debug(f"Connection accepted from {addr}")
                 data = conn.recv(1024)
                 response = None
                 try:
@@ -190,10 +191,13 @@ class Server:
                     response = self._handle_error_response(request=request, status=STATUS_ERROR)
                 except UnknownProtocolError as error:
                     _LOG.warn(error)
+                except socket.error as error:
+                    _LOG.warn(error)
                 if response:
                     conn.sendall(response.dumpb(protocol=request.protocol))
             finally:
-                conn.close()
+                if conn:
+                    conn.close()
 
     def run(
         self,
