@@ -6,7 +6,7 @@ header-includes: |
 
 # Jonathon Waterhouse's C.V.
 
-I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems. Primarily my experience has been as a lead full-stack developer across all of backend, frontend, devops, mobile and agile project management, and mostly using a Python/React/AWS stack.
+I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems in both start-ups and larger organisations. Primarily my experience has been as a lead full-stack developer across backend, frontend, devops, mobile and agile project management, mostly using a Python/Node/React/AWS stack.
 
 Generally I am interested in working with good people on good problems.
 
@@ -32,6 +32,19 @@ Awarded High Distinction
 
 ## Work History
 
+### Senior Software Engineer
+
+[Midnight Health](https://midnight.health)
+
+December 2022 - Current
+
+Full-stack development but mostly focussed on frontend. My main project involved working with design and product teams to uplift the ageing Javascript/React frontend into a new design based on Typescript/React, including building out component libraries and visual testing processes. Supporting more junior developers and mitigating existing technical debt were also important responsibilities.
+
+- Frontend: Typescript, React, Emotion
+- Backend: Python, Django
+- Infra: AWS, PostgreSQL, Terraform, Docker
+- Mgmt: Agile, Jira, Confluence
+
 ### General Problem Solver
 
 [KIN Architects](https://www.kinarchitects.com.au)
@@ -49,7 +62,7 @@ January 2021 - July 2021
 Wrangling several disparate meteorological data sources into a queryable database for machine learning applications and reverse-engineering of Windows-only flood modelling software (HEC-RAS) to run in a headless linux environment.
 
 - Tech: Python, SQLAlchemy, gdal, WINE, PostgreSQL/PostGIS
-- Cloud: AWS, Terraform, Docker
+- Infra: AWS, Terraform, Docker
 - Mgmt: Agile using Atlassian stack
 
 
