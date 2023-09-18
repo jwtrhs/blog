@@ -177,7 +177,6 @@ class Server:
             conn = None
             try:
                 conn, addr = sock.accept()
-                _LOG.debug(f"Connection accepted from {addr}")
                 data = conn.recv(1024)
                 response = None
                 try:
