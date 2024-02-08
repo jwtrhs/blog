@@ -38,10 +38,11 @@ Awarded High Distinction
 
 December 2022 - Current
 
-Full-stack development but mostly focussed on frontend. My main project involved working with design and product teams to uplift the ageing Javascript/React frontend into a new design based on Typescript/React, including building out component libraries and visual testing processes. Supporting more junior developers and mitigating existing technical debt were also important responsibilities.
+Full-stack development. My main project involved working with design and product teams to uplift the ageing Javascript/React frontend into a new design based on Typescript/React, including building out component libraries and visual testing processes. Supporting more junior developers and mitigating existing technical debt were also important responsibilities.
 
-- Frontend: Typescript, React, Emotion
-- Backend: Python, Django
+- Frontend: Typescript, React
+- Backend: Python, Django, pytest
+- QA: Playwright
 - Infra: AWS, PostgreSQL, Terraform, Docker
 - Mgmt: Agile, Jira, Confluence
 
