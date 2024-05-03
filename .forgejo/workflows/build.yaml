@@ -16,7 +16,9 @@ jobs:
       options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - run: |
+      - env:
+          BUILDAH_ISOLATION: chroot
+        run: |
           apt update -y && apt install -y buildah
           buildah build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
           buildah push $REGISTRY/$REPOSITORY:$IMAGE_TAG
