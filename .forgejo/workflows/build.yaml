@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - master
+
+env:
+  REGISTRY: registry.home.wtrhs.com
+  REPOSITORY: wtrhs/blog
+  IMAGE_TAG: latest
+
+jobs:
+  build:
+    runs-on: docker
+    container:
+      image: registry.home.wtrhs.com/library/node:20-bookworm
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+      - run:
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
