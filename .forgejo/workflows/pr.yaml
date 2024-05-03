@@ -5,4 +5,10 @@ jobs:
     container:
       image: registry.home.wtrhs.com/library/python:alpine
     steps:
-      - run: echo All Good
+      - run: |
+          python3 -m venv .venv
+          . .venv/bin/activate
+          python3 -m pip install -q -r requirements-test.txt -r requirements.txt
+          black --check --diff .
+          flake8
+          pytest
