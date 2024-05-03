@@ -15,6 +15,6 @@ jobs:
       image: registry.home.wtrhs.com/library/node:20-bookworm
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - run:
+      - run: |
           apt update -y && apt install -y podman
           podman build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
