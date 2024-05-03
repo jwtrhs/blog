@@ -20,5 +20,12 @@ jobs:
           BUILDAH_ISOLATION: chroot
         run: |
           apt update -y && apt install -y buildah
-          buildah build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
+
+          buildah build \
+            --layers
+            --cache-from $REGISTRY/$REPOSITORY-cache \
+            --cache-to $REGISTRY/$REPOSITORY-cache \
+            -t $REGISTRY/$REPOSITORY:$IMAGE_TAG \
+            -f deploy/Containerfile \
+            .
           buildah push $REGISTRY/$REPOSITORY:$IMAGE_TAG
