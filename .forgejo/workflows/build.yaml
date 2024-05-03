@@ -17,4 +17,4 @@ jobs:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - run: |
           apt update -y && apt install -y buildah
-          buildah build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
+          buildah build --isolation=chroot -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f deploy/Containerfile .
