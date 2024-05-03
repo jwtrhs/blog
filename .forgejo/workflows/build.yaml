@@ -22,7 +22,7 @@ jobs:
           apt update -y && apt install -y buildah
 
           buildah build \
-            --layers
+            --layers \
             --cache-from $REGISTRY/$REPOSITORY-cache \
             --cache-to $REGISTRY/$REPOSITORY-cache \
             -t $REGISTRY/$REPOSITORY:$IMAGE_TAG \
