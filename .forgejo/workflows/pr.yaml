@@ -5,6 +5,7 @@ jobs:
     container:
       image: registry.home.wtrhs.com/library/python:alpine
     steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
       - run: |
           python3 -m venv .venv
           . .venv/bin/activate
