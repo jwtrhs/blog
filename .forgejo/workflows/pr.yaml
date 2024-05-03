@@ -2,5 +2,7 @@ on: [push]
 jobs:
   test:
     runs-on: docker
+    container:
+      image: registry.home.wtrhs.com/library/python:alpine
     steps:
       - run: echo All Good
