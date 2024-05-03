@@ -13,6 +13,7 @@ jobs:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/library/node:20-bookworm
+      options: --security-opt label=disable --security-opt seccomp=unconfined
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - run: |
