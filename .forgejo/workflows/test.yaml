@@ -7,16 +7,8 @@ jobs:
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - run: |
-          apt update -y && apt install -y python3 python3-venv
-          python3 -m venv .venv
-          . .venv/bin/activate
+          apt update -y && apt install -y python3
           python3 -m pip install -q -r requirements-test.txt -r requirements.txt
-      - run: |
-          . .venv/bin/activate
-          black --check --diff .
-      - run: |
-          . .venv/bin/activate
-          flake8
-      - run: |
-          . .venv/bin/activate
-          pytest
+      - run: black --check --diff .
+      - run: flake8
+      - run: pytest
