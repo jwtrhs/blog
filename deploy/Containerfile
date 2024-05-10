@@ -3,9 +3,12 @@ FROM python:alpine
 RUN mkdir /srv/app
 WORKDIR /srv/app
 
+ENV VIRTUAL_ENV=/opt/venv
+RUN python -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 COPY requirements.txt .
-RUN python -m venv .venv
-RUN .venv/bin/python -m pip install -r requirements.txt
+RUN python -m pip install -r requirements.txt
 
 COPY deploy/entrypoint.sh .
 COPY content/ content/
@@ -15,5 +18,4 @@ COPY template/ template/
 
 RUN ls -lah .
 
-ENTRYPOINT ["./entrypoint.sh"]
 CMD ["python", "-m", "blog.app"]
