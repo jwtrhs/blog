@@ -1,0 +1,5 @@
+.forgejo
+.git
+.gitignore
+deploy
+tests
