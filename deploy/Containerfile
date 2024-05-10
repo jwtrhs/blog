@@ -10,7 +10,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
 
-COPY deploy/entrypoint.sh .
 COPY content/ content/
 COPY blog/ blog/
 COPY static static/
