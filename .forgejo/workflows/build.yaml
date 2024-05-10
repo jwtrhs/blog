@@ -6,7 +6,7 @@ on:
 env:
   REGISTRY: registry.home.wtrhs.com
   REPOSITORY: wtrhs/blog
-  IMAGE_TAG: latest
+  IMAGE_TAG: ${{ github.sha }}
 
 jobs:
   build:
@@ -25,6 +25,7 @@ jobs:
             --cache-from $REGISTRY/$REPOSITORY-cache \
             --cache-to $REGISTRY/$REPOSITORY-cache \
             -t $REGISTRY/$REPOSITORY:$IMAGE_TAG \
+            -t $REGISTRY/$REPOSITORY:latest \
             -f deploy/Containerfile \
             .
           buildah push $REGISTRY/$REPOSITORY:$IMAGE_TAG
