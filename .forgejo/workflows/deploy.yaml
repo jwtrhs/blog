@@ -13,9 +13,10 @@ jobs:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci-deploy:latest
-      options: --network host --volume /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
+      options: --volume /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
     steps:
       # - uses: https://code.forgejo.org/actions/checkout@v4
       - run: |
+          ls -lah /var/run/secrets/kubernetes.io/serviceaccount/
           kubectl config view
           kubectl get pods
