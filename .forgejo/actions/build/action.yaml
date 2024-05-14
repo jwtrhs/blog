@@ -27,3 +27,4 @@ runs:
           -f deploy/Containerfile \
           .
         buildah push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
+        buildah push ${{ inputs.registry }}/${{ inputs.repository }}:latest
