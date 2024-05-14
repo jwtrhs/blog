@@ -10,8 +10,14 @@ env:
 
 jobs:
   test:
-    uses: ./.forgejo/workflows/test.yaml
+    runs-on: docker
+    container:
+      image: registry.home.wtrhs.com/library/node:20-bookworm
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+      - uses: ./.forgejo/actions/test.yaml
   deploy:
+    needs: [test]
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci-deploy:latest
