@@ -9,7 +9,9 @@ env:
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
-  build:
+  test:
+    uses: ./.forgejo/workflows/test.yaml
+  deploy:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci-deploy:latest
