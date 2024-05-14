@@ -27,3 +27,4 @@ jobs:
             -f deploy/Containerfile \
             .
           buildah push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          buildah push $REGISTRY/$REPOSITORY:latest
