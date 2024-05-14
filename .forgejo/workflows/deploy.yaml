@@ -23,5 +23,4 @@ jobs:
           kubectl config set-context ci --user=ci --namespace=personal --cluster=home
           kubectl config use-context ci
           kubectl config view
-          kubectl cluster-info
-          kubectl get deployments.apps
+          kubectl -n personal rollout restart deployment blog
