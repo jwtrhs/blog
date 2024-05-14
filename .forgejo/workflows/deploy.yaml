@@ -17,9 +17,9 @@ jobs:
     steps:
       # - uses: https://code.forgejo.org/actions/checkout@v4
       - run: |
-          echo $${{ secrets.KUBERNETES_CA_CRT }} | base64 --decode > ca.crt
+          echo "${{ secrets.KUBERNETES_CA_CRT }}"" | base64 --decode > ca.crt
           kubectl config set-cluster home --server=https://home-server.lan --certificate-authority=ca.crt
-          kubectl config set-credentials ci --token=$( echo ${{ secrets.KUBERNETEST_SERVICE_ACCOUNT_TOKEN_PATH }} | base64 --decode )
+          kubectl config set-credentials ci --token=$( echo "${{ secrets.KUBERNETES_SERVICE_ACCOUNT_TOKEN }}" | base64 --decode )
           kubectl config set-context ci --user=ci --namespace=personal --cluster=home
           kubectl config view
           kubectl get pods
