@@ -9,8 +9,8 @@ jobs:
     container:
       image: registry.home.wtrhs.com/library/node:20-bookworm
     steps:
-      - uses: https://code.forgejo.org/actions/checkout@v4
-      - uses: ./.forgejo/actions/test
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/test
   build:
     needs: [test]
     runs-on: docker
@@ -18,8 +18,8 @@ jobs:
       image: registry.home.wtrhs.com/library/node:20-bookworm
       options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
     steps:
-      - uses: https://code.forgejo.org/actions/checkout@v4
-      - uses: ./.forgejo/actions/build
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/build
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
@@ -31,7 +31,6 @@ jobs:
       image: registry.home.wtrhs.com/wtrhs/ci-deploy:latest
       options: --volume /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
     steps:
-      # - uses: https://code.forgejo.org/actions/checkout@v4
       - run: |
           echo "${{ secrets.KUBERNETES_CA_CRT }}" | base64 --decode > ca.crt
           kubectl config set-cluster home --server=https://home-server.lan:16443 --certificate-authority=ca.crt
