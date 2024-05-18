@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: docker
+    runs-on: self-hosted
     container:
       image: registry.home.wtrhs.com/library/node:20-bookworm
     steps:
@@ -13,7 +13,7 @@ jobs:
       - uses: ./.github/actions/test
   build:
     needs: [test]
-    runs-on: docker
+    runs-on: self-hosted
     container:
       image: registry.home.wtrhs.com/library/node:20-bookworm
       options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
@@ -26,7 +26,7 @@ jobs:
           tag: ${{ github.sha }}
   deploy:
     needs: [build]
-    runs-on: docker
+    runs-on: self-hosted
     container:
       image: registry.home.wtrhs.com/wtrhs/ci-deploy:latest
       options: --volume /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
