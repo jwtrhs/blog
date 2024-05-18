@@ -6,17 +6,15 @@ on:
 jobs:
   test:
     runs-on: self-hosted
-    container:
-      image: registry.home.wtrhs.com/library/node:20-bookworm
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/test
   build:
     needs: [test]
     runs-on: self-hosted
-    container:
-      image: registry.home.wtrhs.com/library/node:20-bookworm
-      options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
+    # container:
+    #   image: registry.home.wtrhs.com/library/node:20-bookworm
+    #   options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/build
@@ -27,9 +25,9 @@ jobs:
   deploy:
     needs: [build]
     runs-on: self-hosted
-    container:
-      image: registry.home.wtrhs.com/wtrhs/ci-deploy:latest
-      options: --volume /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
+    # container:
+    #   image: registry.home.wtrhs.com/wtrhs/ci-deploy:latest
+    #   options: --volume /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
     steps:
       - run: |
           echo "${{ secrets.KUBERNETES_CA_CRT }}" | base64 --decode > ca.crt
