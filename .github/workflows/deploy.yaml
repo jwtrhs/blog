@@ -24,6 +24,7 @@ jobs:
         with:
           cache-from: type=registry,ref=registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}-cache
           cache-to: type=registry,ref=registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}-cache,mode=max
+          context: .
           file: deploy/Containerfile
           push: true
           tags: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }},registry.home.wtrhs.com/wtrhs/blog:latest
