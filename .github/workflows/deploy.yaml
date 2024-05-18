@@ -6,6 +6,8 @@ on:
 jobs:
   test:
     runs-on: self-hosted
+    # container:
+    #   image: registry.home.wtrhs.com/library/node:20-bookworm
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/test
@@ -17,11 +19,12 @@ jobs:
     #   options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/build
+      - uses: docker/build-push-action@v5
         with:
-          registry: registry.home.wtrhs.com
-          repository: wtrhs/blog
-          tag: ${{ github.sha }}
+          cache-from: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}-cache
+          cache-to: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}-cache
+          push: true
+          tags: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }},registry.home.wtrhs.com/wtrhs/blog:latest
   deploy:
     needs: [build]
     runs-on: self-hosted
