@@ -21,8 +21,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: docker/build-push-action@v5
         with:
-          cache-from: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}-cache
-          cache-to: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}-cache
+          cache-from: type=registry,ref=registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}-cache
+          cache-to: type=registry,ref=registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}-cache,mode=max
           push: true
           tags: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }},registry.home.wtrhs.com/wtrhs/blog:latest
   deploy:
