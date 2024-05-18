@@ -19,6 +19,7 @@ jobs:
     #   options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v5
         with:
           cache-from: type=registry,ref=registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}-cache
