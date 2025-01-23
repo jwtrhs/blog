@@ -6,7 +6,8 @@ runs:
   steps:
     - shell: bash
       run: |
-        wget -qO- https://astral.sh/uv/install.sh | sh
+        apt update -y -qq && apt install -y -qq cargo
+        cargo install --git https://github.com/astral-sh/uv uv
     - shell: bash
       run: uv tool run ruff check
     - shell: bash
