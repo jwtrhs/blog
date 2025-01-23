@@ -6,8 +6,7 @@ runs:
   steps:
     - shell: bash
       run: |
-        apt update -y && apt upgrade -y
-        curl -LsSf https://astral.sh/uv/install.sh | sh
+        wget -qO- https://astral.sh/uv/install.sh | sh
     - shell: bash
       run: uv tool run ruff check
     - shell: bash
