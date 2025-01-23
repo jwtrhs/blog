@@ -5,9 +5,9 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: echo "Running tests!"
-    - shell: bash
-      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      run: |
+        apt update -y && apt upgrade -y
+        curl -LsSf https://astral.sh/uv/install.sh | sh
     - shell: bash
       run: uv tool run ruff check
     - shell: bash
