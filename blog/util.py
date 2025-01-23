@@ -47,7 +47,9 @@ def parse_markdown(
     with open(os.path.join(root_directory, markdown_file), "r") as f:
         markdown_content = f.read()
         html = md.convert(markdown_content)
-        gemtext = md2gemini.md2gemini(markdown_content, frontmatter=True, links="paragraph")
+        gemtext = md2gemini.md2gemini(
+            markdown_content, frontmatter=True, links="paragraph"
+        )
     metadata = md.Meta
     title = metadata["title"][0] if metadata.get("title") else None
     created_at = metadata["created_at"][0] if metadata.get("created_at") else None
@@ -57,7 +59,9 @@ def parse_markdown(
 
     return {
         "title": title,
-        "created_at": datetime.datetime.fromisoformat(created_at) if created_at else None,
+        "created_at": datetime.datetime.fromisoformat(created_at)
+        if created_at
+        else None,
         "slug": slug,
         "summary": summary,
         "is_draft": is_draft,
@@ -89,7 +93,9 @@ def _get_posts() -> OrderedDict:
         posts[post["slug"]] = post
 
     ordered_posts = OrderedDict()
-    for item in sorted(list(posts.values()), key=lambda it: it["created_at"], reverse=True):
+    for item in sorted(
+        list(posts.values()), key=lambda it: it["created_at"], reverse=True
+    ):
         ordered_posts[item["slug"]] = item
 
     return ordered_posts
