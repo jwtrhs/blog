@@ -1,0 +1,13 @@
+name: Test
+description: Run tests
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+    - shell: bash
+      run: uv tool run ruff check
+    - shell: bash
+      run: uv run pytest
+

@@ -1,5 +1,5 @@
 on:
-  workflow_call:
+  pull_request:
 
 jobs:
   test:
@@ -8,7 +8,4 @@ jobs:
       image: registry.home.wtrhs.com/library/node:20-bookworm
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          uv tool run ruff check
-          uv run pytest
+      - uses: ./.forgejo/actions/test
