@@ -6,8 +6,8 @@ runs:
   steps:
     - shell: bash
       run: |
-        apt update -y -qq && apt install -y -qq cargo
-        cargo install --git https://github.com/astral-sh/uv uv
+        apt update -y -qq && apt install -y -qq python-pipx
+        pipx install uv
     - shell: bash
       run: uv tool run ruff check
     - shell: bash
