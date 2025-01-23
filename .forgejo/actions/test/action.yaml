@@ -6,7 +6,7 @@ runs:
   steps:
     - shell: bash
       run: |
-        apt update -y -qq && apt install -y -qq python-pip
+        apt update -y -qq && apt install -y -qq python3-pip
         pip install uv
     - shell: bash
       run: uv tool run ruff check
