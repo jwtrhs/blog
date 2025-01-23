@@ -6,10 +6,10 @@ runs:
   steps:
     - shell: bash
       run: |
-        apt update -y -qq && apt install -y -qq python3-pip
-        pip install uv
+        apt update -y -qq
+        apt install -y -qq pipx
     - shell: bash
-      run: uv tool run ruff check
+      run: pipx run uv tool run ruff check
     - shell: bash
-      run: uv run pytest
+      run: pipx run uv run pytest
 
