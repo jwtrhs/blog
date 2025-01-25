@@ -28,9 +28,11 @@ jobs:
         #   registry: registry.home.wtrhs.com
         #   repository: wtrhs/blog
         #   tag: ${{ github.sha }}
-        
       - run: |
-          build \
+          sudo apt update -y
+          sudo apt install -y podman
+      - run: |
+          podman --remote build \
           --layers \
           --cache-from $REGISTRY/$REPOSITORY-cache \
           --cache-to $REGISTRY/$REPOSITORY-cache \
