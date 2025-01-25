@@ -16,7 +16,7 @@ jobs:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/library/node:20-bookworm
-      options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
+      options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined --privileged
     env:
       REGISTRY: registry.home.wtrhs.com
       REPOSITORY: wtrhs/blog
