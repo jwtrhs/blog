@@ -29,8 +29,8 @@ jobs:
         #   repository: wtrhs/blog
         #   tag: ${{ github.sha }}
       - run: |
-          sudo apt update -y
-          sudo apt install -y podman
+          apt update -y
+          apt install -y podman
       - run: |
           podman --remote build \
           --layers \
