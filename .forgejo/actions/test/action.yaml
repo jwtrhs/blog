@@ -12,4 +12,3 @@ runs:
       run: pipx run uv tool run ruff check
     - shell: bash
       run: pipx run uv run pytest
-
