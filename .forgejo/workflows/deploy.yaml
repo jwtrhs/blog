@@ -16,30 +16,20 @@ jobs:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/library/node:20-bookworm
-      # options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
+      options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined
     env:
       REGISTRY: registry.home.wtrhs.com
       REPOSITORY: wtrhs/blog
       IMAGE_TAG: ${{ github.sha }}
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
-      # - uses: ./.forgejo/actions/build
-        # with:
-        #   registry: registry.home.wtrhs.com
-        #   repository: wtrhs/blog
-        #   tag: ${{ github.sha }}
-      - run: |
-          apt update -y
-          apt install -y podman
-      - run: |
-          podman --remote build \
-          --layers \
-          --cache-from $REGISTRY/$REPOSITORY-cache \
-          --cache-to $REGISTRY/$REPOSITORY-cache \
-          -t $REGISTRY/$REPOSITORY:$IMAGE_TAG \
-          -t $REGISTRY/$REPOSITORY:latest \
-          -f deploy/Containerfile \
-          .
+      - uses: ./.forgejo/actions/build
+        with:
+          registry: registry.home.wtrhs.com
+          repository: wtrhs/blog
+          tag: ${{ github.sha }}
+          container_file: deploy/Containerfile
+
   # deploy:
   #   needs: [build]
   #   runs-on: docker
