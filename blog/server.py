@@ -33,7 +33,6 @@ class UnknownProtocolError(Exception):
 
 
 class ServerError(Exception):
-
     status: Status
 
     def __init__(self, status: Status):
@@ -45,7 +44,6 @@ class ServerError(Exception):
 
 @dataclass(frozen=True)
 class Request:
-
     protocol: str
     method: typing.Optional[str]
     url: str
@@ -75,21 +73,24 @@ class Request:
 
 @dataclass(frozen=True)
 class Response:
-
     status: Status
     mime_type: typing.Optional[str] = None
     body: typing.Optional[bytes] = None
 
     def dumpb(self, protocol: str) -> bytes:
         if protocol == _PROTOCOL_HTTP:
-            response = f"HTTP/1.1 {self.status.http} {self.status.phrase}\r\n".encode("utf-8")
+            response = f"HTTP/1.1 {self.status.http} {self.status.phrase}\r\n".encode(
+                "utf-8"
+            )
             if self.mime_type:
                 response += f"Content-Type: {self.mime_type}\r\n".encode("utf-8")
             response += b"\r\n"
             if self.body:
                 response += self.body
         elif protocol == _PROTOCOL_GEMINI:
-            response = f"{self.status.gemini} {self.mime_type or ''}\r\n".encode("utf-8")
+            response = f"{self.status.gemini} {self.mime_type or ''}\r\n".encode(
+                "utf-8"
+            )
             if self.body:
                 response += self.body
         else:
@@ -122,7 +123,6 @@ class Handler:
 
 @dataclass(frozen=True)
 class Route:
-
     path: str
     handler: Handler
 
@@ -184,10 +184,14 @@ class Server:
                     response = self._match_route(request)
                 except ServerError as error:
                     _LOG.info(error)
-                    response = self._handle_error_response(request=request, status=error.status)
+                    response = self._handle_error_response(
+                        request=request, status=error.status
+                    )
                 except RuntimeError as error:
                     _LOG.error(error)
-                    response = self._handle_error_response(request=request, status=STATUS_ERROR)
+                    response = self._handle_error_response(
+                        request=request, status=STATUS_ERROR
+                    )
                 except UnknownProtocolError as error:
                     _LOG.warn(error)
                 except socket.error as error:

@@ -1,0 +1,18 @@
+name: Test
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: docker
+    container:
+      image: registry.home.wtrhs.com/library/node:20-bookworm
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+      - shell: bash
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - shell: bash
+        run: uv tool run ruff check
+      - shell: bash
+        run: uv run pytest
