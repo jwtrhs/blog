@@ -5,10 +5,8 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: |
-        apt update -y -qq
-        apt install -y -qq pipx
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
     - shell: bash
-      run: pipx run uv tool run ruff check
+      run: uv tool run ruff check
     - shell: bash
-      run: pipx run uv run pytest
+      run: uv run pytest
