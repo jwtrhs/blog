@@ -3,9 +3,4 @@ on:
 
 jobs:
   test:
-    runs-on: docker
-    container:
-      image: registry.home.wtrhs.com/library/node:20-bookworm
-    steps:
-      - uses: https://code.forgejo.org/actions/checkout@v4
-      - uses: ./.forgejo/actions/test
+    uses: ./.forgejo/workflows/test.yaml
