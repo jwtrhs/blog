@@ -1,0 +1,35 @@
+name: Build
+description: Build container image
+
+inputs:
+  registry:
+    description: Registry
+    required: true
+  repository:
+    description: Repository
+    required: true
+  tag:
+    description: Image tag
+    required: true
+  container_file:
+    description: Container file
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        apt update -y -qq
+        apt install -y -qq buildah
+        buildah build \
+          --layers \
+          --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
+          --cache-to ${{ inputs.registry }}/${{ inputs.repository }}-cache \
+          -t ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }} \
+          -t ${{ inputs.registry }}/${{ inputs.repository }}:latest \
+          -f ${{ inputs.container_file }} \
+          .
+        buildah push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
+        buildah push ${{ inputs.registry }}/${{ inputs.repository }}:latest
+
