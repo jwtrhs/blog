@@ -3,9 +3,12 @@ on:
 
 jobs:
   test:
-    runs-on: docker
+    # runs-on: docker
+    # container:
+    #   image: registry.home.wtrhs.com/library/node:20-bookworm
+    runs-on: lxc
     container:
-      image: registry.home.wtrhs.com/library/node:20-bookworm
+      image: debian:bookworm
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/test
