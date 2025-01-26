@@ -15,9 +15,9 @@ jobs:
     runs-on: docker
     container:
       image: quay.io/buildah/stable
-      # options: --device /dev/fuse:rw --security-opt label=disable --security-opt seccomp=unconfined
+      options: --device /dev/fuse:rw --security-opt label=disable --security-opt seccomp=unconfined
     steps:
-      - run: dnf -q -y install git nodejs
+      - run: dnf -q -y install fuse git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
         env:
