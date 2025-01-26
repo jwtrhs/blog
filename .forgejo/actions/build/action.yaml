@@ -23,6 +23,7 @@ runs:
         BUILDAH_ISOLATION: chroot
       run: |
         buildah build \
+          --isolation chroot \
           --layers \
           --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
           --cache-to ${{ inputs.registry }}/${{ inputs.repository }}-cache \
