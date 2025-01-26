@@ -20,6 +20,8 @@ jobs:
       - run: dnf -q -y install git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
+        env:
+          BUILDAH_ISOLATION: chroot
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog

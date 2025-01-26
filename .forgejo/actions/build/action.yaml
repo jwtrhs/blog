@@ -19,6 +19,8 @@ runs:
   using: composite
   steps:
     - shell: bash
+      env:
+        BUILDAH_ISOLATION: chroot
       run: |
         buildah build \
           --layers \
