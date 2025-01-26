@@ -16,9 +16,7 @@ jobs:
     container:
       image: quay.io/podman/stable
     steps:
-      - run: |
-          apt update -y -qq
-          apt install -y -qq node
+      - run: dnf module install nodejs:20/common
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
         with:
