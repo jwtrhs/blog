@@ -31,12 +31,12 @@ jobs:
       - env:
           BUILDAH_ISOLATION: chroot
         run: |
-          apt update -y && apt install -y buildah
-          buildah build \
+          apt update -y && apt install -y podman
+          podman build \
             --layers \
             --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
             --cache-to ${{ inputs.registry }}/${{ inputs.repository }}-cache \
             -t ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }} \
             -f ${{ inputs.container_file }} \
             .
-          buildah push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
+          podman push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
