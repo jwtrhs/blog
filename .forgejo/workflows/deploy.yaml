@@ -16,7 +16,7 @@ jobs:
     container:
       image: quay.io/podman/stable
     steps:
-      - run: dnf install nodejs
+      - run: dnf -q -y install nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
         with:
