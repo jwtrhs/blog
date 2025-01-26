@@ -20,7 +20,7 @@ runs:
   steps:
     - shell: bash
       run: |
-        podman build \
+        buildah build \
           --layers \
           --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
           --cache-to ${{ inputs.registry }}/${{ inputs.repository }}-cache \
@@ -28,6 +28,5 @@ runs:
           -t ${{ inputs.registry }}/${{ inputs.repository }}:latest \
           -f ${{ inputs.container_file }} \
           .
-        podman push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
-        podman push ${{ inputs.registry }}/${{ inputs.repository }}:latest
-
+        buildah push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
+        buildah push ${{ inputs.registry }}/${{ inputs.repository }}:latest
