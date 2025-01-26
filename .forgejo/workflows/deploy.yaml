@@ -12,23 +12,12 @@ jobs:
   #     - uses: https://code.forgejo.org/actions/checkout@v4
   #     - uses: ./.forgejo/actions/test
   build:
-    # needs: [test]
-    runs-on: docker
-    container:
-      image: registry.home.wtrhs.com/library/node:20-bookworm
-      options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined --privileged
-    env:
-      REGISTRY: registry.home.wtrhs.com
-      REPOSITORY: wtrhs/blog
-      IMAGE_TAG: ${{ github.sha }}
-    steps:
-      - uses: https://code.forgejo.org/actions/checkout@v4
-      - uses: ./.forgejo/actions/build
-        with:
-          registry: registry.home.wtrhs.com
-          repository: wtrhs/blog
-          tag: ${{ github.sha }}
-          container_file: deploy/Containerfile
+    uses: ./.forgejo/workflows/build.yaml
+    with:
+      registry: registry.home.wtrhs.com
+      repository: wtrhs/blog
+      tag: ${{ github.sha }}
+      container_file: deploy/Containerfile
 
   # deploy:
   #   needs: [build]
