@@ -12,12 +12,17 @@ jobs:
   #     - uses: https://code.forgejo.org/actions/checkout@v4
   #     - uses: ./.forgejo/actions/test
   build:
-    uses: ./.forgejo/workflows/build.yaml
-    with:
-      registry: registry.home.wtrhs.com
-      repository: wtrhs/blog
-      tag: ${{ github.sha }}
-      container_file: deploy/Containerfile
+    runs-on: docker
+    container:
+      image: registry.home.wtrhs.com/library/node:20-bookworm
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+      - uses: ./.forgejo/actions/build.yaml
+        with:
+          registry: registry.home.wtrhs.com
+          repository: wtrhs/blog
+          tag: ${{ github.sha }}
+          container_file: deploy/Containerfile
 
   # deploy:
   #   needs: [build]
