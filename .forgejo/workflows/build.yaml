@@ -24,14 +24,17 @@ jobs:
   build:
     runs-on: docker
     container:
-      image: registry.home.wtrhs.com/library/node:20-bookworm
-      options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined --privileged
+      image: quay.io/podman/stable
+      # options: --device /dev/fuse --security-opt label=disable --security-opt seccomp=unconfined --privileged
     steps:
+      - run: |
+          apt update -y
+          apt install node
       - uses: https://code.forgejo.org/actions/checkout@v4
       - env:
           BUILDAH_ISOLATION: chroot
         run: |
-          apt update -y && apt install -y podman
+          # apt update -y && apt install -y podman
           podman build \
             --layers \
             --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
