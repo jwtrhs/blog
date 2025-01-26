@@ -17,7 +17,7 @@ jobs:
       image: registry.home.wtrhs.com/library/node:20-bookworm
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - uses: ./.forgejo/actions/build.yaml
+      - uses: ./.forgejo/actions/build
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
