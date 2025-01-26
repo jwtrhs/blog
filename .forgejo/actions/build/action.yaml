@@ -20,8 +20,6 @@ runs:
   steps:
     - shell: bash
       run: |
-        apt update -y -qq
-        apt install -y -qq buildah
         buildah build \
           --layers \
           --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
