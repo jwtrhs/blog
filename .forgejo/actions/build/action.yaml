@@ -27,6 +27,7 @@ runs:
         TAGS: ${{ inputs.tags }}
         CONTAINER_FILE: ${{ inputs.container_file }}
       run: |
+        echo "Building ${IMAGE_NAME} from ${CONTAINER_FILE}"
         buildah build \
           --cache-from ${IMAGE_NAME}-cache \
           --cache-to ${IMAGE_NAME}-cache \
@@ -36,5 +37,6 @@ runs:
 
         for TAG in ${TAGS//,/ };
         do
+          echo "Pushing ${IMAGE_NAME} ${IMAGE_NAME}:${TAG}"
           buildah push ${IMAGE_NAME} ${IMAGE_NAME}:${TAG};
         done
