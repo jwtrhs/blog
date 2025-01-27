@@ -1,0 +1,8 @@
+namespace: personal
+resources:
+  - blog.yaml
+images:
+  - name: registry.home.wtrhs.com/wtrhs/blog
+    newTag: latest
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
