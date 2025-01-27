@@ -24,7 +24,7 @@ jobs:
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
-          tag: ${{ github.sha }}
+          tags: ${{ github.sha }},latest
           container_file: deploy/Containerfile
 
   # deploy:

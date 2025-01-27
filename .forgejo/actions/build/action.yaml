@@ -1,5 +1,5 @@
-name: Build
-description: Build container image
+name: Build and push
+description: Build and push a container image
 
 inputs:
   registry:
@@ -8,8 +8,8 @@ inputs:
   repository:
     description: Repository
     required: true
-  tag:
-    description: Image tag
+  tags:
+    description: Comma-seperated list of image tags
     required: true
   container_file:
     description: Container file
@@ -27,9 +27,11 @@ runs:
           --layers \
           --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
           --cache-to ${{ inputs.registry }}/${{ inputs.repository }}-cache \
-          -t ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }} \
-          -t ${{ inputs.registry }}/${{ inputs.repository }}:latest \
+          -t ${{ inputs.registry }}/${{ inputs.repository }} \
           -f ${{ inputs.container_file }} \
           .
-        buildah push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
-        buildah push ${{ inputs.registry }}/${{ inputs.repository }}:latest
+        TAGS=${{ inputs.tags }}
+        for tag in ${TAGS//,/ };
+        do
+          buildah push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag };
+        done
