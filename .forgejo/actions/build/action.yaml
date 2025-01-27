@@ -20,11 +20,11 @@ runs:
   steps:
     - shell: bash
       env:
-        STORAGE_DRIVER: vfs
         BUILDAH_ISOLATION: chroot
+        BUILDAH_LAYERS: "true"
+        STORAGE_DRIVER: vfs
       run: |
         buildah build \
-          --layers \
           --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
           --cache-to ${{ inputs.registry }}/${{ inputs.repository }}-cache \
           -t ${{ inputs.registry }}/${{ inputs.repository }} \
