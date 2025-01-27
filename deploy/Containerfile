@@ -1,5 +1,7 @@
 FROM python:alpine
 
+RUN apk add curl
+
 RUN mkdir /srv/app
 WORKDIR /srv/app
 
