@@ -33,5 +33,5 @@ runs:
         TAGS=${{ inputs.tags }}
         for tag in ${TAGS//,/ };
         do
-          buildah push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag };
+          buildah push ${{ inputs.registry }}/${{ inputs.repository }} ${{ inputs.registry }}/${{ inputs.repository }}:$tag;
         done
