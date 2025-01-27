@@ -14,33 +14,23 @@ on:
         description: Container file
         required: true
 
-env:
-  REGISTRY: registry.home.wtrhs.com
-  REPOSITORY: wtrhs/blog
-  IMAGE_TAG: ${{ github.sha }}
-  CONTAINER_FILE: deploy/Containerfile
-  BUILDAH_ISOLATION: chroot
-
 jobs:
   build:
     runs-on: docker
     container:
-      image: quay.io/podman/stable
-      options: --device /dev/fuse:rw --security-opt label=disable --security-opt seccomp=unconfined
+      image: quay.io/buildah/stable
     steps:
-      - run: |
-          apt update -y
-          apt install -y node
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - env:
-          BUILDAH_ISOLATION: chroot
-        run: |
-          # apt update -y && apt install -y podman
-          podman build \
+      - run: |
+          buildah build \
+            --storage-driver vfs \
+            --isolation chroot \
             --layers \
             --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
             --cache-to ${{ inputs.registry }}/${{ inputs.repository }}-cache \
             -t ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }} \
+            -t ${{ inputs.registry }}/${{ inputs.repository }}:latest \
             -f ${{ inputs.container_file }} \
             .
-          podman push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
+          buildah push --storage-driver vfs ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
+          buildah push --storage-driver vfs ${{ inputs.registry }}/${{ inputs.repository }}:latest

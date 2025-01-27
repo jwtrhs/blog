@@ -20,11 +20,10 @@ runs:
   steps:
     - shell: bash
       env:
+        STORAGE_DRIVER: vfs
         BUILDAH_ISOLATION: chroot
       run: |
         buildah build \
-          --storage-driver vfs \
-          --isolation chroot \
           --layers \
           --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
           --cache-to ${{ inputs.registry }}/${{ inputs.repository }}-cache \
@@ -32,5 +31,5 @@ runs:
           -t ${{ inputs.registry }}/${{ inputs.repository }}:latest \
           -f ${{ inputs.container_file }} \
           .
-        buildah push --storage-driver vfs ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
-        buildah push --storage-driver vfs ${{ inputs.registry }}/${{ inputs.repository }}:latest
+        buildah push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
+        buildah push ${{ inputs.registry }}/${{ inputs.repository }}:latest
