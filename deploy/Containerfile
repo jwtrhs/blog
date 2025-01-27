@@ -1,11 +1,9 @@
 FROM python:alpine
 
-RUN apk add curl
+RUN apk add uv
 
 RUN mkdir /srv/app
 WORKDIR /srv/app
-
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 COPY . .
 
