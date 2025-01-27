@@ -23,15 +23,18 @@ runs:
         BUILDAH_ISOLATION: chroot
         BUILDAH_LAYERS: "true"
         STORAGE_DRIVER: vfs
+        IMAGE_NAME: ${{ inputs.registry }}/${{ inputs.repository }}
+        TAGS: ${{ inputs.tags }}
+        CONTAINER_FILE: ${{ inputs.container_file }}
       run: |
         buildah build \
-          --cache-from ${{ inputs.registry }}/${{ inputs.repository }}-cache \
-          --cache-to ${{ inputs.registry }}/${{ inputs.repository }}-cache \
-          -t ${{ inputs.registry }}/${{ inputs.repository }} \
-          -f ${{ inputs.container_file }} \
+          --cache-from ${IMAGE_NAME}-cache \
+          --cache-to ${IMAGE_NAME}-cache \
+          -t ${IMAGE_NAME} \
+          -f ${CONTAINER_FILE} \
           .
-        TAGS=${{ inputs.tags }}
-        for tag in ${TAGS//,/ };
+
+        for TAG in ${TAGS//,/ };
         do
-          buildah push ${{ inputs.registry }}/${{ inputs.repository }} ${{ inputs.registry }}/${{ inputs.repository }}:$tag;
+          buildah push ${IMAGE_NAME} ${IMAGE_NAME}:${TAG};
         done
