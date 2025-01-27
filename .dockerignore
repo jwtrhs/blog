@@ -1,5 +1,6 @@
 .forgejo
 .git
 .gitignore
+.github
 deploy
 tests
