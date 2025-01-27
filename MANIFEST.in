@@ -1,4 +1,0 @@
-recursive-include content *
-recursive-include deploy *
-recursive-include static *
-recursive-include template *
