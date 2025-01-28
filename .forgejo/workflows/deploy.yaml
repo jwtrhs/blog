@@ -30,8 +30,9 @@ jobs:
     runs-on: docker
     container:
       image: alpine:latest
-      # volumes:
-      #   - /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
+      volumes:
+        # - /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
+        - /tmp/kubectl-proxy-socket:/tmp/kubectl-proxy-socket
     steps:
       - run: apk add curl git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
@@ -55,7 +56,7 @@ jobs:
           # CACERT=${SERVICEACCOUNT}/ca.crt
           
           # Explore the API with TOKEN
-          curl -X GET ${APISERVER}/api
+          curl --unix-socket /tmp/kubectl-proxy-socket/proxy.sock -X GET http://localhost/api
         
       # - run: |
       #     echo "${{ secrets.KUBERNETES_CA_CRT }}" | base64 --decode > ca.crt
