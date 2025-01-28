@@ -19,28 +19,48 @@ jobs:
       - run: dnf -q -y install git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
-        env:
-          BUILDAH_ISOLATION: chroot
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
           container_file: deploy/Containerfile
 
-  # deploy:
-  #   needs: [build]
-  #   runs-on: docker
-  #   container:
-  #     image: registry.home.wtrhs.com/wtrhs/ci-deploy:latest
-  #     options: --volume /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
-  #   steps:
-  #     # - uses: https://code.forgejo.org/actions/checkout@v4
-  #     - run: |
-  #         echo "${{ secrets.KUBERNETES_CA_CRT }}" | base64 --decode > ca.crt
-  #         kubectl config set-cluster home --server=https://home-server.lan:16443 --certificate-authority=ca.crt
-  #         kubectl config set-credentials ci --token=$( echo "${{ secrets.KUBERNETES_SERVICE_ACCOUNT_TOKEN }}" | base64 --decode )
-  #         kubectl config set-context ci --user=ci --namespace=personal --cluster=home
-  #         kubectl config use-context ci
-  #         kubectl config view
-  #         kubectl -n personal rollout restart deployment blog
+  deploy:
+    needs: [build]
+    runs-on: docker
+    container:
+      image: alpine:latest
+      volumes:
+        - /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
+    steps:
+      - run: apk add git kubectl kustomize nodejs
+      - uses: https://code.forgejo.org/actions/checkout@v4
+      - run: |
+          # Point to the internal API server hostname
+          # APISERVER=https://kubernetes.default.svc
+          APISERVER=http://host.containers.internal
+          
+          # Path to ServiceAccount token
+          SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
+          
+          # Read this Pod's namespace
+          NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
+          
+          # Read the ServiceAccount bearer token
+          TOKEN=$(cat ${SERVICEACCOUNT}/token)
+          
+          # Reference the internal certificate authority (CA)
+          CACERT=${SERVICEACCOUNT}/ca.crt
+          
+          # Explore the API with TOKEN
+          curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api
+        
+      # - run: |
+      #     echo "${{ secrets.KUBERNETES_CA_CRT }}" | base64 --decode > ca.crt
+      #     kubectl config set-cluster home --server=https://home-server.lan:16443 --certificate-authority=ca.crt
+      #     kubectl config set-credentials ci --token=$( echo "${{ secrets.KUBERNETES_SERVICE_ACCOUNT_TOKEN }}" | base64 --decode )
+      #     kubectl config set-context ci --user=ci --namespace=personal --cluster=home
+      #     kubectl config use-context ci
+      #     kubectl config view
+      #     kubectl -n personal rollout restart deployment blog
 
