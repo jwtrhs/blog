@@ -54,6 +54,8 @@ jobs:
           
           # # Reference the internal certificate authority (CA)
           # CACERT=${SERVICEACCOUNT}/ca.crt
+          ls -lah /kubectl-proxy-socket
+          id
           
           # Explore the API with TOKEN
           curl --unix-socket /kubectl-proxy-socket/proxy.sock -X GET http://localhost/api
