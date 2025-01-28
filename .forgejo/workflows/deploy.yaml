@@ -43,6 +43,8 @@ jobs:
           # Path to ServiceAccount token
           SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
           
+          ls -lah $SERVICEACCOUNT
+          
           # Read this Pod's namespace
           NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
           
