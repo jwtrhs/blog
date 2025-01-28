@@ -33,7 +33,7 @@ jobs:
       # volumes:
       #   - /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
     steps:
-      - run: apk add git kubectl kustomize nodejs
+      - run: apk add curl git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - run: |
           # Point to the internal API server hostname
