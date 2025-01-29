@@ -33,7 +33,6 @@ jobs:
         # Access to the kubectl proxy socket
         - /kubectl-proxy-socket:/kubectl-proxy-socket
     steps:
-      - uses: https://code.forgejo.org/actions/checkout@v4
       - env:
           NAMESPACE: personal
           DEPLOYMENT_NAME: blog
