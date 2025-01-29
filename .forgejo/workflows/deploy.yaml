@@ -22,10 +22,11 @@ jobs:
     needs: [build]
     runs-on: docker
     container:
-      image: quay.io/podman/stable
+      image: alpine
     env:
       STORAGE_DRIVER: vfs
     steps:
+      - run: apk add podman
       - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv tool run ruff check
       - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv run pytest
 

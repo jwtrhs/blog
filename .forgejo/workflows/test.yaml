@@ -4,7 +4,7 @@ on:
     branches:
       - master
 jobs:
-  build-and-test:
+  build:
     runs-on: docker
     container:
       image: quay.io/buildah/stable
@@ -22,7 +22,6 @@ jobs:
     needs: [build]
     runs-on: docker
     container:
-      # image: quay.io/podman/stable
       image: alpine
     env:
       STORAGE_DRIVER: vfs
