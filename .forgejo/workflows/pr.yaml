@@ -5,10 +5,9 @@ jobs:
   test:
     runs-on: docker
     container:
-      image: alpine
+      image: python:alpine
     steps:
       - run: apk add git nodejs uv
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - run: uv python install
       - run: uv tool run ruff check
       - run: uv run pytest
