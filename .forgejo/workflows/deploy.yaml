@@ -17,9 +17,18 @@ jobs:
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
           container_file: deploy/Containerfile
+          
+  test:
+    needs: [test]
+    runs-on: docker
+    container:
+      image: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}
+    steps:
+      - run: uv tool run ruff check
+      - run: uv run pytest
 
   deploy:
-    needs: [build]
+    needs: [build, test]
     runs-on: docker
     container:
       image: alpine
