@@ -5,7 +5,7 @@ on:
       - master
 
 jobs:
-  build:
+  build-and-test:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci
@@ -15,14 +15,16 @@ jobs:
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
-          tags: ${{ github.sha }}
           container_file: deploy/Containerfile
+      - uses: ./.forgejo/actions/test
+        with:
+          image: registry.home.wtrhs.com/wtrhs/blog
 
-  test:
-    needs: [build]
-    runs-on: docker
-    container:
-      image: registry.home.wtrhs.com/wtrhs/ci
-    steps:
-      - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv tool run ruff check
-      - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv run pytest
+  # test:
+  #   needs: [build]
+  #   runs-on: docker
+  #   container:
+  #     image: registry.home.wtrhs.com/wtrhs/ci
+  #   steps:
+  #     - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv tool run ruff check
+  #     - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv run pytest
