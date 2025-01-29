@@ -73,6 +73,7 @@ jobs:
 
           curl \
             --unix-socket /kubectl-proxy-socket/proxy.sock \
+            --fail \
             -XPATCH \
             -d "$(echo $PATCH | envsubst)" \
             -H "Content-Type: application/strategic-merge-patch+json" \
