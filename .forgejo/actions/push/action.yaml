@@ -1,5 +1,5 @@
-name: Build
-description: Build a container image
+name: Push
+description: Push a container image
 
 inputs:
   registry:
@@ -8,8 +8,8 @@ inputs:
   repository:
     description: Repository
     required: true
-  container_file:
-    description: Container file
+  tags:
+    description: Comma-seperated list of image tags
     required: true
 
 runs:
@@ -21,7 +21,7 @@ runs:
         BUILDAH_LAYERS: "true"
         STORAGE_DRIVER: vfs
         IMAGE_NAME: ${{ inputs.registry }}/${{ inputs.repository }}
-        CONTAINER_FILE: ${{ inputs.container_file }}
+        TAGS: ${{ inputs.tags }}
       run: |
         echo "Building ${IMAGE_NAME} from ${CONTAINER_FILE}"
         buildah build \
@@ -30,3 +30,9 @@ runs:
           -t ${IMAGE_NAME} \
           -f ${CONTAINER_FILE} \
           .
+
+        for TAG in ${TAGS//,/ };
+        do
+          echo "Pushing ${IMAGE_NAME} ${IMAGE_NAME}:${TAG}"
+          buildah push ${IMAGE_NAME} ${IMAGE_NAME}:${TAG};
+        done
