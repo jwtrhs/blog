@@ -22,7 +22,7 @@ jobs:
     needs: [build]
     runs-on: docker
     container:
-      image: alpine:latest
+      image: alpine
       volumes:
         # Access to the kubectl proxy socket
         - /kubectl-proxy-socket:/kubectl-proxy-socket
