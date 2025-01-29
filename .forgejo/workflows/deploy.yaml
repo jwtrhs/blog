@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: docker
     container:
-      image: registry.home.wtrhs.com/wtrhs/buildah
+      image: registry.home.wtrhs.com/wtrhs/ci
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
@@ -21,11 +21,8 @@ jobs:
     needs: [build]
     runs-on: docker
     container:
-      image: alpine
-    env:
-      STORAGE_DRIVER: vfs
+      image: registry.home.wtrhs.com/wtrhs/ci
     steps:
-      - run: apk add podman
       - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv tool run ruff check
       - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv run pytest
 
@@ -33,12 +30,11 @@ jobs:
     needs: [build, test]
     runs-on: docker
     container:
-      image: alpine
+      image: registry.home.wtrhs.com/wtrhs/ci
       volumes:
         # Access to the kubectl proxy socket
         - /kubectl-proxy-socket:/kubectl-proxy-socket
     steps:
-      - run: apk add curl envsubst git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - env:
           NAMESPACE: personal
