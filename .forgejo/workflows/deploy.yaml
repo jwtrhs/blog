@@ -36,30 +36,47 @@ jobs:
     steps:
       - run: apk add curl git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - run: |
-          # Point to the internal API server hostname
-          # APISERVER=https://kubernetes.default.svc
-          APISERVER=http://host.containers.internal:8011
-          
-          # # Path to ServiceAccount token
-          # SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
-          
-          # ls -lah $SERVICEACCOUNT
-          
-          # # Read this Pod's namespace
-          # NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
-          
-          # # Read the ServiceAccount bearer token
-          # TOKEN=$(cat ${SERVICEACCOUNT}/token)
-          
-          # # Reference the internal certificate authority (CA)
-          # CACERT=${SERVICEACCOUNT}/ca.crt
-          ls -lah /kubectl-proxy-socket
-          id
-          
+      - env:
+          NAMESPACE: personal
+          DEPLOYMENT_NAME: blog
+          CONTAINER_NAME: blog
+          IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
           # Explore the API with TOKEN
-          curl --unix-socket /kubectl-proxy-socket/proxy.sock -X GET http://localhost/api
-        
+          curl \
+            --unix-socket /kubectl-proxy-socket/proxy.sock \
+            -XGET \
+            http://localhost/apis/apps/v1/namespaces/personal/deploments/blog/
+            
+          PATCH='
+          {
+            "spec": {
+              "template": {
+                "spec": {
+                  "$setElementOrder/containers": [
+                    {
+                      "name": "${DEPLOYMENT_NAME}"
+                    }
+                  ],
+                  "containers": [
+                    {
+                      "image": "${IMAGE_NAME}:${IMAGE_TAG}",
+                      "name": "${CONTAINER_NAME}"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+          '
+
+          curl \
+            --unix-socket /kubectl-proxy-socket/proxy.sock \
+            -XPATCH \
+            -d "${PATCH}" \
+            -H "Content-Type: application/strategic-merge-patch+json" \
+            "http://localhost/apis/apps/v1/namespaces/${NAMESPACE}/deploments/${DEPLOYMENT_NAME}/"  
       # - run: |
       #     echo "${{ secrets.KUBERNETES_CA_CRT }}" | base64 --decode > ca.crt
       #     kubectl config set-cluster home --server=https://home-server.lan:16443 --certificate-authority=ca.crt
