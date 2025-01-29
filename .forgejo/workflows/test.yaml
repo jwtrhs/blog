@@ -7,11 +7,9 @@ jobs:
   build:
     runs-on: docker
     container:
-      # image: quay.io/buildah/stable
-      image: alpine
+      image: quay.io/buildah/stable
     steps:
-      # - run: dnf -q -y install git nodejs
-      - run: apk add bash buildah git nodejs
+      - run: dnf -q -y install git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
         with:
