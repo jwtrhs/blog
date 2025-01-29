@@ -22,11 +22,10 @@ jobs:
     needs: [build]
     runs-on: docker
     container:
-      image: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}
+      image: quay.io/podman/stable
     steps:
-      - run: ls -lah
-      - run: uv tool run ruff check
-      - run: uv run pytest
+      - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv tool run ruff check
+      - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv run pytest
 
   deploy:
     needs: [build, test]
