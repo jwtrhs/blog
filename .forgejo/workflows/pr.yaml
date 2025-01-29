@@ -3,7 +3,7 @@ on:
 
 jobs:
   test:
-    uses: ./.forgejo/workflows/test
+    uses: ./.forgejo/workflows/test.yaml
     # runs-on: docker
     # container:
     #   image: python:alpine
