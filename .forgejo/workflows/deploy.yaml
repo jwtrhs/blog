@@ -4,41 +4,44 @@ on:
       - master
 
 jobs:
-  build:
+  build-test-and-push:
     runs-on: docker
     container:
-      image: registry.home.wtrhs.com/wtrhs/buildah
+      image: registry.home.wtrhs.com/wtrhs/ci
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
-          tags: ${{ github.sha }},latest
           container_file: deploy/Containerfile
+      - uses: ./.forgejo/actions/test
+        with:
+          image: registry.home.wtrhs.com/wtrhs/blog
+      - uses: ./.forgejo/actions/push
+        with:
+          registry: registry.home.wtrhs.com
+          repository: wtrhs/blog
+          tags: ${{ github.sha }},latest
 
-  test:
-    needs: [build]
-    runs-on: docker
-    container:
-      image: alpine
-    env:
-      STORAGE_DRIVER: vfs
-    steps:
-      - run: apk add podman
-      - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv tool run ruff check
-      - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv run pytest
+  # test:
+  #   needs: [build]
+  #   runs-on: docker
+  #   container:
+  #     image: registry.home.wtrhs.com/wtrhs/ci
+  #   steps:
+  #     - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv tool run ruff check
+  #     - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv run pytest
 
   deploy:
-    needs: [build, test]
+    needs: [build-test-and-push]
     runs-on: docker
     container:
-      image: alpine
+      image: registry.home.wtrhs.com/wtrhs/ci
       volumes:
         # Access to the kubectl proxy socket
         - /kubectl-proxy-socket:/kubectl-proxy-socket
     steps:
-      - run: apk add curl envsubst git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - env:
           NAMESPACE: personal

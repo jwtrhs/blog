@@ -1,0 +1,15 @@
+name: Test
+description: Test a container image
+
+inputs:
+  image:
+    description: Registry
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        podman run ${{ inputs.image }} uv tool run ruff check
+        podman run ${{ inputs.image }} uv run pytest
