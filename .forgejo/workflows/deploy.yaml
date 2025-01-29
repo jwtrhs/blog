@@ -4,13 +4,6 @@ on:
       - master
 
 jobs:
-  # test:
-  #   runs-on: docker
-  #   container:
-  #     image: registry.home.wtrhs.com/library/node:20-bookworm
-  #   steps:
-  #     - uses: https://code.forgejo.org/actions/checkout@v4
-  #     - uses: ./.forgejo/actions/test
   build:
     runs-on: docker
     container:
@@ -31,7 +24,7 @@ jobs:
     container:
       image: alpine:latest
       volumes:
-        # - /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount:ro
+        # Access to the kubectl proxy socket
         - /kubectl-proxy-socket:/kubectl-proxy-socket
     steps:
       - run: apk add curl envsubst git nodejs
@@ -43,13 +36,7 @@ jobs:
           IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # Explore the API with TOKEN
-          curl \
-            --unix-socket /kubectl-proxy-socket/proxy.sock \
-            -XGET \
-            http://localhost/apis/apps/v1/namespaces/personal/deploments/blog/
-            
-          PATCH='
+          PATCH_PAYLOAD='
           {
             "spec": {
               "template": {
@@ -75,15 +62,6 @@ jobs:
             --unix-socket /kubectl-proxy-socket/proxy.sock \
             --fail \
             -XPATCH \
-            -d "$(echo $PATCH | envsubst)" \
+            -d "$(echo $PATCH_PAYLOAD | envsubst)" \
             -H "Content-Type: application/strategic-merge-patch+json" \
             "http://localhost/apis/apps/v1/namespaces/${NAMESPACE}/deployments/${DEPLOYMENT_NAME}/"  
-      # - run: |
-      #     echo "${{ secrets.KUBERNETES_CA_CRT }}" | base64 --decode > ca.crt
-      #     kubectl config set-cluster home --server=https://home-server.lan:16443 --certificate-authority=ca.crt
-      #     kubectl config set-credentials ci --token=$( echo "${{ secrets.KUBERNETES_SERVICE_ACCOUNT_TOKEN }}" | base64 --decode )
-      #     kubectl config set-context ci --user=ci --namespace=personal --cluster=home
-      #     kubectl config use-context ci
-      #     kubectl config view
-      #     kubectl -n personal rollout restart deployment blog
-
