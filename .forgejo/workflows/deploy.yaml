@@ -8,6 +8,9 @@ jobs:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci
+      volumes:
+        # Access to the kubectl proxy socket for deployment
+        - /kubectl-proxy-socket:/kubectl-proxy-socket
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
@@ -23,49 +26,56 @@ jobs:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
+      - uses: ./.forgejo/actions/deploy
+        with:
+          namespace: personal
+          deployment_name: blog
+          container_name: blog
+          image_name: registry.home.wtrhs.com/wtrhs/blog
+          image_tag: ${{ github.sha }}
 
-  deploy:
-    needs: [build-test-and-push]
-    runs-on: docker
-    container:
-      image: registry.home.wtrhs.com/wtrhs/ci
-      volumes:
-        # Access to the kubectl proxy socket
-        - /kubectl-proxy-socket:/kubectl-proxy-socket
-    steps:
-      - env:
-          NAMESPACE: personal
-          DEPLOYMENT_NAME: blog
-          CONTAINER_NAME: blog
-          IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          PATCH_PAYLOAD='
-          {
-            "spec": {
-              "template": {
-                "spec": {
-                  "$setElementOrder/containers": [
-                    {
-                      "name": "${DEPLOYMENT_NAME}"
-                    }
-                  ],
-                  "containers": [
-                    {
-                      "image": "${IMAGE_NAME}:${IMAGE_TAG}",
-                      "name": "${CONTAINER_NAME}"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-          '
+  # deploy:
+  #   needs: [build-test-and-push]
+  #   runs-on: docker
+  #   container:
+  #     image: registry.home.wtrhs.com/wtrhs/ci
+  #     volumes:
+  #       # Access to the kubectl proxy socket for deployment
+  #       - /kubectl-proxy-socket:/kubectl-proxy-socket
+  #   steps:
+  #     - env:
+  #         NAMESPACE: personal
+  #         DEPLOYMENT_NAME: blog
+  #         CONTAINER_NAME: blog
+  #         IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
+  #         IMAGE_TAG: ${{ github.sha }}
+  #       run: |
+  #         PATCH_PAYLOAD='
+  #         {
+  #           "spec": {
+  #             "template": {
+  #               "spec": {
+  #                 "$setElementOrder/containers": [
+  #                   {
+  #                     "name": "${DEPLOYMENT_NAME}"
+  #                   }
+  #                 ],
+  #                 "containers": [
+  #                   {
+  #                     "image": "${IMAGE_NAME}:${IMAGE_TAG}",
+  #                     "name": "${CONTAINER_NAME}"
+  #                   }
+  #                 ]
+  #               }
+  #             }
+  #           }
+  #         }
+  #         '
 
-          curl \
-            --unix-socket /kubectl-proxy-socket/proxy.sock \
-            --fail \
-            -XPATCH \
-            -d "$(echo $PATCH_PAYLOAD | envsubst)" \
-            -H "Content-Type: application/strategic-merge-patch+json" \
-            "http://localhost/apis/apps/v1/namespaces/${NAMESPACE}/deployments/${DEPLOYMENT_NAME}/"
+  #         curl \
+  #           --unix-socket /kubectl-proxy-socket/proxy.sock \
+  #           --fail \
+  #           -XPATCH \
+  #           -d "$(echo $PATCH_PAYLOAD | envsubst)" \
+  #           -H "Content-Type: application/strategic-merge-patch+json" \
+  #           "http://localhost/apis/apps/v1/namespaces/${NAMESPACE}/deployments/${DEPLOYMENT_NAME}/"

@@ -1,0 +1,60 @@
+name: Deploy
+description: Deploy a container image to a deployment
+
+inputs:
+  namespace:
+    description: Namespace
+    required: true
+  deployment_name:
+    description: Name of deployment
+    required: true
+  container_name:
+    description: Name of container in deployment
+    required: true
+  image_name:
+    description: Name of image to set in the deployment/container
+    required: true
+  image_tag:
+    description: Image tag to set in the deployment/container
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        NAMESPACE: ${{ inputs.namespace }}
+        DEPLOYMENT_NAME: ${{ inputs.deployment_name }}
+        CONTAINER_NAME: ${{ inputs.container_name }}
+        IMAGE_NAME: ${{ inputs.image_name }}
+        IMAGE_TAG: ${{ inputs.image_tag }}
+      run: |
+        PATCH_PAYLOAD='
+        {
+          "spec": {
+            "template": {
+              "spec": {
+                "$setElementOrder/containers": [
+                  {
+                    "name": "${DEPLOYMENT_NAME}"
+                  }
+                ],
+                "containers": [
+                  {
+                    "image": "${IMAGE_NAME}:${IMAGE_TAG}",
+                    "name": "${CONTAINER_NAME}"
+                  }
+                ]
+              }
+            }
+          }
+        }
+        '
+
+        curl \
+          --unix-socket /kubectl-proxy-socket/proxy.sock \
+          --fail \
+          -XPATCH \
+          -d "$(echo $PATCH_PAYLOAD | envsubst)" \
+          -H "Content-Type: application/strategic-merge-patch+json" \
+          "http://localhost/apis/apps/v1/namespaces/${NAMESPACE}/deployments/${DEPLOYMENT_NAME}/"
