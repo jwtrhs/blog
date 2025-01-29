@@ -74,7 +74,7 @@ jobs:
           curl \
             --unix-socket /kubectl-proxy-socket/proxy.sock \
             -XPATCH \
-            -d "${PATCH}" \
+            -d "$(echo $PATCH | envsubst)" \
             -H "Content-Type: application/strategic-merge-patch+json" \
             "http://localhost/apis/apps/v1/namespaces/${NAMESPACE}/deploments/${DEPLOYMENT_NAME}/"  
       # - run: |
