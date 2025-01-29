@@ -7,7 +7,7 @@ jobs:
     container:
       image: alpine
     steps:
-      - run: apk add curl git nodejs uv
+      - run: apk add git nodejs uv
       - uses: https://code.forgejo.org/actions/checkout@v4
       - run: uv python install
       - run: uv tool run ruff check
