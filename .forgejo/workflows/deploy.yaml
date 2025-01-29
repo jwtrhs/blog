@@ -19,7 +19,7 @@ jobs:
           container_file: deploy/Containerfile
           
   test:
-    needs: [test]
+    needs: [build]
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}
