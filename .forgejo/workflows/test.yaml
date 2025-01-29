@@ -7,16 +7,27 @@ jobs:
   build-and-test:
     runs-on: docker
     container:
-      image: alpine
+      image: quay.io/buildah/stable
     steps:
-      - run: apk add bash buildah git nodejs
+      - run: dnf -q -y install git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
-          tags: ${{ github.sha }},latest
+          tags: ${{ github.sha }}
           container_file: deploy/Containerfile
+    
+  test:
+    needs: [build]
+    runs-on: docker
+    container:
+      image: quay.io/podman/stable
+    env:
+      STORAGE_DRIVER: vfs
+    steps:
+      - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv tool run ruff check
+      - run: podman run registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }} uv run pytest
   # test:
   #   runs-on: docker
   #   container:
