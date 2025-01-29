@@ -9,6 +9,6 @@ jobs:
     steps:
       - run: apk add curl git nodejs uv
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - run: uv install python
+      - run: uv python install
       - run: uv tool run ruff check
       - run: uv run pytest
