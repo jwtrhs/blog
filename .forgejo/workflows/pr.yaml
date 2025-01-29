@@ -5,12 +5,10 @@ jobs:
   test:
     runs-on: docker
     container:
-      image: registry.home.wtrhs.com/library/node:20-bookworm
+      image: alpine
     steps:
+      - run: apk add git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
-      - shell: bash
-        run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - shell: bash
-        run: uv tool run ruff check
-      - shell: bash
-        run: uv run pytest
+      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - run: uv tool run ruff check
+      - run: uv run pytest
