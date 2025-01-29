@@ -4,7 +4,7 @@ on:
       - master
 
 jobs:
-  build-test-and-push:
+  build-test-push-deploy:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci

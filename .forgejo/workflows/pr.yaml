@@ -2,7 +2,7 @@ on:
   pull_request:
 
 jobs:
-  build-and-test:
+  build-test:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci
