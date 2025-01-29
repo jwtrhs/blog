@@ -17,12 +17,21 @@ jobs:
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
           container_file: deploy/Containerfile
-
-  deploy:
-    needs: [build]
+          
+  test:
+    needs: [test]
     runs-on: docker
     container:
-      image: alpine:latest
+      image: registry.home.wtrhs.com/wtrhs/blog:${{ github.sha }}
+    steps:
+      - run: uv tool run ruff check
+      - run: uv run pytest
+
+  deploy:
+    needs: [build, test]
+    runs-on: docker
+    container:
+      image: alpine
       volumes:
         # Access to the kubectl proxy socket
         - /kubectl-proxy-socket:/kubectl-proxy-socket

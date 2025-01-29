@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM alpine
 
 RUN apk add uv
 
