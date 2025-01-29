@@ -11,7 +11,7 @@ jobs:
       image: alpine
     steps:
       # - run: dnf -q -y install git nodejs
-      - run: apk add buildah git nodejs
+      - run: apk add bash buildah git nodejs
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
         with:
