@@ -18,8 +18,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - shell: bash
-      env:
+    - env:
         BUILDAH_ISOLATION: chroot
         BUILDAH_LAYERS: "true"
         STORAGE_DRIVER: vfs
