@@ -14,6 +14,7 @@ jobs:
       - run: |
           mkdir -p ~/.ssh
           echo ${GIT_SSH_PRIVATE_KEY} > ~/.ssh/id_ed25519
+          ssh-keyscan -t ed25519 codeberg.org
           ls -lah ~/.ssh
           git clone git@codeberg.org:jwtrhs/home-server.git .
           ls -lah .
