@@ -4,17 +4,30 @@ on:
   pull_request:
 
 jobs:
-  build-test:
+  test:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci
+    env:
+      GIT_SSH_PRIVATE_KEY: ${{ secrets.CI_SSH_PRIVATE_KEY }}
     steps:
-      - uses: https://code.forgejo.org/actions/checkout@v4
-      - uses: ./.forgejo/actions/build
-        with:
-          registry: registry.home.wtrhs.com
-          repository: wtrhs/blog
-          container_file: deploy/Containerfile
-      - uses: ./.forgejo/actions/test
-        with:
-          image: registry.home.wtrhs.com/wtrhs/blog
+      - run: |
+          mkdir ~/.ssh
+          echo ${GIT_SSH_PRIVATE_KEY} > ~/.ssh/id_ed25519
+          git clone git@codeberg.org:jwtrhs/home-server.git .
+          ls -lah .
+  #
+  # build-test:
+  #   runs-on: docker
+  #   container:
+  #     image: registry.home.wtrhs.com/wtrhs/ci
+  #   steps:
+  #     - uses: https://code.forgejo.org/actions/checkout@v4
+  #     - uses: ./.forgejo/actions/build
+  #       with:
+  #         registry: registry.home.wtrhs.com
+  #         repository: wtrhs/blog
+  #         container_file: deploy/Containerfile
+  #     - uses: ./.forgejo/actions/test
+  #       with:
+  #         image: registry.home.wtrhs.com/wtrhs/blog
