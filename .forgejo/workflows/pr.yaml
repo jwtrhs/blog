@@ -12,7 +12,8 @@ jobs:
       GIT_SSH_PRIVATE_KEY: ${{ secrets.CI_SSH_PRIVATE_KEY }}
     steps:
       - run: |
-          mkdir ~/.ssh
+          mkdir -p ~/.ssh
+          ls -lah ~/.ssh
           echo ${GIT_SSH_PRIVATE_KEY} > ~/.ssh/id_ed25519
           git clone git@codeberg.org:jwtrhs/home-server.git .
           ls -lah .
