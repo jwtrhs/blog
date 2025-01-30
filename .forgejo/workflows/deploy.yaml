@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build-test-push-deploy:
+  build-test-push:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci
@@ -28,10 +28,35 @@ jobs:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
-      - uses: ./.forgejo/actions/deploy
-        with:
-          namespace: personal
-          deployment_name: blog
-          container_name: blog
-          image_name: registry.home.wtrhs.com/wtrhs/blog
-          image_tag: ${{ github.sha }}
+      # - uses: ./.forgejo/actions/deploy
+      #   with:
+      #     namespace: personal
+      #     deployment_name: blog
+      #     container_name: blog
+      #     image_name: registry.home.wtrhs.com/wtrhs/blog
+      #     image_tag: ${{ github.sha }}
+
+  deploy:
+    needs: [build-test-push]
+    runs-on: docker
+    container:
+      image: registry.home.wtrhs.com/wtrhs/ci
+    env:
+      GIT_SSH_PRIVATE_KEY: ${{ secrets.CI_SSH_PRIVATE_KEY }}
+      IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
+      IMAGE_TAG: ${{ github.sha }}
+    steps:
+      - run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.CI_SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 0400 ~/.ssh/id_ed25519
+          ssh-keyscan -t ed25519 codeberg.org >> ~/.ssh/known_hosts
+
+          git clone git@codeberg.org:jwtrhs/home-server.git .
+
+          kustomize edit set image ${IMAGE_NAME}:${IMAGE_TAG}
+          git add .
+          git commit -m "CD - Setting image ${IMAGE_NAME} tag to ${IMAGE_TAG}"
+          git push
+
+          # kubectl apply -k .
