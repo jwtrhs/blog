@@ -54,6 +54,7 @@ jobs:
 
           git clone git@codeberg.org:jwtrhs/home-server.git .
 
+          cd k8s/personal
           kustomize edit set image ${IMAGE_NAME}:${IMAGE_TAG}
           git add .
           git commit -m "CD - Setting image ${IMAGE_NAME} tag to ${IMAGE_TAG}"
