@@ -50,19 +50,22 @@ jobs:
           # Check image exists first
           skopeo inspect --no-tags docker://${IMAGE_NAME}:${IMAGE_TAG}
 
+          # Setup SSH
           mkdir -p ~/.ssh
           echo "${{ secrets.CI_SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 0400 ~/.ssh/id_ed25519
           ssh-keyscan -t ed25519 codeberg.org >> ~/.ssh/known_hosts
 
+          # Clone the git repository
           git config --global user.email "ci@codeberg.org"
           git config --global user.name "ci"
           git clone git@codeberg.org:jwtrhs/home-server.git .
 
+          # Modify the image tag
           cd k8s/personal
           kustomize edit set image ${IMAGE_NAME}:${IMAGE_TAG}
+
+          # Commit the modified files back to the repository
           git add .
           git commit -m "CD - Setting image ${IMAGE_NAME} tag to ${IMAGE_TAG}"
           git push
-
-          # kubectl apply -k .
