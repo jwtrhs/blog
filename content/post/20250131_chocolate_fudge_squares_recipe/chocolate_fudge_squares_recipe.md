@@ -22,6 +22,6 @@ Mix all ingredients into a batter. Spread in a shallow, greased baking tin. Bake
 
 - 1 cup icing sugar
 - 2 tbs cocoa powder
-- 1 tpsp butter
+- 1 tbsp butter (melted)
 
-Mix all ingredients. Add very small amounts of hot water while mixing to get desired consistency.
+Mix all ingredients. While mixing, add very small amounts of hot water as needed to get desired consistency.
