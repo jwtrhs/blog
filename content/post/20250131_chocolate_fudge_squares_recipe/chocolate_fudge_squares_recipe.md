@@ -6,6 +6,10 @@ summary:
 created_at: 2025-01-31
 ---
 
+![](recipe.jpg)
+
+This is an extremely quick and simple dessert that my mum made a lot of growing up and that I often make today. Though the recipe calls it fudge, it's more like what I would call a brownie. A tasty alternative is to swap the coconut for candied or freshly diced cherries.
+
 ## Fudge
 
 - 120g butter (melted)
@@ -16,12 +20,12 @@ created_at: 2025-01-31
 - 1 cup coconut
 - 1 tsp vanilla essence
 
-Mix all ingredients into a batter. Spread in a shallow, greased baking tin. Bake in moderate (~150 deg. celsius) for 25 minutes. Ice while warm, and cut into squares when set.
+In a large bowl, combine the butter, egg and brown sugar. Add the cocoa, flour, coconut and vanilla and mix until well combined. Spread the batter in a shallow, greased tin and bake at moderate heat (~150 deg. celcius) for 25 minutes. Apply icing while still warm and cut into squares when cool.
 
 ## Icing
 
 - 1 cup icing sugar
-- 2 tbs cocoa powder
+- 2 tbsp cocoa
 - 1 tbsp butter (melted)
 
-Mix all ingredients. While mixing, add very small amounts of hot water as needed to get desired consistency.
+Mix ingredients together, slowly adding small amounts of hot water until desired consistency.
