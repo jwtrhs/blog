@@ -42,7 +42,6 @@ jobs:
     container:
       image: registry.home.wtrhs.com/wtrhs/ci
     env:
-      GIT_SSH_PRIVATE_KEY: ${{ secrets.CI_SSH_PRIVATE_KEY }}
       IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
       IMAGE_TAG: ${{ github.sha }}
     steps:
