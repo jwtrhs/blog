@@ -28,13 +28,6 @@ jobs:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
-      # - uses: ./.forgejo/actions/deploy
-      #   with:
-      #     namespace: personal
-      #     deployment_name: blog
-      #     container_name: blog
-      #     image_name: registry.home.wtrhs.com/wtrhs/blog
-      #     image_tag: ${{ github.sha }}
 
   deploy:
     needs: [build-test-push]
