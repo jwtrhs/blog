@@ -7,7 +7,7 @@ jobs:
   build-test:
     runs-on: docker
     container:
-      image: registry.home.wtrhs.com/wtrhs/ci
+      image: registry.home.wtrhs.com/wtrhs/ci-cd
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
