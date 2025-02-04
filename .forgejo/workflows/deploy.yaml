@@ -27,7 +27,10 @@ jobs:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
-      - run: |
+      - env:
+          IMAGE_NAME: repository.home.wtrhs.com/wtrhs/blog
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
           # Setup cluster and CI/CD service account
           kubectl config set-cluster ci-cluster \
             --server=https://kubernetes.default.svc.cluster.local \
