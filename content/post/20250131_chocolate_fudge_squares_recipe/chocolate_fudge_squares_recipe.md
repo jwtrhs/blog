@@ -8,7 +8,7 @@ created_at: 2025-01-31
 
 ![](recipe.jpg)
 
-This is an very quick and simple dessert that my mum made a lot growing up and that I often make today. Though the recipe calls it fudge, I think it's more like a brownie.
+This is a quick and simple dessert that my mum made a lot growing up and that I often make today. Though the recipe calls it fudge, I think it's more like a brownie.
 
 A tasty alternative is to swap the coconut for candied or freshly diced cherries.
 
