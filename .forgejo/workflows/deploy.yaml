@@ -1,4 +1,4 @@
-name: Deploy
+name: Merge
 
 on:
   push:
@@ -6,13 +6,10 @@ on:
       - master
 
 jobs:
-  build-test-push:
+  build-test-push-deploy:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci-cd
-      volumes:
-        # Access to the kubectl proxy socket for deployment
-        - /kubectl-proxy-socket:/kubectl-proxy-socket
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
@@ -28,36 +25,15 @@ jobs:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
-
-  deploy:
-    needs: [build-test-push]
-    runs-on: docker
-    container:
-      image: registry.home.wtrhs.com/wtrhs/ci-cd
-    env:
-      IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
-      IMAGE_TAG: ${{ github.sha }}
-    steps:
       - run: |
-          # Check image exists first
-          skopeo inspect --no-tags docker://${IMAGE_NAME}:${IMAGE_TAG}
-
-          # Setup SSH
-          mkdir -p ~/.ssh
-          echo "${{ secrets.INFRA_DEPLOY_SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 0400 ~/.ssh/id_ed25519
-          ssh-keyscan -t ed25519 codeberg.org >> ~/.ssh/known_hosts
-
-          # Clone the git repository
-          git config --global user.email "deploy-bot@wtrhs.com"
-          git config --global user.name "deploy-bot"
-          git clone git@codeberg.org:jwtrhs/infra.git .
-
           # Modify the image tag
-          cd k8s/personal
-          kustomize edit set image ${IMAGE_NAME}:${IMAGE_TAG}
+          (
+            cd deploy/k8s;
+            kustomize edit set image ${IMAGE_NAME}:${IMAGE_TAG};
+            kubectl apply -k .
+          )
 
           # Commit the modified files back to the repository
           git add .
-          git commit -m "CD - Setting image ${IMAGE_NAME} tag to ${IMAGE_TAG}"
+          git commit -m "[skip ci] Setting image ${IMAGE_NAME} tag to ${IMAGE_TAG}"
           git push

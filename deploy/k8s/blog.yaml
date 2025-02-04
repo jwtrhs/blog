@@ -1,0 +1,105 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wtrhs-com
+spec:
+  secretName: wtrhs-com-tls
+  dnsNames:
+    - wtrhs.com
+    - www.wtrhs.com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blog-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+spec:
+  tls:
+    - hosts:
+        - wtrhs.com
+        - www.wtrhs.com
+      secretName: wtrhs-com-tls
+  rules:
+    - host: wtrhs.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: blog
+                port:
+                  number: 8888
+    - host: www.wtrhs.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: blog
+                port:
+                  number: 8888
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog
+  labels:
+    app: blog
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: blog
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      containers:
+        - name: blog
+          image: registry.home.wtrhs.com/wtrhs/blog
+          imagePullPolicy: Always
+          env:
+            - name: BLOG_APP_TLS_CRT_FILE
+              value: "/certs/tls.crt"
+            - name: BLOG_APP_TLS_KEY_FILE
+              value: "/certs/tls.key"
+          volumeMounts:
+            - name: certs-vol
+              mountPath: "/certs"
+              readOnly: true
+          ports:
+            - containerPort: 8888
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            httpGet:
+              scheme: HTTPS
+              port: 8888
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256M
+      volumes:
+        - name: certs-vol
+          secret:
+            secretName: wtrhs-com-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog
+spec:
+  selector:
+    app: blog
+  ports:
+    - name: blog
+      port: 8888
+      targetPort: 8888

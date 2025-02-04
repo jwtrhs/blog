@@ -1,0 +1,9 @@
+resources:
+  - blog.yaml
+
+images:
+  - name: registry.home.wtrhs.com/wtrhs/blog
+    newTag: e69d4c5318af4d8cf1474536d88219c3c452d04b
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
