@@ -26,6 +26,15 @@ jobs:
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
       - run: |
+          # Setup cluster and CI/CD service account
+          kubectl config set-cluster ci-cluster \
+            --server=https://kubernetes.default.svc.cluster.local \
+            --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          kubectl config set-context ci-context --cluster=ci-cluster
+          kubectl config set-credentials ci-user --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+          kubectl config set-context ci-context --user=ci-user
+          kubectl config use-context ci-context
+
           # Modify the image tag
           (
             cd deploy/k8s;
