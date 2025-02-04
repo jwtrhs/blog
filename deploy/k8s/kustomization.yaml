@@ -8,6 +8,8 @@ images:
 - {}
 - name: registry.home.wtrhs.com/wtrhs/blog
   newTag: e69d4c5318af4d8cf1474536d88219c3c452d04b
+- name: repository.home.wtrhs.com/wtrhs/blog
+  newTag: 9261259893559d05bc3bcf7f6c6900f8ca6ed928
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
