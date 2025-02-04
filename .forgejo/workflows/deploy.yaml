@@ -10,6 +10,8 @@ jobs:
     runs-on: docker
     container:
       image: registry.home.wtrhs.com/wtrhs/ci-cd
+      volumes:
+        - /var/run/secrets/kubernetes.io/serviceaccount:/var/run/secrets/kubernetes.io/serviceaccount
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
