@@ -45,6 +45,8 @@ jobs:
           )
 
           # Commit the modified files back to the repository
+          git config --global user.email "ci-cd@wtrhs.com"
+          git config --global user.name "ci-cd-bot"
           git add .
           git commit -m "[skip ci] Setting image ${IMAGE_NAME} tag to ${IMAGE_TAG}"
           git push

@@ -1,4 +1,7 @@
+namespace: blog
+
 resources:
+  - namespace.yaml
   - blog.yaml
 
 images:
