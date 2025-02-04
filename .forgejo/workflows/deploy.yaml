@@ -28,7 +28,7 @@ jobs:
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
       - env:
-          IMAGE_NAME: repository.home.wtrhs.com/wtrhs/blog
+          IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
           IMAGE_TAG: ${{ github.sha }}
         run: |
           # Setup cluster and CI/CD service account
