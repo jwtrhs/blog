@@ -18,7 +18,7 @@ jobs:
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
-          container_file: deploy/Containerfile
+          container_file: Containerfile
       - uses: ./.forgejo/actions/test
         with:
           image: registry.home.wtrhs.com/wtrhs/blog
@@ -42,7 +42,7 @@ jobs:
 
           # Modify the image tag
           (
-            cd deploy/k8s;
+            cd k8s;
             kustomize edit set image ${IMAGE_NAME}:${IMAGE_TAG};
             kubectl apply -k .
           )
