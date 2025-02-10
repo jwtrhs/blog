@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: not-important
+spec:
+  template:
+    spec:
+      containers:
+        - name: blog
+          env:
+            - name: BLOG_APP_TLS_CRT_FILE
+              value: "/certs/tls.crt"
+            - name: BLOG_APP_TLS_KEY_FILE
+              value: "/certs/tls.key"
+          volumeMounts:
+            - name: certs-vol
+              mountPath: "/certs"
+              readOnly: true
+      volumes:
+        - name: certs-vol
+          secret:
+            secretName: wtrhs-com-tls

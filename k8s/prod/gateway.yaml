@@ -1,0 +1,66 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: blog
+spec:
+  gatewayClassName: internet
+  listeners:
+    - name: http
+      hostname: wtrhs.com
+      protocol: HTTP
+      port: 80
+    - name: http-www
+      hostname: www.wtrhs.com
+      protocol: HTTP
+      port: 80
+    - name: https
+      hostname: wtrhs.com
+      port: 443
+      protocol: TLS
+      tls:
+        mode: Passthrough
+    - name: https-www
+      hostname: www.wtrhs.com
+      port: 443
+      protocol: TLS
+      tls:
+        mode: Passthrough
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: blog-http-redirect
+spec:
+  parentRefs:
+    - name: blog
+      sectionName: http
+    - name: blog
+      sectionName: http-www
+  hostnames:
+    - wtrhs.com
+    - www.wtrhs.com
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+  name: blog
+spec:
+  hostnames:
+    - wtrhs.com
+    - www.wtrhs.com
+  parentRefs:
+    - name: blog
+      sectionName: https
+    - name: blog
+      sectionName: https-www
+  rules:
+    - backendRefs:
+        - name: blog
+          kind: Service
+          port: 8888

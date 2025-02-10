@@ -1,0 +1,19 @@
+namespace: blog
+
+resources:
+  - ../base
+  - certificate.yaml
+  - gateway.yaml
+
+patches:
+  - target:
+      kind: Deployment
+      name: blog
+    path: patch-deployment-certificates.yaml
+
+images:
+  - name: registry.home.wtrhs.com/wtrhs/blog
+    newTag: 940b7d2e0eb0b54000b6811711f7bbf939cf1e20
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization

@@ -42,7 +42,7 @@ jobs:
 
           # Modify the image tag
           (
-            cd k8s;
+            cd k8s/prod;
             kustomize edit set image ${IMAGE_NAME}:${IMAGE_TAG};
             kubectl apply -k .
           )
