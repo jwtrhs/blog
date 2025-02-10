@@ -19,9 +19,21 @@ spec:
   gatewayClassName: internet
   listeners:
     - name: http
+      hostname: wtrhs.com
+      protocol: HTTP
+      port: 80
+    - name: http-www
+      hostname: www.wtrhs.com
       protocol: HTTP
       port: 80
     - name: https
+      hostname: wtrhs.com
+      port: 443
+      protocol: TLS
+      tls:
+        mode: Passthrough
+    - name: https-www
+      hostname: www.wtrhs.com
       port: 443
       protocol: TLS
       tls:
@@ -35,6 +47,8 @@ spec:
   parentRefs:
     - name: blog
       sectionName: http
+    - name: blog
+      sectionName: http-www
   hostnames:
     - wtrhs.com
     - www.wtrhs.com
@@ -56,6 +70,8 @@ spec:
   parentRefs:
     - name: blog
       sectionName: https
+    - name: blog
+      sectionName: https-www
   rules:
     - backendRefs:
         - name: blog
