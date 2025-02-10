@@ -18,11 +18,32 @@ metadata:
 spec:
   gatewayClassName: internet
   listeners:
-    - name: blog
+    - name: http
+      protocol: HTTP
+      port: 80
+    - name: https
       port: 443
       protocol: TLS
       tls:
         mode: Passthrough
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: blog-http-redirect
+spec:
+  parentRefs:
+    - name: blog
+      sectionName: http
+  hostnames:
+    - wtrhs.com
+    - www.wtrhs.com
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
 ---
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: TLSRoute
@@ -34,9 +55,7 @@ spec:
     - www.wtrhs.com
   parentRefs:
     - name: blog
-      sectionName: blog
-    - name: blog-www
-      sectionName: blog-www
+      sectionName: https
   rules:
     - backendRefs:
         - name: blog
