@@ -38,13 +38,13 @@ Awarded High Distinction
 
 December 2022 - Current
 
-Full-stack development building an online telehealth platform.
+Helped to build an online telehealth platform. Proper full-stack frontend, backend and devops. Tackled some particularly gnarly scale-up performance issues and spearheaded the implementation of comprehensive frontend design uplift.
 
-- Frontend: Typescript, React
-- Backend: Python, Django, pytest
+- Frontend: React, Typescript
+- Backend: Python, Django
 - QA: Playwright
-- Infra: AWS, PostgreSQL, Terraform, Docker
-- Mgmt: Agile, Jira, Confluence
+- Infra: AWS, Terraform, Docker, PostgreSQL
+- Mgmt: Agile + Atlassian Stack (Jira, etc.)
 
 ### General Problem Solver
 
@@ -64,7 +64,7 @@ Wrangling several disparate meteorological data sources into a queryable databas
 
 - Tech: Python, SQLAlchemy, gdal, WINE, PostgreSQL/PostGIS
 - Infra: AWS, Terraform, Docker
-- Mgmt: Agile using Atlassian stack
+- Mgmt: Agile + Atlassian Stack (Jira, etc.)
 
 
 ### Lead Software Engineer
