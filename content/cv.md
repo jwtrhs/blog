@@ -6,9 +6,11 @@ header-includes: |
 
 # Jonathon Waterhouse's C.V.
 
-I'm a software engineer with going on 15+ years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems in both start-ups and larger organisations. Primarily my experience has been as a lead full-stack developer across backend, frontend, devops, mobile and agile project management, mostly using a Python/Node/React/AWS stack.
+I'm a software engineer with going on 20 years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems, predominantly in start-ups. Most of my experience has been as a lead full-stack developer across backend, frontend, devops and mobile, mostly using a Python/Node/React/AWS stack.
 
-Generally I am interested in working with good people on good problems.
+Generally I am interested in working with good people on good problems :)
+
+Based in Brisbane, Australia
 
 Mobile: +61 487 262 276
 
@@ -38,7 +40,7 @@ Awarded High Distinction
 
 December 2022 - Current
 
-Helped to build an online telehealth platform. Proper full-stack frontend, backend and devops. Tackled some particularly gnarly scale-up performance issues and spearheaded the implementation of comprehensive frontend design uplift.
+Full-stack development of an online telehealth platform as both a team lead and IC. Tackled some particularly gnarly scale-up performance issues and spearheaded the implementation of comprehensive frontend design uplift.
 
 - Frontend: React, Typescript
 - Backend: Python, Django
