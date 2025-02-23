@@ -75,15 +75,13 @@ Wrangling several disparate meteorological data sources into a queryable databas
 
 August 2017 - February 2021
 
-Lead engineer in a small, agile team of full-stack devs developing a social media marketing web app. Major projects include a new data pipeline to process large amounts of social data, training and deploying machine learning models, migrating the legacy app to a more modern tech stack, building a new B2C mobile app from scratch, and reducing cloud infrastructure costs from $12k+ to ~$2.5k per month.
+Led a small, agile team of full-stack devs developing a social media marketing web app. Major projects include a new data pipeline to process large amounts of social data, training and deploying machine learning models, migrating the legacy app to a more modern tech stack, building a new B2C mobile app from scratch, and reducing cloud infrastructure costs from $12k+ to ~$2.5k per month.
 
-- Data: Python3 (w/ asyncio), Flask, RabbitMQ, AWS (Aurora (PostgreSQL), S3, Elasticbeanstalk, ECR and Elasticsearch)
-- API: Python3, Starlette, SQLAlchemy
-- Web Frontend: React, ES6/Typescript, Material-UI
-- Mobile: React Native, Expo, Fastlane
+- Backend: Python3, Starlette, SQLAlchemy
+- Frontend: React, Typescript
+- Mobile: React Native
 - ML: TensorFlow, Caffe
-- Cloud: AWS (EBS/EC2, Cloudformation, Aurora, S3)
-- DevOps: ElasticBeanstalk, Docker, CodePipeline/Deploy/Build, Jenkins
+- Cloud: AWS, Terraform, Docker
 - Mgmt: Agile
 
 ### Head of Development
@@ -94,10 +92,10 @@ January 2017 - July 2017
 
 Built a communications and media capture platform focused on wearables (esp. smart glasses), from concept to MVP.
 
-- Backend: RESTful web services built around Python + Django + Channels + DRF + Celery
-- Infrastructure: AWS (EBS, RDS, EC, Route 51) + Ubuntu Server + Docker + Graylog
-- Frontend: React/Redux + Semantic UI + NodeJS + Webpack + ES6/Typescript
-- Mobile/Wearables: Android Studio + Kotlin
+- Backend: Pyhon, Django
+- Infrastructure: AWS, Docker
+- Frontend: React, Typescript
+- Mobile/Wearables: Android Studio, Kotlin
 - Mgmt: Agile
 
 ### Senior Software Engineer
@@ -106,14 +104,12 @@ Built a communications and media capture platform focused on wearables (esp. sma
 
 November 2014 - December 2016
 
-Number of responsibilities focussing on backend webapp development, including:
+Backend development of a CAD drawing management system and built ML classifiers to detect components within CAD drawings. 
 
-- Developing tools to work with and render CAD formats, and algorithms to extract, filter and query tag metadata (Python, C++)
-- Applied machine learning to automatically classify ambiguous file types (Python, C++)
-- Image analysis and processing on non-native CAD formats (e.g. PDF, image types) to extract metadata (C++, OpenCV)
-- Data platform for structured capture, analysis and presentation of client data (PHP, Mongo)
-- Building/maintaining a consumer web application and services API (PHP/Symfony, Angular.js, MySQL, Mongo, AWS)
-- Agile project management style
+- ML: C++, Python, OpenCV, Caffe
+- Backend: PHP, Symfony
+- Infra: AWS
+- Mgmt: Agile
 
 ### Software Engineer (Contract)
 
@@ -121,7 +117,7 @@ Number of responsibilities focussing on backend webapp development, including:
 
 June 2013 - September 2014
 
-Developed real-time, low latency financial systems and system health monitoring software (C++, TCP/IP, Visual Studio)
+Developed real-time, low latency financial systems and system health monitoring software (C++, TCP/IP)
 
 ### Analyst Programmer
 
@@ -129,7 +125,7 @@ Developed real-time, low latency financial systems and system health monitoring 
 
 July 2009 - January 2013
 
-Extended and maintained a corporate DMS built on Oracle UCM, web development (internet and intranet) and user support (Java, Oracle PL/SQL, Javascript, HTML/CSS, C# .NET)
+Developed a corporate DMS built on Oracle.
 
 ### Graduate Software Engineer
 
@@ -137,7 +133,7 @@ Vasco Data Security (now [OneSpan](https://www.onespan.com/))
 
 January 2009 - July 2009
 
-Created DNS system libraries, fixed system bugs and evaluated security vulnerabilities through use case and unit testing (Visual C++)
+Evaluated security vulnerabilities in our proprietary DNS system (Visual C++)
 
 ### Undergraduate Software Engineer
 
@@ -145,7 +141,7 @@ Intellection (acquired by [FEI](https://www.fei.com))
 
 January 2007 - November 2008
 
-Efficient algorithm design, Windows Driver Model (WDM) driver interfaces, managed and unmanaged interoperability and completed my thesis on Scanning Electron Microscope Automation (C++, C#)
+Completed my thesis on Scanning Electron Microscope Automation (C++, C#)
 
 ## References
 
