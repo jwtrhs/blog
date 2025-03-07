@@ -14,7 +14,7 @@ Based in Brisbane, Australia
 
 Mobile: +61 487 262 276
 
-Email: jon@wtrhs.com
+Email: <jon@wtrhs.com>
 
 GitHub: [https://www.github.com/jwtrhs](https://www.github.com/jwtrhs)
 
