@@ -4,7 +4,7 @@ header-includes: |
     \pagestyle{fancy}
 ---
 
-# Jonathon Waterhouse's C.V.
+## Jonathon Waterhouse's C.V.
 
 I'm a software engineer with going on 20 years (!) of experience, who has been fortunate enough to work on a pretty varied set of problems, predominantly in start-ups. Most of my experience has been as a lead full-stack developer across backend, frontend, devops and mobile, mostly using a Python/Node/React/AWS stack.
 
@@ -16,13 +16,13 @@ Mobile: +61 487 262 276
 
 Email: <jon@wtrhs.com>
 
-GitHub: [https://www.github.com/jwtrhs](https://www.github.com/jwtrhs)
+GitHub: <https://www.github.com/jwtrhs>
 
-Website: [https://www.wtrhs.com](https://www.wtrhs.com)
+Website: <https://www.wtrhs.com>
 
 ## Education
 
-[University of Queensland](https://www.uq.edu.au)
+University of Queensland
 
 Bachelor of Engineering (Software Engineering) with Honours
 
@@ -34,11 +34,24 @@ Awarded High Distinction
 
 ## Work History
 
+### Software Engineer - mRNA Design
+
+BASE (University of Queensland) - <https://basefacility.org.au>
+
+June 2025 - Present
+
+R&D of computational methods to optimize mRNA design for clinical/therapeutical applications, working alongside scientists, researchers and academics. Very algorithm, data science and performance/profiling heavy. Additional full-stack development of a web platform to make our research usable and available to scientists.
+
+- Frontend: React, Typescript
+- Backend: Node, Python
+- QA: Playwright
+- Infra: AWS (Lambda), Terraform, Docker
+
 ### Staff/Principal Software Engineer
 
-[Midnight Health](https://midnight.health)
+Midnight Health - <https://midnight.health>
 
-December 2022 - Current
+December 2022 - June 2025
 
 Full-stack development of an online telehealth platform as both a team lead and IC. Tackled some particularly gnarly scale-up performance issues and spearheaded the implementation of comprehensive frontend design uplift.
 
@@ -50,7 +63,7 @@ Full-stack development of an online telehealth platform as both a team lead and 
 
 ### General Problem Solver
 
-[KIN Architects](https://www.kinarchitects.com.au)
+KIN Architects - <https://www.kinarchitects.com.au>
 
 July 2021 - Now
 
@@ -58,7 +71,7 @@ My partner (a residential/renovation architect) has started her own practice and
 
 ### Senior Software Engineer (Contract)
 
-[Floodmapp](https://www.floodmapp.com)
+Floodmapp - <https://www.floodmapp.com>
 
 January 2021 - July 2021
 
@@ -68,10 +81,9 @@ Wrangling several disparate meteorological data sources into a queryable databas
 - Infra: AWS, Terraform, Docker
 - Mgmt: Agile + Atlassian Stack (Jira, etc.)
 
-
 ### Lead Software Engineer
 
-[Scrunch](https://www.scrunch.com)
+Scrunch - <https://www.scrunch.com>
 
 August 2017 - February 2021
 
@@ -86,7 +98,7 @@ Led a small, agile team of full-stack devs developing a social media marketing w
 
 ### Head of Development
 
-[HINDSITE Industries](https://www.hindsiteind.com/)
+HINDSITE Industries - <https://www.hindsiteind.com>
 
 January 2017 - July 2017
 
@@ -100,7 +112,7 @@ Built a communications and media capture platform focused on wearables (esp. sma
 
 ### Senior Software Engineer
 
-[RedEye Apps](https://www.redeye.co)
+RedEye Apps - <https://www.redeye.co>
 
 November 2014 - December 2016
 
@@ -111,37 +123,7 @@ Backend development of a CAD drawing management system and built ML classifiers 
 - Infra: AWS
 - Mgmt: Agile
 
-### Software Engineer (Contract)
-
-[Thomson Reuters](https://www.thomsonreuters.com)
-
-June 2013 - September 2014
-
-Developed real-time, low latency financial systems and system health monitoring software (C++, TCP/IP)
-
-### Analyst Programmer
-
-[Thiess](https://www.thiess.com)
-
-July 2009 - January 2013
-
-Developed a corporate DMS built on Oracle.
-
-### Graduate Software Engineer
-
-Vasco Data Security (now [OneSpan](https://www.onespan.com/))
-
-January 2009 - July 2009
-
-Evaluated security vulnerabilities in our proprietary DNS system (Visual C++)
-
-### Undergraduate Software Engineer
-
-Intellection (acquired by [FEI](https://www.fei.com))
-
-January 2007 - November 2008
-
-Completed my thesis on Scanning Electron Microscope Automation (C++, C#)
+Previously at [Thomson Reuters](https://www.thomsonreuters.com), [Thiess](https://www.thiess.com), Vasco Data Security (now [OneSpan](https://www.onespan.com/)) and Intellection (acquired by [FEI](https://www.fei.com)).
 
 ## References
 
