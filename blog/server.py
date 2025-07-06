@@ -198,6 +198,9 @@ class Server:
                     _LOG.warn(error)
                 if response:
                     conn.sendall(response.dumpb(protocol=request.protocol))
+            except Exception as e:
+                _LOG.critical(e)
+                raise
             finally:
                 if conn:
                     conn.close()
