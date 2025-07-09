@@ -198,7 +198,7 @@ class Server:
                     _LOG.warn(error)
                 if response:
                     conn.sendall(response.dumpb(protocol=request.protocol))
-            except ssl.SSLError as e:
+            except (ConnectionError, ssl.SSLError) as e:
                 _LOG.error(e)
             except Exception as e:
                 _LOG.critical(e)
