@@ -42,7 +42,7 @@ A more robust method is to use a combination of silicon tape, heavy duty duct ta
 
 ![](tape_and_jubilee_clip_patch.jpg)
 
-Apply the silion tape first by wrapping it tightly around the hose starting and ending about an inch either side of the split and overlapping about half the width of the tape. Next, do the same with some heavy duty duct tape starting and ending another inch either side of the silicon tape. And finally place a few jubilee clips around the length of the split. Tighten them firmly but not too tightly that they cause the hose to deform.
+Apply the silicon tape first by wrapping it tightly around the hose starting and ending about an inch either side of the split and overlapping about half the width of the tape. Next, do the same with some heavy duty duct tape starting and ending another inch either side of the silicon tape. And finally place a few jubilee clips around the length of the split. Tighten them firmly but not too tightly that they cause the hose to deform.
 
 ![](tape_and_jubilee_clip_patch_installed.jpg)
 
