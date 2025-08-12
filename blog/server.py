@@ -157,17 +157,17 @@ class Server:
             status = error.status
         return Response(status=status)
 
-    def _run_loop(self, sock: socket.SocketType) -> None:
+    def _run_loop(self, sock: socket.socket) -> None:
         ip, port = sock.getsockname()
         _LOG.debug(f"Server listening on {ip}:{port}...")
         while True:
             conn = None
             try:
-                conn, addr = sock.accept()
+                conn, _ = sock.accept()
                 data = conn.recv(1024)
+                request = Request.loads(data.decode("utf-8"))
                 response = None
                 try:
-                    request = Request.loads(data.decode("utf-8"))
                     response = self._match_route(request)
                 except ServerError as error:
                     _LOG.info(error)
@@ -180,9 +180,9 @@ class Server:
                         request=request, status=STATUS_ERROR
                     )
                 except UnknownProtocolError as error:
-                    _LOG.warn(error)
+                    _LOG.warning(error)
                 except socket.error as error:
-                    _LOG.warn(error)
+                    _LOG.warning(error)
                 if response:
                     conn.sendall(response.dumpb(protocol=request.protocol))
             except (ConnectionError, ssl.SSLError) as e:
