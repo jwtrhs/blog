@@ -12,11 +12,7 @@ import pytest
     [
         (
             "GET /1/2/3 HTTP/1.1",
-            Request(protocol="http", method="GET", url="/1/2/3"),
-        ),
-        (
-            "gemini://test/1/2/3\r\n",
-            Request(protocol="gemini", method=None, url="gemini://test/1/2/3"),
+            Request(method="GET", url="/1/2/3"),
         ),
     ],
 )
@@ -28,12 +24,8 @@ def test_request_loads(url, expected):
     ("input_request", "expected"),
     [
         (
-            Request(protocol="http", method="GET", url="/1/2/3"),
+            Request(method="GET", url="/1/2/3"),
             "GET /1/2/3 HTTP/1.1",
-        ),
-        (
-            Request(protocol="gemini", method=None, url="gemini://test/1/2/3"),
-            "gemini://test/1/2/3\r\n",
         ),
     ],
 )
@@ -42,19 +34,13 @@ def test_request_base_dumps(input_request, expected):
 
 
 @pytest.mark.parametrize(
-    ("response", "protocol", "expected"),
+    ("response", "expected"),
     [
         (
             Response(status=STATUS_OK, mime_type="mime_type", body=b"body"),
-            "gemini",
-            b"20 mime_type\r\nbody",
-        ),
-        (
-            Response(status=STATUS_OK, mime_type="mime_type", body=b"body"),
-            "http",
             b"HTTP/1.1 200 OK\r\nContent-Type: mime_type\r\n\r\nbody",
         ),
     ],
 )
-def test_response_dumpb(response, protocol, expected):
-    assert response.dumpb(protocol) == expected
+def test_response_dumpb(response, expected):
+    assert response.dumpb() == expected
