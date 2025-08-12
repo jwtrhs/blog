@@ -9,22 +9,19 @@ from blog.util import get_logger
 
 _LOG = get_logger(__name__)
 
-_PROTOCOL_HTTP = "http"
-
 
 @dataclass(frozen=True)
 class Status:
-    http: int
-    gemini: int
+    code: int
     phrase: str
 
     def __str__(self):
-        return f"Status(http={self.http}, gemini={self.gemini}, phrase={self.phrase})"
+        return f"Status(code={self.code}, phrase={self.phrase})"
 
 
-STATUS_OK = Status(http=200, gemini=20, phrase="OK")
-STATUS_NOT_FOUND = Status(http=404, gemini=51, phrase="Not Found")
-STATUS_ERROR = Status(http=500, gemini=50, phrase="Server Error")
+STATUS_OK = Status(code=200, phrase="OK")
+STATUS_NOT_FOUND = Status(code=404, phrase="Not Found")
+STATUS_ERROR = Status(code=500, phrase="Server Error")
 
 
 class UnknownProtocolError(Exception):
@@ -43,7 +40,6 @@ class ServerError(Exception):
 
 @dataclass(frozen=True)
 class Request:
-    protocol: str
     method: typing.Optional[str]
     url: str
     path_params: typing.Dict[str, str] = field(default_factory=dict)
@@ -55,15 +51,12 @@ class Request:
             parts = start_line.split(" ")
             method = parts[0]
             url = " ".join(parts[1:-1])
-            return cls(protocol=_PROTOCOL_HTTP, method=method, url=url)
+            return cls(method=method, url=url)
         else:
             raise UnknownProtocolError(raw)
 
     def dumps(self) -> str:
-        if self.protocol == _PROTOCOL_HTTP:
-            return f"{self.method} {urlparse(self.url).path} HTTP/1.1"
-        else:
-            raise UnknownProtocolError(f"Unknown protocol: {self.protocol}")
+        return f"{self.method} {urlparse(self.url).path} HTTP/1.1"
 
 
 @dataclass(frozen=True)
@@ -72,18 +65,15 @@ class Response:
     mime_type: typing.Optional[str] = None
     body: typing.Optional[bytes] = None
 
-    def dumpb(self, protocol: str) -> bytes:
-        if protocol == _PROTOCOL_HTTP:
-            response = f"HTTP/1.1 {self.status.http} {self.status.phrase}\r\n".encode(
-                "utf-8"
-            )
-            if self.mime_type:
-                response += f"Content-Type: {self.mime_type}\r\n".encode("utf-8")
-            response += b"\r\n"
-            if self.body:
-                response += self.body
-        else:
-            raise RuntimeError(f"Unknown protocol: {protocol}")
+    def dumpb(self) -> bytes:
+        response = f"HTTP/1.1 {self.status.code} {self.status.phrase}\r\n".encode(
+            "utf-8"
+        )
+        if self.mime_type:
+            response += f"Content-Type: {self.mime_type}\r\n".encode("utf-8")
+        response += b"\r\n"
+        if self.body:
+            response += self.body
 
         return response
 
@@ -96,15 +86,6 @@ class SuccessResponse(Response):
 @dataclass(frozen=True)
 class Handler:
     def handle(self, request: Request) -> Response:
-        if request.protocol == _PROTOCOL_HTTP:
-            return self.handle_http(request)
-        else:
-            raise RuntimeError(f"Unknown protocol: {request.protocol}")
-
-    def handle_http(self, request: Request) -> Response:
-        raise ServerError(status=STATUS_ERROR)
-
-    def handle_gemini(self, request: Request) -> Response:
         raise ServerError(status=STATUS_ERROR)
 
 
@@ -128,7 +109,6 @@ class Route:
 
         return self.handler.handle(
             Request(
-                protocol=request.protocol,
                 method=request.method,
                 url=request.url,
                 path_params=path_params,
@@ -184,7 +164,7 @@ class Server:
                 except socket.error as error:
                     _LOG.warning(error)
                 if response:
-                    conn.sendall(response.dumpb(protocol=request.protocol))
+                    conn.sendall(response.dumpb())
             except (ConnectionError, ssl.SSLError) as e:
                 _LOG.error(e)
             except Exception as e:

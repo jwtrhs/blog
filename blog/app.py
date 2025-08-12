@@ -15,25 +15,16 @@ from blog.server import (
     STATUS_NOT_FOUND,
     SuccessResponse,
 )
-from blog.util import get_posts, get_logger, parse_markdown, render_template
-
-
-_LOG = get_logger(__name__)
+from blog.util import get_posts, parse_markdown, render_template
 
 
 class HomeHandler(Handler):
-    def handle_http(self, request: Request) -> Response:
+    def handle(self, request: Request) -> Response:
         return SuccessResponse(
             mime_type="text/html",
             body=render_template("home.html.j2", {"posts": get_posts()}).encode(
                 "utf-8"
             ),
-        )
-
-    def handle_gemini(self, request: Request) -> Response:
-        return SuccessResponse(
-            mime_type="text/gemini",
-            body=render_template("home.gmi.j2", {"posts": get_posts()}).encode("utf-8"),
         )
 
 
@@ -47,27 +38,16 @@ class StaticHandler(Handler):
                 mime_type=mimetypes.guess_type(filepath)[0], body=f.read()
             )
 
-    def handle_http(self, request: Request) -> Response:
-        return self._create_response(request)
-
-    def handle_gemini(self, request: Request) -> Response:
+    def handle(self, request: Request) -> Response:
         return self._create_response(request)
 
 
 class PostDirectoryHandler(Handler):
-    def handle_http(self, request: Request) -> Response:
+    def handle(self, request: Request) -> Response:
         return SuccessResponse(
             mime_type="text/html",
             body=render_template(
                 "posts_directory.html.j2", {"posts": get_posts()}
-            ).encode("utf-8"),
-        )
-
-    def handle_gemini(self, request: Request) -> Response:
-        return SuccessResponse(
-            mime_type="text/gemini",
-            body=render_template(
-                "posts_directory.gmi.j2", {"posts": get_posts()}
             ).encode("utf-8"),
         )
 
@@ -82,20 +62,12 @@ class PostHandler(Handler):
 
         return posts[slug]
 
-    def handle_http(self, request: Request) -> Response:
+    def handle(self, request: Request) -> Response:
         post = self._get_post(request)
 
         return SuccessResponse(
             mime_type="text/html",
             body=render_template("post.html.j2", {"post": post}).encode("utf-8"),
-        )
-
-    def handle_gemini(self, request: Request) -> Response:
-        post = self._get_post(request)
-
-        return SuccessResponse(
-            mime_type="text/gemini",
-            body=render_template("post.gmi.j2", {"post": post}).encode("utf-8"),
         )
 
 
@@ -117,15 +89,12 @@ class PostContentHandler(PostHandler):
                 mime_type=mimetypes.guess_type(content_filepath)[0], body=f.read()
             )
 
-    def handle_http(self, request: Request) -> Response:
-        return self._create_response(request)
-
-    def handle_gemini(self, request: Request) -> Response:
+    def handle(self, request: Request) -> Response:
         return self._create_response(request)
 
 
 class CvHandler(Handler):
-    def handle_http(self, request: Request) -> Response:
+    def handle(self, request: Request) -> Response:
         return SuccessResponse(
             mime_type="text/html",
             body=render_template(
@@ -134,37 +103,22 @@ class CvHandler(Handler):
             ).encode("utf-8"),
         )
 
-    def handle_gemini(self, request: Request) -> Response:
-        return SuccessResponse(
-            mime_type="text/gemini",
-            body=render_template(
-                "cv.gmi.j2",
-                {"cv": parse_markdown(settings.CONTENT_DIRECTORY, "cv.md")},
-            ).encode("utf-8"),
-        )
-
 
 class MatrixHandler(Handler):
-    def handle_http(self, request: Request) -> Response:
+    def handle(self, request: Request) -> Response:
         return SuccessResponse(
             mime_type="application/json",
             body=json.dumps({"m.server": "matrix.wtrhs.com:8448"}).encode("utf-8"),
         )
 
-    def handle_gemini(self, request: Request) -> Response:
-        return Response(status=STATUS_NOT_FOUND)
-
 
 class NotFoundHandler(Handler):
-    def handle_http(self, request: Request) -> Response:
+    def handle(self, request: Request) -> Response:
         return Response(
             status=STATUS_NOT_FOUND,
             mime_type="text/html",
             body=render_template("not_found.html.j2").encode("utf-8"),
         )
-
-    def handle_gemini(self, request: Request) -> Response:
-        return Response(status=STATUS_NOT_FOUND)
 
 
 if __name__ == "__main__":
