@@ -10,7 +10,6 @@ from blog.util import get_logger
 _LOG = get_logger(__name__)
 
 _PROTOCOL_HTTP = "http"
-_PROTOCOL_GEMINI = "gemini"
 
 
 @dataclass(frozen=True)
@@ -57,16 +56,12 @@ class Request:
             method = parts[0]
             url = " ".join(parts[1:-1])
             return cls(protocol=_PROTOCOL_HTTP, method=method, url=url)
-        elif start_line.startswith("gemini://"):
-            return cls(protocol=_PROTOCOL_GEMINI, method=None, url=raw.strip())
         else:
             raise UnknownProtocolError(raw)
 
     def dumps(self) -> str:
         if self.protocol == _PROTOCOL_HTTP:
             return f"{self.method} {urlparse(self.url).path} HTTP/1.1"
-        elif self.protocol == _PROTOCOL_GEMINI:
-            return f"{self.url}\r\n"
         else:
             raise UnknownProtocolError(f"Unknown protocol: {self.protocol}")
 
@@ -87,12 +82,6 @@ class Response:
             response += b"\r\n"
             if self.body:
                 response += self.body
-        elif protocol == _PROTOCOL_GEMINI:
-            response = f"{self.status.gemini} {self.mime_type or ''}\r\n".encode(
-                "utf-8"
-            )
-            if self.body:
-                response += self.body
         else:
             raise RuntimeError(f"Unknown protocol: {protocol}")
 
@@ -109,8 +98,6 @@ class Handler:
     def handle(self, request: Request) -> Response:
         if request.protocol == _PROTOCOL_HTTP:
             return self.handle_http(request)
-        elif request.protocol == _PROTOCOL_GEMINI:
-            return self.handle_gemini(request)
         else:
             raise RuntimeError(f"Unknown protocol: {request.protocol}")
 

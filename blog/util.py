@@ -7,7 +7,6 @@ import typing
 
 import jinja2
 import markdown
-import md2gemini
 
 from blog import settings
 
@@ -47,9 +46,7 @@ def parse_markdown(
     with open(os.path.join(root_directory, markdown_file), "r") as f:
         markdown_content = f.read()
         html = md.convert(markdown_content)
-        gemtext = md2gemini.md2gemini(
-            markdown_content, frontmatter=True, links="paragraph"
-        )
+
     metadata = md.Meta
     title = metadata["title"][0] if metadata.get("title") else None
     created_at = metadata["created_at"][0] if metadata.get("created_at") else None
@@ -68,7 +65,6 @@ def parse_markdown(
         "markdown": markdown_content,
         "html": html,
         "html_toc": md.toc,
-        "gemtext": gemtext,
         "root_directory": root_directory,
         "markdown_file": markdown_file,
         "other_files": other_files,
