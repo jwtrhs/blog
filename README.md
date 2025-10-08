@@ -5,5 +5,8 @@ My personal blog
 # Generate a PDF CV
 
 ```bash
-uv tool run pandoc -o "Jonathon Waterhouse - CV.pdf" content/cv.md
+docker run --rm \
+       --volume "$(pwd):/data" \
+       --user $(id -u):$(id -g) \
+       pandoc/latex content/cv.md -o "Jonathon Waterhouse - CV.pdf"
 ```
