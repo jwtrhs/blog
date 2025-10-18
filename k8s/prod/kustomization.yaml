@@ -13,7 +13,7 @@ patches:
 
 images:
 - name: registry.home.wtrhs.com/wtrhs/blog
-  newTag: 52816654509a6f4c58626eec0990410c2dfdc66f
+  newTag: 8b814f46b1e10dbe1fe4dd9fbebf40197c0f51bc
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
