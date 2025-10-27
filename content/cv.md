@@ -34,13 +34,13 @@ Awarded High Distinction
 
 ## Work History
 
-### Software Engineer - mRNA Design
+### Software Engineer - Research
 
 BASE (University of Queensland) - <https://basefacility.org.au>
 
 May 2025 - Present
 
-R&D of computational methods to optimize mRNA design for clinical/therapeutical applications, working alongside scientists, researchers and academics. Very algorithmic, data science, AI/ML and performance/profiling heavy, with full-stack development of a web app to make our research usable and available to scientists around the world.
+R&D of computational methods to optimize mRNA design for clinical/therapeutical applications, working alongside scientists, researchers and academics. Very algorithmic, data science, AI/ML and performance/profiling heavy, with full-stack development of a web app to make our research usable and available to scientists globally.
 
 - Frontend: React, Typescript
 - Backend: Node, Python
