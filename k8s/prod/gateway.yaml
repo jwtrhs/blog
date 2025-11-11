@@ -62,7 +62,7 @@ spec:
           requestRedirect:
             scheme: https
             statusCode: 301
-            hotsname: jon.wtrhs.com
+            hostname: jon.wtrhs.com
 ---
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: TLSRoute
