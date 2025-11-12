@@ -43,7 +43,7 @@ May 2025 - Present
 R&D of computational methods to optimize mRNA design for clinical/therapeutical applications, working alongside scientists, researchers and academics. Very algorithmic, data science, AI/ML and performance/profiling heavy, with full-stack development of a web app to make our research usable and available to scientists globally.
 
 - Frontend: React, Typescript
-- Backend: Node, Python
+- Backend: Node, Python, Jupyter
 - QA: Playwright
 - Infra: AWS (Lambda), Terraform, Docker
 
