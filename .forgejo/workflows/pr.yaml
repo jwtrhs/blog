@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-test:
-    runs-on: docker
+    runs-on: home-server
     container:
       image: registry.home.wtrhs.com/wtrhs/ci-cd
     steps:

@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-test-push-deploy:
-    runs-on: docker
+    runs-on: home-server
     container:
       image: registry.home.wtrhs.com/wtrhs/ci-cd
       volumes:
