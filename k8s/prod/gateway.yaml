@@ -22,24 +22,33 @@ spec:
       port: 443
       protocol: TLS
       tls:
-        mode: Passthrough
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wtrhs-com-tls
     - name: https-www
       hostname: www.wtrhs.com
       port: 443
       protocol: TLS
       tls:
-        mode: Passthrough
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wtrhs-com-tls
     - name: https-jon
       hostname: jon.wtrhs.com
       port: 443
       protocol: TLS
       tls:
-        mode: Passthrough
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wtrhs-com-tls
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: blog-http-redirect
+  name: blog-redirect
 spec:
   parentRefs:
     - name: blog
@@ -64,20 +73,14 @@ spec:
             statusCode: 301
             hostname: jon.wtrhs.com
 ---
-apiVersion: gateway.networking.k8s.io/v1alpha2
-kind: TLSRoute
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
   name: blog
 spec:
   hostnames:
-    - wtrhs.com
-    - www.wtrhs.com
     - jon.wtrhs.com
   parentRefs:
-    - name: blog
-      sectionName: https
-    - name: blog
-      sectionName: https-www
     - name: blog
       sectionName: https-jon
   rules:
