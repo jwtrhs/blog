@@ -28,22 +28,9 @@ jobs:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
           tags: ${{ github.sha }},latest
-      - env:
+      - name: Update image tag
+        env:
           IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # Clone the infra repository
-          git clone ssh://git@codeberg.org/jwtrhs/infra.git
-
-          # Modify the image tag
-          (
-            cd infra/k8s/blog/;
-            kustomize edit set image ${IMAGE_NAME}:${IMAGE_TAG};
-          )
-
-          # Commit the modified files back to the repository
-          git config --global user.email "ci-cd@wtrhs.com"
-          git config --global user.name "ci-cd-bot"
-          git add .
-          git commit -m "[skip ci] Setting image ${IMAGE_NAME} tag to ${IMAGE_TAG}"
-          git push
+          curl -X POST http://codeberg.org/api/v1/repos/jwtrhs/infra/actions/workflows/deploy-image.yaml/dispatches -H "Accept: application/json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --json "{\"ref\": \"main\", \"inputs\": {\"path\": \"blog\", \"image-name\": \"${IMAGE_NAME}\", \"image-tag\": \"${IMAGE_TAG}\"}}"
