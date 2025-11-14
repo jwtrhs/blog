@@ -20,7 +20,7 @@ spec:
     - name: https
       hostname: wtrhs.com
       port: 443
-      protocol: TLS
+      protocol: HTTPS
       tls:
         mode: Terminate
         certificateRefs:
@@ -29,7 +29,7 @@ spec:
     - name: https-www
       hostname: www.wtrhs.com
       port: 443
-      protocol: TLS
+      protocol: HTTPS
       tls:
         mode: Terminate
         certificateRefs:
@@ -38,7 +38,7 @@ spec:
     - name: https-jon
       hostname: jon.wtrhs.com
       port: 443
-      protocol: TLS
+      protocol: HTTPS
       tls:
         mode: Terminate
         certificateRefs:
