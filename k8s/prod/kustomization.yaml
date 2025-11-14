@@ -1,13 +1,13 @@
 namespace: blog
 
 resources:
-  - ../base
-  - certificate.yaml
-  - gateway.yaml
+- ../base
+- certificate.yaml
+- gateway.yaml
 
 images:
-  - name: registry.home.wtrhs.com/wtrhs/blog
-    newTag: 5846c04b677576581202a4771944ebba00bf6afd
+- name: registry.home.wtrhs.com/wtrhs/blog
+  newTag: be4e0d2c5ae9c0bf1fcca61ec27d2c1653a8342f
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
