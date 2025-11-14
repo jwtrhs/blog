@@ -7,7 +7,7 @@ resources:
 
 images:
 - name: registry.home.wtrhs.com/wtrhs/blog
-  newTag: d7ddcc556c96f6b889e2e5bc8c718950a8fe5dfc
+  newTag: 764dda36cc062e2db47038e045f5ad6568b34d85
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
