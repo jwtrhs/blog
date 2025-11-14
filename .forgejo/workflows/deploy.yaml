@@ -33,4 +33,4 @@ jobs:
           IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          curl -X POST http://codeberg.org/api/v1/repos/jwtrhs/infra/actions/workflows/deploy-image.yaml/dispatches -H "Accept: application/json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --json "{\"ref\": \"main\", \"inputs\": {\"path\": \"blog\", \"image-name\": \"${IMAGE_NAME}\", \"image-tag\": \"${IMAGE_TAG}\"}}"
+          curl -X POST http://codeberg.org/api/v1/repos/jwtrhs/infra/actions/workflows/deploy-image.yaml/dispatches -H "Accept: application/json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --json "{\"ref\": \"main\", \"inputs\": {\"path\": \"blog\", \"image-name\": \"${IMAGE_NAME}\", \"image-tag\": \"${IMAGE_TAG}\"}}" -vv
