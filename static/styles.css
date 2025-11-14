@@ -24,7 +24,6 @@ pre code {
     flex-direction: row;
 }
 .about {
-    width: 40%;
     margin-left: 20px;
 }
 @media only screen and (max-width: 650px) {
