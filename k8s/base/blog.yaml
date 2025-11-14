@@ -25,7 +25,7 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
             httpGet:
-              scheme: HTTPS
+              scheme: HTTP
               port: 8888
           resources:
             limits:
