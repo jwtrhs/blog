@@ -23,8 +23,10 @@ jobs:
       - uses: ./.forgejo/actions/test
         with:
           image: registry.home.wtrhs.com/wtrhs/blog
+      - name: Set current date as env variable
+        run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
       - uses: ./.forgejo/actions/push
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
-          tags: ${{ github.sha }},latest
+          tags: $(( github.ref_name }}-${{ github.sha }}-${{ env.NOW }},latest
