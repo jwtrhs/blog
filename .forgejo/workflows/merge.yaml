@@ -23,14 +23,16 @@ jobs:
       - uses: ./.forgejo/actions/test
         with:
           image: registry.home.wtrhs.com/wtrhs/blog
+      - name: Set current date as env variable
+        run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
       - uses: ./.forgejo/actions/push
         with:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
-          tags: ${{ github.sha }},latest
+          tags: ${{ github.ref_name }}-${{ github.sha }}-${{ env.NOW }},latest
       - name: Update image tag
         env:
           IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: ${{ github.ref_name }}-${{ github.sha }}-${{ env.NOW }}
         run: |
           curl -X POST https://codeberg.org/api/v1/repos/jwtrhs/infra/actions/workflows/deploy-image.yaml/dispatches -H "Accept: application/json" -H "Authorization: Bearer ${{ secrets.FORGEJO_CI_TOKEN }}" --json "{\"ref\": \"main\", \"inputs\": {\"cluster\": \"production\", \"path\": \"k8s/apps/production\", \"image-name\": \"${IMAGE_NAME}\", \"image-tag\": \"${IMAGE_TAG}\"}}" -v
