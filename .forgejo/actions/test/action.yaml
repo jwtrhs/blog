@@ -10,6 +10,8 @@ runs:
   using: composite
   steps:
     - shell: bash
+      env:
+        STORAGE_DRIVER: vfs
       run: |
         podman run --rm --pull=never ${{ inputs.image }} uv tool run ruff check
         podman run --rm --pull=never ${{ inputs.image }} uv run pytest
