@@ -18,17 +18,17 @@ jobs:
       - uses: ./.forgejo/actions/build
         with:
           registry: registry.home.wtrhs.com
-          repository: wtrhs/blog
+          repository: wtrhs/blog:latest
           container_file: Containerfile
       - uses: ./.forgejo/actions/test
         with:
-          image: registry.home.wtrhs.com/wtrhs/blog
+          image: registry.home.wtrhs.com/wtrhs/blog:latest
       - name: Set current date as env variable
         run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
       - uses: ./.forgejo/actions/push
         with:
           registry: registry.home.wtrhs.com
-          repository: wtrhs/blog
+          repository: wtrhs/blog:latest
           tags: ${{ github.ref_name }}-${{ github.sha }}-${{ env.NOW }},latest
       - name: Update image tag
         env:
