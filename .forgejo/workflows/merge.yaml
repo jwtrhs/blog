@@ -22,7 +22,7 @@ jobs:
           container_file: Containerfile
       - uses: ./.forgejo/actions/test
         with:
-          image: registry.home.wtrhs.com/wtrhs/blog:latest
+          image: registry.home.wtrhs.com/wtrhs/blog
       - name: Set current date as env variable
         run: echo "NOW=$(date +%s)" >> $GITHUB_ENV
       - uses: ./.forgejo/actions/push
