@@ -11,5 +11,5 @@ runs:
   steps:
     - shell: bash
       run: |
-        podman run ${{ inputs.image }} uv tool run ruff check
-        podman run ${{ inputs.image }} uv run pytest
+        podman run --pull=never ${{ inputs.image }} uv tool run ruff check
+        podman run --pull=never ${{ inputs.image }} uv run pytest
