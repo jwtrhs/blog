@@ -18,7 +18,8 @@ jobs:
       - uses: ./.forgejo/actions/build
         with:
           registry: registry.home.wtrhs.com
-          repository: wtrhs/blog:latest
+          repository: wtrhs/blog
+          tag: ${{ env.IMAGE_TAG }}
           container_file: Containerfile
       - uses: ./.forgejo/actions/test
         with:
@@ -28,8 +29,8 @@ jobs:
       - uses: ./.forgejo/actions/push
         with:
           registry: registry.home.wtrhs.com
-          repository: wtrhs/blog:latest
-          tags: ${{ github.ref_name }}-${{ github.sha }}-${{ env.NOW }},latest
+          repository: wtrhs/blog
+          tags: ${{ env.IMAGE_TAG }}-${{ env.NOW }},latest
       - name: Update image tag
         env:
           IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
