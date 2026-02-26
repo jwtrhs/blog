@@ -47,7 +47,7 @@ def parse_markdown(
         markdown_content = f.read()
         html = md.convert(markdown_content)
 
-    metadata = md.Meta
+    metadata = md.Meta  # type: ignore
     title = metadata["title"][0] if metadata.get("title") else None
     created_at = metadata["created_at"][0] if metadata.get("created_at") else None
     slug = metadata["slug"][0] if metadata.get("slug") else None
@@ -64,7 +64,7 @@ def parse_markdown(
         "is_draft": is_draft,
         "markdown": markdown_content,
         "html": html,
-        "html_toc": md.toc,
+        "html_toc": md.toc,  # type: ignore
         "root_directory": root_directory,
         "markdown_file": markdown_file,
         "other_files": other_files,
