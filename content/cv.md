@@ -34,11 +34,21 @@ Awarded High Distinction
 
 ## Work History
 
+### Staff Software Engineer - Stealth Startup
+
+January 2026 - Present
+
+Working at an early-stage, stealth startup in the consumer healthcare space.
+
+- Frontent: React/Typescript
+- Backend: Node/Typescript
+- Infra: AWS/EKS
+
 ### Software Engineer - Research
 
 BASE (University of Queensland) - <https://basefacility.org.au>
 
-May 2025 - Present
+May 2025 - December 2025
 
 R&D of computational methods to optimize mRNA design for clinical/therapeutical applications, working alongside scientists, researchers and academics. Very algorithmic, data science, AI/ML and performance/profiling heavy, with full-stack development of a web app to make our research usable and available to scientists globally.
 
