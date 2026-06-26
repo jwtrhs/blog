@@ -5,9 +5,7 @@ on:
 
 jobs:
   build-test:
-    runs-on: home-server
-    container:
-      image: registry.home.wtrhs.com/wtrhs/ci-cd
+    runs-on: ci-cd
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
       - uses: ./.forgejo/actions/build
