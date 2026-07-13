@@ -30,9 +30,3 @@ jobs:
           registry: registry.home.wtrhs.com
           repository: wtrhs/blog
           tags: ${{ github.ref_name }}-${{ github.sha }}-${{ env.NOW }},latest
-      - name: Update image tag
-        env:
-          IMAGE_NAME: registry.home.wtrhs.com/wtrhs/blog
-          IMAGE_TAG: ${{ github.ref_name }}-${{ github.sha }}-${{ env.NOW }}
-        run: |
-          curl -X POST https://codeberg.org/api/v1/repos/jwtrhs/infra/actions/workflows/deploy-image.yaml/dispatches -H "Accept: application/json" -H "Authorization: Bearer ${{ secrets.FORGEJO_CI_TOKEN }}" --json "{\"ref\": \"main\", \"inputs\": {\"path\": \"k8s/ovverlays/production\", \"image-name\": \"${IMAGE_NAME}\", \"image-tag\": \"${IMAGE_TAG}\"}}" -v
