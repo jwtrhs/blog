@@ -10,7 +10,7 @@ created_at: 2021-10-13
 
 After seeing support for the Gemini protocol grow over the last year or so, I decided to add support for it to my little micro-blog. This post is quick overview of how I migrated my old server from HTTP-only to a HTTP/Gemini hybrid server, both served over the same port!
 
-The [code for the server](https://codeberg.org/jwtrhs/blog/src/commit/0795eedb5fd086835b443e50fd612632dd8218b5/blog/server.py) itself is only ~200 LoC if you'd prefer to just read that.
+The [code for the server](https://github.com/jwtrhs/blog/blob/0795eedb5fd086835b443e50fd612632dd8218b5/blog/server.py) itself is only ~200 LoC if you'd prefer to just read that.
 
 Previously my blog was a simple static site generator that takes markdown formatted posts organised in a structured file system (this determines the URL path of each post), parses them to HTML and then serves them out. It's written in Python and has few dependencies. The only HTTP method supported is GET with the routing and request handling done with [Starlette](https://www.starlette.io). The handy python library [Python-Markdown](https://python-markdown.github.io/) handles the Markdown-HTML conversion and [Jinja](https://jinja.palletsprojects.com/) does a small amount of templating to render the posts into a basic layout. All up it's <400 LoC and runs on a small home server tucked inside a cupboard in my house.
 

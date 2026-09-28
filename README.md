@@ -1,6 +1,6 @@
 My personal blog.
 
-![deploy status](https://codeberg.org/jwtrhs/blog/badges/workflows/deploy.yaml/badge.svg)
+![deploy status](https://github.com/jwtrhs/blog/actions/workflows/build.yaml/badge.svg)
 
 # Generate a PDF CV
 

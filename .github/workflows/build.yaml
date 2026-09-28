@@ -1,0 +1,31 @@
+name: Build and Push Image
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    # The build base image and the destination registry are both on the LAN,
+    # so this MUST run on the in-cluster ARC runner (see infra
+    # k8s/base/apps/github-actions/arc-runner-blog.yaml). ARC v2 dispatches by
+    # scale-set NAME, not label.
+    runs-on: k8s-home-runner-blog
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log in to registry
+        run: buildah login registry.home.wtrhs.com --username "${{ secrets.REGISTRY_USER }}" --password "${{ secrets.REGISTRY_PASSWORD }}"
+      - name: Build image
+        run: |
+          TS=$(date +%s)
+          echo "TS=$TS" >> "$GITHUB_ENV"
+          buildah bud --layers \
+            -t registry.home.wtrhs.com/wtrhs/blog:main-${{ github.sha }}-$TS \
+            -f Containerfile .
+      - name: Push image
+        # Tag scheme main-<sha>-<ts> is load-bearing: the `blog` ImagePolicy
+        # in infra clusters/production/image-automation.yaml matches
+        # ^main-<sha>-<ts> and Flux bumps the production overlay from it.
+        run: |
+          buildah push registry.home.wtrhs.com/wtrhs/blog:main-${{ github.sha }}-${{ env.TS }}
