@@ -65,15 +65,24 @@ class Response:
     mime_type: typing.Optional[str] = None
     body: typing.Optional[bytes] = None
 
-    def dumpb(self) -> bytes:
+    def dumpb(self, include_body: bool = True) -> bytes:
+        """Serialise the response; HEAD passes include_body=False.
+
+        Content-Length is always the length of the body GET would return, so a
+        HEAD response is framed by its headers alone, and Connection: close
+        states what the server does after every response.
+        """
+        body = self.body or b""
         response = f"HTTP/1.1 {self.status.code} {self.status.phrase}\r\n".encode(
             "utf-8"
         )
         if self.mime_type:
             response += f"Content-Type: {self.mime_type}\r\n".encode("utf-8")
+        response += f"Content-Length: {len(body)}\r\n".encode("utf-8")
+        response += b"Connection: close\r\n"
         response += b"\r\n"
-        if self.body:
-            response += self.body
+        if include_body:
+            response += body
 
         return response
 
@@ -164,7 +173,7 @@ class Server:
                 except socket.error as error:
                     _LOG.warning(error)
                 if response:
-                    conn.sendall(response.dumpb())
+                    conn.sendall(response.dumpb(include_body=request.method != "HEAD"))
             except (ConnectionError, ssl.SSLError) as e:
                 _LOG.error(e)
             except Exception as e:

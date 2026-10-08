@@ -1,6 +1,7 @@
 from blog.server import (
     Request,
     Response,
+    STATUS_NOT_FOUND,
     STATUS_OK,
 )
 
@@ -34,13 +35,27 @@ def test_request_base_dumps(input_request, expected):
 
 
 @pytest.mark.parametrize(
-    ("response", "expected"),
+    ("response", "include_body", "expected"),
     [
         (
             Response(status=STATUS_OK, mime_type="mime_type", body=b"body"),
-            b"HTTP/1.1 200 OK\r\nContent-Type: mime_type\r\n\r\nbody",
+            True,
+            b"HTTP/1.1 200 OK\r\nContent-Type: mime_type\r\n"
+            b"Content-Length: 4\r\nConnection: close\r\n\r\nbody",
+        ),
+        # HEAD: same headers, including the GET body's length, and no body.
+        (
+            Response(status=STATUS_OK, mime_type="mime_type", body=b"body"),
+            False,
+            b"HTTP/1.1 200 OK\r\nContent-Type: mime_type\r\n"
+            b"Content-Length: 4\r\nConnection: close\r\n\r\n",
+        ),
+        (
+            Response(status=STATUS_NOT_FOUND),
+            True,
+            b"HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\nConnection: close\r\n\r\n",
         ),
     ],
 )
-def test_response_dumpb(response, expected):
-    assert response.dumpb() == expected
+def test_response_dumpb(response, include_body, expected):
+    assert response.dumpb(include_body=include_body) == expected
