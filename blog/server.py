@@ -154,7 +154,16 @@ class Server:
             try:
                 conn, _ = sock.accept()
                 data = conn.recv(1024)
-                request = Request.loads(data.decode("utf-8"))
+                try:
+                    request = Request.loads(data.decode("utf-8", errors="replace"))
+                except UnknownProtocolError:
+                    # Nothing to answer: an empty read is a TCP probe or port
+                    # scan that connected and closed, anything else is not
+                    # HTTP/1.x. Either way it is the client's problem, and it
+                    # used to escape to the `raise` below and stop the server.
+                    if data:
+                        _LOG.warning(f"Dropping non-HTTP/1.x request: {data[:80]!r}")
+                    continue
                 response = None
                 try:
                     response = self._match_route(request)
@@ -168,8 +177,6 @@ class Server:
                     response = self._handle_error_response(
                         request=request, status=STATUS_ERROR
                     )
-                except UnknownProtocolError as error:
-                    _LOG.warning(error)
                 except socket.error as error:
                     _LOG.warning(error)
                 if response:
